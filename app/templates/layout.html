@@ -1,0 +1,59 @@
+{% import "macros.html" as m %}
+<!DOCTYPE html>
+<html>
+<head>
+   {% if title %}
+      <title>{{title}} • Zero House Edge</title>
+   {% else %}
+      <title>ZeroHouseEdge • Be your own bookie</title>
+   {% endif %}
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/global.css') }}">
+   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/top.css') }}">
+
+   <!-- Index -->
+   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
+   <!-- Setup -->
+   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/setup/bet.css') }}">
+   <!-- User -->
+   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/user/forms.css') }}">
+   <!-- jQuery -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+</head>
+<body>
+   <div id="top">
+      {% if current_user.is_authenticated %}
+         <div class="user fright">
+            <a id="user_tag" class="toggle toggle_user link">{{current_user.email}}</a>
+            <div class="links dropdown">
+               <a href="#" onclick="return false">
+                  <span><i class="fa fa-user"></i> Profile</span>
+               </a>
+               <a href="/user/signout">
+                  <span><i class="fa fa-power-off"></i> Sign out</span>
+               </a>
+            </div>
+         </div>
+      {% else %}
+         <a href="/user/signup" class="signup button fright">Sign up</a>
+         <a href="/user/signin" class="signin button fright">Sign in</a>
+      {% endif %}
+   </div>
+   <div class="content">
+      <div id="site_header">
+         <h1>
+            <a href="/" id="site_title">
+               ZeroHouseEdge
+            </a>
+         </h1>
+      </div>  <!-- site header -->
+      <div id="wager">
+         {% block content %}{% endblock %}
+      </div> <!-- wager -->
+   </div>
+   <script src="{{ url_for('static', filename='javascript/util.js') }}"></script>
+   <script src="{{ url_for('static', filename='compiled/wager.mockup.js') }}"></script>
+   <!-- <script src="{{ url_for('static', filename='javascript/socket.js') }}"></script> -->
+   <script src="{{ url_for('static', filename='javascript/main.js') }}"></script>
+</body>
+</html>

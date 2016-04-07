@@ -1,0 +1,50 @@
+.content_box {
+   width: 530px;
+   background-color: #FFF;
+   position: relative;
+   border: 1px solid #ccc;
+   padding: 20px 24px 50px 24px;
+   text-align: left;
+   box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+}
+
+.content_box .alternative {
+   float: right;
+}
+
+.content_box .signup_box form .input_field {
+   width: 400px;
+}
+
+.content_box h1 {
+   font-weight: normal;
+   font-size: 2em;
+   display: block;
+   margin-bottom: 1em;
+}
+
+.content_box form {
+   font-size: 1.3em;
+}
+
+.content_box form .field {
+   list-style: none;
+   display: block;
+   margin: 1em 0 1em 0;
+}
+
+.content_box form label {
+   display: block;
+   margin-bottom: 2px;
+}
+
+.content_box form .input_field {
+   font-size: 1.1em;
+   width: 320px;
+   padding: 3px 6px;
+   border: 1px solid #D4D4D4;
+}
+
+.content_box form .submit {
+   padding: 10px;
+}

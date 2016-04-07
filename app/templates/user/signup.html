@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="content_box">
+   <div class="alternative">
+      Already have an account?
+      <a href="/user/signin" class="button">
+         <i class="fa fa-sign-in"></i>
+         Sign in
+      </a>
+   </div>
+   <div class="signup_box">
+      <h1 class="zhe_title">Register</h1>
+      <form action="/user/signup" method="post">
+         {{ m.render_field(form.email) }}
+         {{ m.render_field(form.payout_address) }}
+         {{ m.render_field(form.password) }}
+         {{ m.render_field(form.confirm) }}
+         {{ form.csrf_token }}
+         <button type="submit" class="submit button">
+            <i class="fa fa-sign-in"></i>
+            Register
+         </button>
+      </form>
+   </div>
+</div>
+{% endblock %}

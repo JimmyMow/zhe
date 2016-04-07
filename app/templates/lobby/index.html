@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="lobby_and_ground">
+   <div id="hooks_wrap"></div>
+   <div id="start_buttons" class="lichess_ground">
+      {% if current_user.is_authenticated %}
+         <a href="/setup/bet" class="button" onclick="return false">Create a bet</a>
+         <a href="/setup/friend" class="button" onclick="return false">Bet with a friend</a>
+      {% endif %}
+   </div>
+</div>
+{% endblock %}

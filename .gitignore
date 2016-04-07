@@ -1,0 +1,4 @@
+.config
+config
+app/static/compiled
+node_modules/

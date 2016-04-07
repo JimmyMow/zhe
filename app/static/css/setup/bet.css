@@ -1,0 +1,43 @@
+div.lichess_overboard h2 {
+    margin-bottom: 1em;
+    font-size: 1.4em;
+    padding: 0 2em;
+}
+
+group.radio {
+  display: flex;
+  border-radius: 3px;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  margin: 0 auto 1em auto;
+  width: 70%;
+}
+group.radio div {
+  flex: 1 1 auto;
+  position: relative;
+}
+group.radio input {
+  position:absolute;
+  left: -99999px;
+}
+group.radio label {
+  box-sizing: border-box;
+  padding: 10px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor:pointer;
+  border-right: 1px solid #ccc;
+  transition: background 0.13s;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+group.radio div:last-child label {
+  border-right: 0;
+}
+group.radio input:checked + label {
+  background: #d85000;
+  font-weight: 500;
+  color: #fff;
+}

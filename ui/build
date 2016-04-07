@@ -1,0 +1,11 @@
+#!/bin/sh
+
+target=${1-dev}
+
+mkdir -p app/static/compiled
+
+for app in mockup; do
+  cd ui/$app
+  npm install && gulp $target
+  cd -
+done

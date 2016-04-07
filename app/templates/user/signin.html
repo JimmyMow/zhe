@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="content_box">
+   <div class="alternative">
+      New to ZeroHouseEdge?
+      <a href="/user/signup" class="button">
+         <i class="fa fa-sign-in"></i>
+         Register
+      </a>
+   </div>
+   <div class="signin_box">
+      <h1 class="zhe_title">Sign in</h1>
+      <form action="/user/signin" method="post">
+         {{ m.render_field(form.email) }}
+         {{ m.render_field(form.password) }}
+         {{ form.csrf_token }}
+         <button type="submit" class="submit button">
+            <i class="fa fa-sign-in"></i>
+            Sign in
+         </button>
+      </form>
+   </div>
+</div>
+{% endblock %}

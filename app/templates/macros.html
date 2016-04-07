@@ -1,0 +1,14 @@
+<!-- Render a WTForm form's field (with it's possible associated errors) from a WTForms form -->
+{% macro render_field(field) %}
+   <div class="field">
+      <label class="form_label" for="{{field.name}}">{{field.description}}</label>
+      {{ field(name_=field.name, id=field.name, class_="input_field") }}
+   </div>
+   {% if field.errors %}
+      <ul>
+      {% for error in field.errors %}
+         <li class="form_error">{{ error }}</li>
+      {% endfor %}
+      </ul>
+   {% endif %}
+{% endmacro %}

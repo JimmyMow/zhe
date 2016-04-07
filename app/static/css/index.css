@@ -1,0 +1,190 @@
+.content {
+   width: 1005px;
+   margin: 35px auto 30px auto;
+}
+
+#site_header {
+   position: relative;
+   width: 200px;
+   float: left;
+}
+
+#site_header h1 {
+   font-size: 100%;
+   font-weight: normal;
+}
+
+#site_header h1 #site_title {
+   width: 130px;
+   font-size: 25px;
+   display: block;
+   margin-bottom: 3px;
+   color: #555;
+   opacity: 0.7;
+   transition: opacity 0.13s;
+   text-decoration: none;
+}
+
+#site_header h1 #site_title .extension {
+   opacity: 0.7;
+}
+
+#site_header .games {
+   padding: 0;
+}
+
+#site_header .games .game {
+   list-style-type: none;
+   font-size: 12px;
+}
+
+#wager {
+   position: relative;
+   min-height: 512px;
+   margin-left: 211px;
+}
+
+#wager .lobby_and_ground {
+   display: flex;
+   position: relative;
+}
+
+div.lichess_overboard {
+    position: absolute;
+    z-index: 5010;
+    width: 400px;
+    top: 50%;
+    left: 56px;
+    transform: translate(0,-50%);
+    -webkit-transform: translate(0,-50%);
+    padding: 15px 0 22px 0;
+    font-size: 14px;
+    line-height: 1.8em;
+    background: #fff;
+    box-shadow: 0 0 95px 25px rgba(0,0,0,0.6);
+    text-align: center;
+    box-sizing: border-box;
+}
+
+div.lichess_overboard a.close {
+    float: right;
+    display: block;
+    cursor: pointer;
+    margin-top: -12px;
+    margin-right: 6px;
+    opacity: 0.4;
+    color: #707070;
+}
+
+div.lichess_overboard a.close:hover {
+  opacity: 1.0;
+}
+
+div.lichess_overboard .select_game {
+  margin-bottom: 20px;
+}
+
+div.lichess_overboard #betStatus {
+  font-weight: bold;
+}
+
+div.lichess_overboard .submit_bet {
+  padding: 1em;
+  width: 50%;
+}
+
+#hooks_wrap {
+   width: 510px;
+   min-width: 510px;
+   min-height: 510px;
+   overflow: hidden;
+   border: 1px solid #ccc;
+   background: #f0f0f0;
+   background-size: 100% 100%;
+}
+
+
+#hooks_wrap .hooks_chart {
+   position: absolute;
+   top: 0;
+   left: 0;
+}
+
+#hooks_wrap .hooks_chart .plot {
+   position: absolute;
+   cursor: pointer;
+   z-index: 1;
+   font-size: 1.4em;
+   text-shadow: 0 0 3px #fff;
+   opacity: 0.7;
+   transition: 0.5s;
+   -webkit-transform: scale(1);
+}
+
+#hooks_wrap .hooks_chart .plot::before {
+   vertical-align: middle;
+   font-family: "lichess"!important;
+   font-style: normal!important;
+   font-weight: normal!important;
+   text-transform: none!important;
+   speak: none;
+   line-height: 1;
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
+}
+
+#hooks_wrap .hooks_chart .plot.cubs::before {
+   content: url("http://www.draftsite.com/images/teamlogos/81.gif");
+}
+
+#hooks_wrap .hooks_chart .plot.angels::before {
+   content: url("http://cdn.topps.com/media/catalog/category/LAA.png");
+}
+
+#hooks_wrap .canvas {
+   position: relative;
+   width: 510px;
+   height: 510px;
+}
+
+#hooks_wrap .hooks_chart>div.grid.horiz {
+   width: 100%;
+   border-top: 1px dashed #ccc;
+   position: absolute;
+   left: 0;
+   bottom: 0;
+}
+
+#hooks_wrap .hooks_chart>div.grid.vert {
+   height: 100%;
+   border-right: 1px dashed #ccc;
+   position: absolute;
+   left: 0;
+   bottom: 0;
+}
+
+#hooks_wrap .label {
+   font-size: 9px;
+   position: absolute;
+   left: 3px;
+   bottom: 1px;
+   text-shadow: 0 0 3px #fff;
+   font-weight: bold;
+}
+
+#start_buttons {
+    padding-left: 15px;
+    width: 280px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    position: relative;
+}
+
+#start_buttons a {
+   margin: 1.2em 0;
+   padding: 1em;
+   text-align: center;
+   display: block;
+   letter-spacing: -1px;
+}

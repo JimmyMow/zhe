@@ -1,0 +1,72 @@
+#top {
+   position: relative;
+   height: 24px;
+   width: 1005px;
+   margin: 0 auto;
+   padding-top: 5px;
+   box-sizing: border-box;
+}
+
+#top .fright {
+   float: right;
+   position: relative;
+}
+
+#top .link {
+   font-size: 13px;
+   height: 24px;
+   line-height: 24px;
+   padding: 0 8px;
+}
+
+#top .signin, #top .signup {
+   margin: 3px 0.5em 0 0;
+   border-color: #d85000;
+   padding: 1px 5px;
+   font-size: 12px;
+}
+
+#top .toggle {
+   text-decoration: none;
+   transition: color 0.13s;
+   display: block;
+   float: left;
+}
+
+#top .toggle_user {
+   font-weight: bold;
+}
+
+#top div.user .links {
+   display: none;
+}
+
+#top div.user.shown a.toggle {
+   background: #fff;
+}
+
+#top div.user.shown .links {
+   display: block;
+}
+
+#top div.user.shown .links > a {
+   display: block;
+   padding: 10px 10px;
+   transition: 0.13s;
+   white-space: nowrap;
+}
+
+#top div.user .links a:hover {
+  background: #F0F0F0;
+  color: #444;
+}
+
+#top .dropdown {
+   position: absolute;
+   right: 0;
+   top: 24px;
+   background: #fff;
+   z-index: 3;
+   box-shadow: 2px 5px 6px rgba(0,0,0,0.3);
+   width: 115%;
+}

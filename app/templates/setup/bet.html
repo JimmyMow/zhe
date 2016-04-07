@@ -1,0 +1,63 @@
+<div class="lichess_overboard game_config game_config_hook" id="over">
+   <a href="/" class="close" title="Cancel">
+    <i class="fa fa-times"></i>
+   </a>
+   <h2>Create a bet</h2>
+   <form action="/setup/bet" method="POST" id="createBet" novalidate="novalidate">
+      <div class="select_game ">
+        <select id="selectGame">
+          <option value="">Select a game</option>
+          {% for game in games %}
+            <option id="{{game.id}}"
+                    value="{{game.id}}"
+                    data-homename="{{game.home.name}}"
+                    data-homeid="{{game.home.id}}"
+                    data-awayname="{{game.away.name}}"
+                    data-awayid="{{game.away.id}}"
+            >
+              {{game.away.name}} @ {{game.home.name}}
+            </option>
+          {% endfor %}
+        </select>
+      </div> <!-- game_choice -->
+      <div class="select_team">
+        <group class="radio">
+          <div>
+            <input type="radio" id="team_0" name="team" value="">
+            <label class="required" for="team_0"></label>
+          </div>
+          <div>
+            <input type="radio" id="team_1" name="team" value="">
+            <label class="required" for="team_1"></label>
+          </div>
+        </group>
+      </div>
+      <div class="money_choice slider">
+         <label for="money">
+          <i class="fa fa-usd"></i>
+         </label>
+         <input type="number" data-type="range" name="money" id="money" value="50" min="1" max="100" class="ui-shadow-inset ui-body-inherit ui-corner-all ui-slider-input">
+         <input type="range" name="money" id="slidermoney" value="50" min="1" max="100">
+      </div>
+      <div class="spread_choice slider">
+         <label for="spread">
+          Spread:
+         </label>
+         <input type="number" data-type="range" name="spread" id="spread" value="0" min="-9.5" max="9.5" class="ui-shadow-inset ui-body-inherit ui-corner-all ui-slider-input">
+         <input type="range" name="spread" id="sliderspread" value="0" min="-9.5" max="9.5">
+      </div>
+      <div class="line_choice slider">
+         <label for="line">
+          Line:
+         </label>
+         <input type="number" data-type="range" name="line" id="line" value="0" min="-10000" max="10000" class="ui-shadow-inset ui-body-inherit ui-corner-all ui-slider-input">
+         <input type="range" name="line" id="sliderline" value="0" min="-10000" max="10000">
+      </div>
+
+      <p id="betStatus">SELECT A TEAM</p>
+
+      <button data-hint="Submit bet" type="submit" class="submit_bet button hint--bottom" name="color" value="random">
+        Submit bet
+      </button>
+   </form>
+</div>
