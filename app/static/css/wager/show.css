@@ -1,0 +1,28 @@
+.content_box_top {
+   padding: 20px;
+   background-color: #f0f0f0;
+   background-image: linear-gradient(to bottom,#fafafa 0%,#f0f0f0 100%);
+   text-shadow: 0 1px 0 #FFF;
+   border-bottom: 1px solid #ccc;
+}
+
+.game_top {
+   white-space: nowrap;
+}
+
+.game_top .away_top, .game_top .home_top {
+   display: inline-block;
+   width: 50%;
+   white-space: normal;
+}
+
+.away_top h2, .home_top h2 {
+   display: inline-block;
+   vertical-align: middle;
+   margin: 0;
+}
+
+.game_top img {
+   width: 30px;
+   vertical-align: middle;
+}

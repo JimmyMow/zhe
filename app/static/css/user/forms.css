@@ -1,11 +1,18 @@
 .content_box {
-   width: 530px;
    background-color: #FFF;
    position: relative;
    border: 1px solid #ccc;
    padding: 20px 24px 50px 24px;
    text-align: left;
    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+}
+
+.content_box.small_box {
+   width: 530px;
+}
+
+.content_box.no_padding {
+   padding: 0;
 }
 
 .content_box .alternative {

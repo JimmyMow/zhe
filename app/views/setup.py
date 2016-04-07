@@ -2,7 +2,7 @@ from app import app, models, db
 from flask import Flask, render_template, request, Blueprint, session, redirect, url_for
 
 # Create a setup blueprint
-setupbp = Blueprint('wagerbp', __name__, url_prefix='/setup')
+setupbp = Blueprint('setupbp', __name__, url_prefix='/setup')
 
 
 @setupbp.route("/bet", methods=['GET', 'POST'])

@@ -47,6 +47,7 @@ class MLBWager(db.Model):
     server_pubkey = db.Column(db.String)
 
     game_id = db.Column(db.String)
+    original_side = db.Column(db.String)
     spread = db.Column(db.Integer)
     line = db.Column(db.Float)
     value = db.Column(db.Integer)

@@ -1,0 +1,20 @@
+<ul>
+   {% for wager in wagers %}
+      <li>
+         ID:
+         <a href="/wager/{{wager.id}}">{{wager.id}}</a>
+      </li>
+      <li>Author: {{wager.author_id}}</li>
+      <li>Acceptor: {{wager.acceptor_id}}</li>
+      <li>Home ID: {{wager.home_id}}</li>
+      <li>Away ID: {{wager.away_id}}</li>
+      <li>Home Pubkey: {{wager.home_pubkey}}</li>
+      <li>Away Pubkey: {{wager.away_pubkey}}</li>
+      <li>Server Pubkey: {{wager.server_pubkey}}</li>
+      <li>Game ID: {{wager.game_id}}</li>
+      <li>Value: {{wager.value}}</li>
+      <li>Line: {{wager.line}}</li>
+      <li>Spread: {{wager.spread}}</li>
+      <li>Public: {{wager.public}}</li>
+   {% endfor %}
+</ul>
