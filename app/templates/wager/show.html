@@ -4,47 +4,64 @@
    <div class="content_box no_padding wager_show">
       <div class="content_box_top">
          <div class="game_top">
-            <div class="away_top">
-               <img src="http://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/chc.png&w=150&h=150">
-               <div class="team_details">
-                  <span class="teamcity">
-                     <span>{{game.away.market}}</span>
-                  </span>
-                  <span class="teamname">
-                     <span>{{game.away.name}}</span>
-                  </span>
-                  <span class="spread">
-                     <span>{{wager.spread}}</span>
-                  </span>
-                  <span class="line">
-                     {% if wager.line > 0 %}
-                        <span>+{{wager.line|int}}</span>
-                     {% else %}
+            <div class="summary_top">
+               <div class="away_top">
+                  <img src="http://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/chc.png&w=150&h=150">
+                  <div class="team_details">
+                     <span class="teamcity">
+                        <span>{{game.away.market}}</span>
+                     </span>
+                     <span class="teamname">
+                        <span>{{game.away.name}}</span>
+                     </span>
+                     <span class="spread">
+                        <span>{{wager.spread}}</span>
+                     </span>
+                     <span class="line">
+                        {% if wager.line > 0 %}
+                           <span>+{{wager.line|int}}</span>
+                        {% else %}
+                           <span>-{{wager.line|int}}</span>
+                        {% endif %}
+                     </span>
+                     <span class="value">
+                        <span>${{wager.value}}</span>
+                     </span>
+                  </div>
+               </div>
+               <div class="details_top">
+                  <span class="gametime_top">8:40 PM CT</span>
+               </div>
+               <div class="home_top">
+                  <div class="team_details">
+                     <span class="teamcity">
+                        <span>{{game.home.market}}</span>
+                     </span>
+                     <span class="teamname">
+                        <span>{{game.home.name}}</span>
+                     </span>
+                     <span class="spread">
+                        <span>+{{wager.spread}}</span>
+                     </span>
+                     <span class="line">
                         <span>-{{wager.line|int}}</span>
-                     {% endif %}
-                  </span>
-                  <span class="value">
-                     <span>{{wager.value}}</span>
-                  </span>
+                     </span>
+                     <span class="value">
+                        <span>$8.25</span>
+                     </span>
+                  </div>
+                  <img src="http://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/laa.png&w=150&h=150">
+               </div>
+            </div> <!-- summary_top -->
+            <div class="pitching_top">
+               <div class="pitcher away">
+                  {{game.away.abbr}} {{game.away.starting_pitcher.last_name}} ({{game.away.starting_pitcher.win}}-{{game.away.starting_pitcher.loss}}, {{game.away.starting_pitcher.era}} ERA)
+               </div>
+               <div class="pitcher home">
+                  {{game.home.abbr}} {{game.home.starting_pitcher.last_name}} ({{game.home.starting_pitcher.win}}-{{game.home.starting_pitcher.loss}}, {{game.home.starting_pitcher.era}} ERA)
                </div>
             </div>
-            <div class="details_top">
-               <p>{{game.scheduled}}</p>
-               <p>{{game.scheduled|date}}th</p>
-            </div>
-            <div class="home_top">
-               <div class="team_details">
-                  <span class="teamcity">
-                     <span>{{game.home.market}}</span>
-                  </span>
-                  <span class="teamname">
-                     <span>{{game.home.name}}</span>
-                  </span>
-               </div>
-               <img src="http://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/laa.png&w=150&h=150">
-            </div>
-         </div>
-      </div>
-   {{game}}
-   </div>
+         </div> <!-- game_top -->
+      </div> <!-- content_box_top -->
+   </div> <!-- content_box -->
 {% endblock %}
