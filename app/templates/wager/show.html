@@ -14,23 +14,42 @@
                      <span class="teamname">
                         <span>{{game.away.name}}</span>
                      </span>
-                     <span class="spread">
-                        <span>{{wager.spread}}</span>
-                     </span>
-                     <span class="line">
-                        {% if wager.line > 0 %}
-                           <span>+{{wager.line|int}}</span>
-                        {% else %}
-                           <span>-{{wager.line|int}}</span>
-                        {% endif %}
-                     </span>
-                     <span class="value">
-                        <span>${{wager.value}}</span>
-                     </span>
+                     {% if wager.original_side == 'away' %}
+                        <span class="spread">
+                           <span>{{wager.spread}}</span>
+                        </span>
+                        <span class="line">
+                           {% if wager.line > 0 %}
+                              <span>+{{wager.line|int}}</span>
+                           {% else %}
+                              <span>-{{wager.line|int}}</span>
+                           {% endif %}
+                        </span>
+                        <span class="value">
+                           <span>
+                              ${{wager.value}} to win ${{wager|winnings}}</span>
+                        </span>
+                     {% else %}
+                        <span class="spread">
+                           <span>{{wager.spread|oppo}}</span>
+                        </span>
+                        <span class="line">
+                           {% if wager.line < 0 %}
+                              <span>+{{wager.line|int}}</span>
+                           {% else %}
+                              <span>-{{wager.line|int}}</span>
+                           {% endif %}
+                        </span>
+                        <span class="value">
+                           <span>
+                              ${{wager.value}} to win ${{wager|winnings}}</span>
+                        </span>
+                     {% endif %}
                   </div>
                </div>
                <div class="details_top">
                   <span class="gametime_top">8:40 PM CT</span>
+                  <span class="gametime_top">{{game.venue.name}}</span>
                </div>
                <div class="home_top">
                   <div class="team_details">
@@ -40,25 +59,92 @@
                      <span class="teamname">
                         <span>{{game.home.name}}</span>
                      </span>
-                     <span class="spread">
-                        <span>+{{wager.spread}}</span>
-                     </span>
-                     <span class="line">
-                        <span>-{{wager.line|int}}</span>
-                     </span>
-                     <span class="value">
-                        <span>$8.25</span>
-                     </span>
+                     {% if wager.original_side == 'home' %}
+                        <span class="spread">
+                           <span>{{wager.spread}}</span>
+                        </span>
+                        <span class="line">
+                           {% if wager.line > 0 %}
+                              <span>+{{wager.line|int}}</span>
+                           {% else %}
+                              <span>-{{wager.line|int}}</span>
+                           {% endif %}
+                        </span>
+                        <span class="value">
+                           <span>
+                              ${{wager.value}} to win ${{wager|winnings}}</span>
+                        </span>
+                     {% else %}
+                        <span class="spread">
+                           <span>{{wager.spread|oppo}}</span>
+                        </span>
+                        <span class="line">
+                           {% if wager.line < 0 %}
+                              <span>+{{wager.line|int}}</span>
+                           {% else %}
+                              <span>-{{wager.line|int}}</span>
+                           {% endif %}
+                        </span>
+                        <span class="value">
+                           <span>
+                              ${{wager|winnings}} to win ${{wager.value}}</span>
+                        </span>
+                     {% endif %}
                   </div>
                   <img src="http://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/laa.png&w=150&h=150">
                </div>
             </div> <!-- summary_top -->
-            <div class="pitching_top">
-               <div class="pitcher away">
-                  {{game.away.abbr}} {{game.away.starting_pitcher.last_name}} ({{game.away.starting_pitcher.win}}-{{game.away.starting_pitcher.loss}}, {{game.away.starting_pitcher.era}} ERA)
-               </div>
-               <div class="pitcher home">
-                  {{game.home.abbr}} {{game.home.starting_pitcher.last_name}} ({{game.home.starting_pitcher.win}}-{{game.home.starting_pitcher.loss}}, {{game.home.starting_pitcher.era}} ERA)
+            <div class="boxscore_top">
+               <div class="linescore">
+                  <div class="linescore_container">
+                     <table cellspacing="0" class="table_linescore">
+                        <thead>
+                           <tr class="periods">
+                              <th class="team"></th>
+                              <th>1</th>
+                              <th>2</th>
+                              <th>3</th>
+                              <th>4</th>
+                              <th>5</th>
+                              <th>6</th>
+                              <th>7</th>
+                              <th>8</th>
+                              <th>9</th>
+                              <th class="space">R</th>
+                              <th>H</th>
+                              <th>E</th>
+                           </tr>
+                        </thead>
+                       <tbody>
+                           <tr>
+                              <td class="team">
+                                 <a target="_blank" href="">
+                                 {{game.away.abbr}}
+                                 </a>
+                              </td>
+                              {% for scoring in game.away.scoring %}
+                                 <td>{{scoring.runs}}</td>
+                              {% endfor %}
+                              <td class="space strong">{{game.away.runs}}</td>
+                                 <td class="strong">{{game.away.hits}}</td>
+                                 <td class="strong">{{game.away.errors}}</td>
+                           </tr>
+                           <tr>
+                              <td target="_blank" class="team">
+                                 <a href="">
+                                 {{game.home.abbr}}
+                                 </a>
+                              </td>
+                                 {% for scoring in game.home.scoring %}
+                                    <td>{{scoring.runs}}</td>
+                                 {% endfor %}
+                              <td class="space strong">{{game.home.runs}}</td>
+                                <td class="strong">{{game.home.hits}}</td>
+                                <td class="strong">{{game.home.errors}}</td>
+                           </tr>
+                       </tbody>
+                   </table>
+                  </div>
                </div>
             </div>
          </div> <!-- game_top -->

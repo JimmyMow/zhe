@@ -1,9 +1,5 @@
 .content_box_top {
-   padding: 10px;
-   /*background-color: #f0f0f0;
-   background-image: linear-gradient(to bottom,#fafafa 0%,#f0f0f0 100%);
-   text-shadow: 0 1px 0 #FFF;
-   border-bottom: 1px solid #ccc;*/
+   padding: 10px 0;
    color: #000;
 }
 
@@ -87,24 +83,87 @@
    text-align: center;
 }
 
+.details_top span {
+   display: block;
+}
+
 .game_top .user_top {
    text-align: center;
 }
 
-.game_top .pitching_top {
+.game_top .boxscore_top {
    overflow: hidden;
    position: relative;
    width: 100%;
 }
 
-.game_top .pitcher {
+.boxscore_top .linescore {
+   margin: 15px auto;
+   overflow: hidden;
+   width: 74%;
+}
+
+.boxscore_top .linescore .linescore_container {
    float: left;
-   width: 50%;
-   color: #666;
+   min-width: 30%;
+   position: relative;
+}
+
+.linescore_container .table_linescore {
+    border: 0;
+    margin: 0 auto;
+    position: relative;
+    width: auto;
+}
+
+.linescore_container .team {
+   padding-right: 15px;
+   width: 3em;
+   color: #36c;
+   font-weight: 600;
+}
+
+.linescore_container .team a {
+   color: #36c;
+}
+
+table {
+   /*color: #666;*/
+   border-collapse: collapse;
+   border-spacing: 0;
+}
+
+table th {
    font-size: 13px;
    font-weight: 600;
    line-height: 1em;
-   padding: 15px 0;
-   position: relative;
+   border: 0;
+   min-width: 25px;
+   padding: 6px 0 6px 0;
    text-align: center;
+   height: 24px;
 }
+
+table .space {
+   padding-left: 15px;
+   width: 35px;
+   background: none !important;
+   color: #333;
+}
+
+table tbody tr {
+   background: none;
+   border-bottom: 1px solid #f1f1f1;
+   border-top: 1px solid #f1f1f1;
+   text-align: right;
+   font-size: 16px;
+}
+
+table tbody td {
+   border: 0;
+   min-width: 25px;
+   padding: 6px 0 6px 0;
+   text-align: center;
+   font: normal normal 13px/1em "BentonSans",-apple-system,"Roboto",Helvetica,Arial,sans-serif;
+}
+

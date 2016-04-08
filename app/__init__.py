@@ -21,7 +21,7 @@ from flask.ext.bcrypt import Bcrypt
 bcrypt = Bcrypt(app)
 
 # Import the views
-from app.views import lobby, setup, user, wager
+from app.views import lobby, setup, user, wager, filters
 app.register_blueprint(setup.setupbp)
 app.register_blueprint(user.userbp)
 app.register_blueprint(wager.wagerbp)

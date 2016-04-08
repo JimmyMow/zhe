@@ -3,13 +3,6 @@ from app import app, models, db
 from app.toolbox import mlb
 from datetime import datetime
 
-
-@app.template_filter('date')
-def _jinja2_filter_datetime(date, fmt=None):
-   date = date.split("T")
-   date_object = datetime.strptime(date[0], '%Y-%m-%d')
-   return date_object.strftime('%B %d')
-
 # Create a wager blueprint
 wagerbp = Blueprint('wagerbp', __name__, url_prefix='/wager')
 
