@@ -1,28 +1,74 @@
 .content_box_top {
-   padding: 20px;
-   background-color: #f0f0f0;
+   padding: 10px;
+   /*background-color: #f0f0f0;
    background-image: linear-gradient(to bottom,#fafafa 0%,#f0f0f0 100%);
-   text-shadow: 0 1px 0 #FFF;
-   border-bottom: 1px solid #ccc;
+   text-shadow: 0 1px 0 #FFF;*/
+   /*border-bottom: 1px solid #ccc;*/
 }
 
 .game_top {
    white-space: nowrap;
+   overflow: hidden;
+   position: relative;
+   width: 100%;
 }
 
-.game_top .away_top, .game_top .home_top {
-   display: inline-block;
-   width: 50%;
+.game_top .away_top, .game_top .home_top, .game_top .details_top {
+   float: left;
+   width: 33.3333%;
    white-space: normal;
+   /*background-color: grey;*/
 }
 
-.away_top h2, .home_top h2 {
+.away_top {
+   text-align: left;
+}
+
+.home_top {
+   text-align: right;
+}
+
+.team_details {
    display: inline-block;
-   vertical-align: middle;
-   margin: 0;
+   margin: 0 5px;
+   vertical-align: top;
+}
+
+.game_top .line, .game_top .value, .game_top .spread {
+   display: block;
+}
+
+.teamcity span {
+   display: inline-block;
+   color: #333;
+   font-weight: 200;
+   font-size: 14px;
+   line-height: 17.5px;
+}
+
+.teamname {
+   display: block;
+   margin-bottom: 5px;
+}
+
+.teamname span {
+   color: #000;
+   font-weight: 600;
+   font-size: 18px;
+   line-height: 1em;
 }
 
 .game_top img {
-   width: 30px;
-   vertical-align: middle;
+   height: 100px;
+   width: 100px;
+}
+
+.away_top img {
+   border-right: 1px solid #CCC;
+   padding-right: 5px;
+}
+
+.home_top img {
+   border-left: 1px solid #CCC;
+   padding-left: 5px;
 }

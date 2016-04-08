@@ -37,12 +37,14 @@ def setup_friend():
 
       if data['team_status'] == 'home':
          mlb_wager.home_id = session['email']
+         mlb_wager.original_side = 'home'
       else:
          mlb_wager.away_id = session['email']
+         mlb_wager.original_side = 'away'
 
       # Insert the user in the database
       db.session.add(mlb_wager)
       db.session.commit()
 
-      return redirect(url_for('lobby'))
+      return redirect(url_for('all_wagers'))
 
