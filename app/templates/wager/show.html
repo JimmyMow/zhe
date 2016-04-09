@@ -144,10 +144,29 @@
                            </tr>
                        </tbody>
                    </table>
+                  </div> <!-- linescore_container -->
+                  <div class="pitching_top">
+                     <p>
+                        <span class="team">{{game.away.abbr}}:</span>
+                        <a href="">{{game.away.starting_pitcher.last_name}}</a>
+                        <span class="record">({{game.away.starting_pitcher.win}}-{{game.away.starting_pitcher.loss}}, {{game.away.starting_pitcher.era}})</span>
+                     </p>
+                     <p>
+                        <span class="team">{{game.home.abbr}}:</span>
+                        <a href="">{{game.home.starting_pitcher.last_name}}</a>
+                        <span class="record">({{game.home.starting_pitcher.win}}-{{game.home.starting_pitcher.loss}}, {{game.home.starting_pitcher.era}})</span>
+                     </p>
                   </div>
-               </div>
-            </div>
+               </div> <!-- linescore -->
+            </div>  <!-- boxscore_top -->
          </div> <!-- game_top -->
+         <div class="game_events">
+            {% for event in game.home.events %}
+               <div class="event">
+                  {{event.inning}}
+               </div>
+            {% endfor %}
+         </div>
       </div> <!-- content_box_top -->
    </div> <!-- content_box -->
 {% endblock %}

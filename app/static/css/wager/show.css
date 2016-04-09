@@ -1,5 +1,5 @@
 .content_box_top {
-   padding: 10px 0;
+   padding-top: 10px;
    color: #000;
 }
 
@@ -95,6 +95,7 @@
    overflow: hidden;
    position: relative;
    width: 100%;
+   border-bottom: 1px solid #ccc;
 }
 
 .boxscore_top .linescore {
@@ -165,5 +166,20 @@ table tbody td {
    padding: 6px 0 6px 0;
    text-align: center;
    font: normal normal 13px/1em "BentonSans",-apple-system,"Roboto",Helvetica,Arial,sans-serif;
+}
+
+.pitching_top {
+   border-left: 1px solid #ddd;
+   float: left;
+   overflow: hidden;
+   padding-left: 14px;
+   width: auto;
+   margin-left: 50px;
+   margin-top: 15px;
+}
+
+.game_events {
+   height: 500px;
+   background: url(/static/images/line-background.png) repeat-y 50%;
 }
 
