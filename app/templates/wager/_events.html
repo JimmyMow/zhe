@@ -1,0 +1,14 @@
+{% for event in game|events %}
+   <div class="event-container">
+      <div class="event {{event.inning_half}}">
+         <h3>
+            {{event.inning}}
+            |
+            {{event.inning_half}}
+         </h3>
+         <p>{{event}}</p>
+      </div>
+   </div>
+{% endfor %}
+
+

@@ -161,11 +161,7 @@
             </div>  <!-- boxscore_top -->
          </div> <!-- game_top -->
          <div class="game_events">
-            {% for event in game.home.events %}
-               <div class="event">
-                  {{event.inning}}
-               </div>
-            {% endfor %}
+            {% include 'wager/_events.html' %}
          </div>
       </div> <!-- content_box_top -->
    </div> <!-- content_box -->

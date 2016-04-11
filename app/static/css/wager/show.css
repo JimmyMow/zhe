@@ -179,7 +179,35 @@ table tbody td {
 }
 
 .game_events {
-   height: 500px;
    background: url(/static/images/line-background.png) repeat-y 50%;
 }
 
+.game_events {
+
+}
+
+.event-container {
+   overflow: hidden;
+   position: relative;
+   width: 100%;
+   margin: 20px 0;
+}
+
+.T, .B {
+   width: 49%;
+   border: solid 5px #BBBBBB;
+}
+
+.T {
+   float: left;
+   border-right: none;
+}
+
+.B {
+   float: right;
+   border-left: none;
+}
+
+.T h3, .B h3 {
+   padding: 5px;
+}

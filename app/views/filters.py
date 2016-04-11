@@ -30,3 +30,15 @@ def _jinja2_filter_datetime(wager):
       payout = value
 
    return payout
+
+@app.template_filter('events')
+def _jinja2_filter_datetime(game):
+   events = game['home']['events'] + game['away']['events']
+
+   def getKey(item):
+      return item['inning']
+
+   events_sorted = sorted(events, key=getKey)
+
+   return events_sorted
+
