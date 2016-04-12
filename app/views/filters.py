@@ -1,4 +1,5 @@
 from app import app
+from app.toolbox import mlb
 
 @app.template_filter('date')
 def _jinja2_filter_datetime(date, fmt=None):
@@ -7,7 +8,7 @@ def _jinja2_filter_datetime(date, fmt=None):
    return date_object.strftime('%B %d')
 
 @app.template_filter('oppo')
-def _jinja2_filter_datetime(spread):
+def oppo(spread):
    oppo_spread = spread * -1
    if oppo_spread > 0:
       oppo_spread = "+"+str(oppo_spread)
@@ -16,7 +17,7 @@ def _jinja2_filter_datetime(spread):
 
 
 @app.template_filter('winnings')
-def _jinja2_filter_datetime(wager):
+def winnings(wager):
 
    value = wager.value
    line = wager.line
@@ -32,7 +33,7 @@ def _jinja2_filter_datetime(wager):
    return payout
 
 @app.template_filter('events')
-def _jinja2_filter_datetime(game):
+def events(game):
    events = game['home']['events'] + game['away']['events']
 
    def getKey(item):
@@ -42,3 +43,29 @@ def _jinja2_filter_datetime(game):
 
    return events_sorted
 
+@app.template_filter('player')
+def player(player_id):
+   player = mlb.get_player(player_id)
+   return player
+
+@app.template_filter('city')
+def city(name):
+   data = name.split(" ")
+
+   if len(data) > 2:
+      city = data[0] + " " + data[1]
+   else:
+      city = data[0]
+
+   return city
+
+@app.template_filter('team_name')
+def team_name(name):
+   data = name.split(" ")
+
+   if len(data) > 2:
+      team_name = data[2]
+   else:
+      team_name = data[1]
+
+   return team_name

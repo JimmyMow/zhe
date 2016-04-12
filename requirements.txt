@@ -8,3 +8,5 @@ itsdangerous
 flask-bcrypt
 flask-admin
 uwsgi
+mlbgame
+bs4

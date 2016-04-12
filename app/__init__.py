@@ -1,5 +1,6 @@
 from flask import Flask
 import sys, requests, json, urllib.request, os
+from flask.ext.cors import CORS
 
 import sys
 

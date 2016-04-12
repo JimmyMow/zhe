@@ -7,15 +7,15 @@
       <div class="select_game">
         <select id="selectGame">
           <option value="">Select a game</option>
-          {% for game in games %}
+          {% for game in o_games %}
             <option id="{{game.id}}"
                     value="{{game.id}}"
-                    data-homename="{{game.home.name}}"
-                    data-homeid="{{game.home.id}}"
-                    data-awayname="{{game.away.name}}"
-                    data-awayid="{{game.away.id}}"
+                    data-homename="{{game.home_team_name}}"
+                    data-homeid="{{game.home_team_id}}"
+                    data-awayname="{{game.away_team_name}}"
+                    data-awayid="{{game.away_team_id}}"
             >
-              {{game.away.name}} @ {{game.home.name}}
+              {{game.away_team_name}} @ {{game.home_team_name}}
             </option>
           {% endfor %}
         </select>

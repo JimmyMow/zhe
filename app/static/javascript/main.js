@@ -84,10 +84,12 @@ $(document).ready(function() {
             return;
          }
 
-         var home_name = $("#"+id).data('homename');
-         var home_id = $("#"+id).data('homeid');
-         var away_name = $("#"+id).data('awayname');
-         var away_id = $("#"+id).data('awayid');
+         var $g = $(document.getElementById("2016/04/12/pitmlb-detmlb-1"));
+
+         var home_name = $g.data('homename');
+         var home_id = $g.data('homeid');
+         var away_name = $g.data('awayname');
+         var away_id = $g.data('awayid');
 
          $("#team_0").val(away_id);
          $("#team_1").val(home_id);

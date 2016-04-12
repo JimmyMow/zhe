@@ -6,7 +6,9 @@
             |
             {{event.inning_half}}
          </h3>
-         <p>{{event}}</p>
+         <p id="pitcher" pitcher-id="{{event.pitcher_id}}">
+            {{event.pitcher_id}}
+         </p>
       </div>
    </div>
 {% endfor %}

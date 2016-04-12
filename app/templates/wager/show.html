@@ -9,10 +9,10 @@
                   <img src="http://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/chc.png&w=150&h=150">
                   <div class="team_details">
                      <span class="teamcity">
-                        <span>{{game.away.market}}</span>
+                        <span>{{o_game.data.boxscore.away_fname|city}}</span>
                      </span>
                      <span class="teamname">
-                        <span>{{game.away.name}}</span>
+                        <span>{{o_game.data.boxscore.away_fname|team_name}}</span>
                      </span>
                      {% if wager.original_side == 'away' %}
                         <span class="spread">
@@ -54,10 +54,10 @@
                <div class="home_top">
                   <div class="team_details">
                      <span class="teamcity">
-                        <span>{{game.home.market}}</span>
+                        <span>{{o_game.data.boxscore.home_fname|city}}</span>
                      </span>
                      <span class="teamname">
-                        <span>{{game.home.name}}</span>
+                        <span>{{o_game.data.boxscore.home_fname|team_name}}</span>
                      </span>
                      {% if wager.original_side == 'home' %}
                         <span class="spread">
@@ -119,49 +119,54 @@
                            <tr>
                               <td class="team">
                                  <a target="_blank" href="">
-                                 {{game.away.abbr}}
+                                 {{o_game.data.boxscore.away_team_code}}
                                  </a>
                               </td>
-                              {% for scoring in game.away.scoring %}
-                                 <td>{{scoring.runs}}</td>
+                              {% for inning in o_game.data.boxscore.linescore.inning_line_score %}
+                                    <td>{{inning.home}}</td>
                               {% endfor %}
-                              <td class="space strong">{{game.away.runs}}</td>
-                                 <td class="strong">{{game.away.hits}}</td>
-                                 <td class="strong">{{game.away.errors}}</td>
+                              <td class="space strong">{{ o_game.data.boxscore.linescore.away_team_runs }}</td>
+                                 <td class="strong">{{o_game.data.boxscore.linescore.away_team_hits}}</td>
+                                 <td class="strong">{{o_game.data.boxscore.linescore.away_team_errors}}</td>
                            </tr>
                            <tr>
                               <td target="_blank" class="team">
                                  <a href="">
-                                 {{game.home.abbr}}
+                                 {{o_game.data.boxscore.home_team_code}}
                                  </a>
                               </td>
-                                 {% for scoring in game.home.scoring %}
-                                    <td>{{scoring.runs}}</td>
+                                 {% for inning in o_game.data.boxscore.linescore.inning_line_score %}
+                                    <td>{{inning.away}}</td>
                                  {% endfor %}
-                              <td class="space strong">{{game.home.runs}}</td>
-                                <td class="strong">{{game.home.hits}}</td>
-                                <td class="strong">{{game.home.errors}}</td>
+                              <td class="space strong">
+                                 {{ o_game.data.boxscore.linescore.home_team_runs }}
+                              </td>
+                                <td class="strong">
+                                 {{o_game.data.boxscore.linescore.home_team_hits}}
+                                </td>
+                                <td class="strong">{{o_game.data.boxscore.linescore.home_team_errors}}</td>
                            </tr>
                        </tbody>
                    </table>
                   </div> <!-- linescore_container -->
                   <div class="pitching_top">
                      <p>
-                        <span class="team">{{game.away.abbr}}:</span>
-                        <a href="">{{game.away.starting_pitcher.last_name}}</a>
-                        <span class="record">({{game.away.starting_pitcher.win}}-{{game.away.starting_pitcher.loss}}, {{game.away.starting_pitcher.era}})</span>
+                        <span class="team">{{o_game.data.boxscore.away_team_code}}:</span>
+                        <a href="">{{o_game.data.boxscore.pitching[0].pitcher[0].name}}</a>
+                        <span class="record">({{o_game.data.boxscore.pitching[0].pitcher[0].w}}-{{o_game.data.boxscore.pitching[0].pitcher[0].l}}, {{o_game.data.boxscore.pitching[0].pitcher[0].era}})</span>
                      </p>
                      <p>
                         <span class="team">{{game.home.abbr}}:</span>
-                        <a href="">{{game.home.starting_pitcher.last_name}}</a>
-                        <span class="record">({{game.home.starting_pitcher.win}}-{{game.home.starting_pitcher.loss}}, {{game.home.starting_pitcher.era}})</span>
+                        <a href="">{{o_game.data.boxscore.pitching[1].pitcher[0].name}}</a>
+                        <span class="record">({{o_game.data.boxscore.pitching[1].pitcher[0].w}}-{{o_game.data.boxscore.pitching[1].pitcher[0].l}}, {{o_game.data.boxscore.pitching[1].pitcher[0].era}})</span>
                      </p>
                   </div>
                </div> <!-- linescore -->
             </div>  <!-- boxscore_top -->
          </div> <!-- game_top -->
          <div class="game_events">
-            {% include 'wager/_events.html' %}
+            <!-- {% include 'wager/_events.html' %} -->
+            {{o_game}}
          </div>
       </div> <!-- content_box_top -->
    </div> <!-- content_box -->

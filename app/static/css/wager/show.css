@@ -122,6 +122,7 @@
    width: 3em;
    color: #36c;
    font-weight: 600;
+   text-transform: uppercase;
 }
 
 .linescore_container .team a {
@@ -174,8 +175,12 @@ table tbody td {
    overflow: hidden;
    padding-left: 14px;
    width: auto;
-   margin-left: 50px;
+   margin-left: 30px;
    margin-top: 15px;
+}
+
+.pitching_top .team {
+   text-transform: uppercase;
 }
 
 .game_events {
