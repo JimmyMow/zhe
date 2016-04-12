@@ -7,7 +7,7 @@
       <div class="select_game">
         <select id="selectGame">
           <option value="">Select a game</option>
-          {% for game in o_games %}
+          {% for game in games %}
             <option id="{{game.id}}"
                     value="{{game.id}}"
                     data-homename="{{game.home_team_name}}"
