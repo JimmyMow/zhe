@@ -16,10 +16,6 @@ $(document).ready(function() {
       }, 10);
    });
 
-   // zhe.socket = zhe.StrongSocket(
-   //    ''
-   // )
-
    ///////////
    // Setup //
    ///////////
@@ -176,18 +172,21 @@ $(document).ready(function() {
    var $startButtons = $('#start_buttons');
 
    $startButtons.find('a').not('.disabled').click(function() {
+      $('#hooks_wrap').addClass('loading');
       $(this).addClass('active').siblings().removeClass('active');
       $('.lichess_overboard').remove();
       $.ajax({
          url: $(this).attr('href'),
          success: function(html) {
+            $('#hooks_wrap').removeClass('loading');
             $('.lichess_overboard').remove();
             $('#hooks_wrap').prepend(html);
             prepareForm();
-            // $('body').trigger('lichess.content_loaded');
          },
          error: function(e) {
+            $('#hooks_wrap').removeClass('loading');
             console.log("fail: ", e);
+            location.reload();
          }
       });
       return false;

@@ -1,5 +1,16 @@
 var m = require('mithril');
 // var util = require('chessground').util;
+function spinner() {
+  return m('div.spinner',
+    m('svg', {
+      viewBox: '0 0 40 40'
+    }, m('circle', {
+      cx: 20,
+      cy: 20,
+      r: 18,
+      fill: 'none'
+    })));
+}
 
 function px(v) {
   return v + 'px';
@@ -118,4 +129,5 @@ var html = m('div.hooks_chart', [
    renderYAxis(), renderXAxis()
 ]);
 
+console.log(spinner());
 m.render(document.getElementById('hooks_wrap'), html)
