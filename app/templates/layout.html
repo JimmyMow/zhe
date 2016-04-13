@@ -54,7 +54,12 @@
       </div> <!-- wager -->
    </div>
    <script src="{{ url_for('static', filename='javascript/util.js') }}"></script>
-   <script src="{{ url_for('static', filename='compiled/wager.mockup.js') }}"></script>
+   {% if request.url_rule.endpoint == 'lobby' %}
+      <script src="{{ url_for('static', filename='compiled/wager.mockup.js') }}"></script>
+   {% endif %}
+   {% if request.url_rule.endpoint == 'wagerbp.wager' %}
+      <script src="{{ url_for('static', filename='compiled/wager.wager_show.js') }}"></script>
+   {% endif %}
    <!-- <script src="{{ url_for('static', filename='javascript/socket.js') }}"></script> -->
    <script src="{{ url_for('static', filename='javascript/main.js') }}"></script>
 </body>

@@ -6,7 +6,7 @@
          <div class="game_top">
             <div class="summary_top">
                <div class="away_top">
-                  <img src="http://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/chc.png&w=150&h=150">
+                  <img src="/static/images/mlb_teams/{{game.data.boxscore.away_team_code}}.png">
                   <div class="team_details">
                      <span class="teamcity">
                         <span>{{game.data.boxscore.away_fname|city}}</span>
@@ -91,7 +91,7 @@
                         </span>
                      {% endif %}
                   </div>
-                  <img src="http://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/laa.png&w=150&h=150">
+                  <img src="/static/images/mlb_teams/{{game.data.boxscore.home_team_code}}.png">
                </div>
             </div> <!-- summary_top -->
             <div class="boxscore_top">
@@ -123,7 +123,7 @@
                                  </a>
                               </td>
                               {% for inning in game.data.boxscore.linescore.inning_line_score %}
-                                    <td>{{inning.home}}</td>
+                                    <td>{{inning.away}}</td>
                               {% endfor %}
                               <td class="space strong">{{ game.data.boxscore.linescore.away_team_runs }}</td>
                                  <td class="strong">{{game.data.boxscore.linescore.away_team_hits}}</td>
@@ -136,7 +136,7 @@
                                  </a>
                               </td>
                                  {% for inning in game.data.boxscore.linescore.inning_line_score %}
-                                    <td>{{inning.away}}</td>
+                                    <td>{{inning.home}}</td>
                                  {% endfor %}
                               <td class="space strong">
                                  {{ game.data.boxscore.linescore.home_team_runs }}

@@ -1,7 +1,9 @@
 from app import app
+from bs4 import BeautifulSoup
 import requests
 import datetime
-from bs4 import BeautifulSoup
+import json
+import xmltodict
 
 def get_todays_games():
    now = datetime.datetime.now()
@@ -58,8 +60,8 @@ def get_mlb_game(game_id):
    day = game_data[2]
 
 
-   # url = "http://gd2.mlb.com/components/game/mlb/year_" + year + "/month_" + month + "/day_" + day + "/gid_" + game_id.replace('/', '_').replace('-', '_') + "/boxscore.json"
-   url = "http://gd2.mlb.com/components/game/mlb/year_2016/month_04/day_11/gid_2016_04_11_pitmlb_detmlb_1/boxscore.json"
+   url = "http://gd2.mlb.com/components/game/mlb/year_" + year + "/month_" + month + "/day_" + day + "/gid_" + game_id.replace('/', '_').replace('-', '_') + "/boxscore.json"
+   # url = "http://gd2.mlb.com/components/game/mlb/year_2016/month_04/day_11/gid_2016_04_11_pitmlb_detmlb_1/boxscore.json"
    try:
       r = requests.get(url)
       data = r.json()
@@ -67,3 +69,36 @@ def get_mlb_game(game_id):
       return {}
 
    return data
+
+def get_scoring_plays(game_id):
+   game_data = game_id.split("/")
+   year = game_data[0]
+   month = game_data[1]
+   day = game_data[2]
+
+   url = "http://gd2.mlb.com/components/game/mlb/year_"+year+"/month_"+month+"/day_"+day+"/gid_"+game_id.replace('/', '_').replace('-', '_')+"/atv_runScoringPlays.xml"
+   r = requests.get(url)
+   if r.status_code == 200:
+      soup = BeautifulSoup(r.text, "lxml")
+      result = json.dumps(xmltodict.parse(str(soup)))
+   else:
+      r.raise_for_status()
+      return
+
+   return json.loads(result)
+
+def get_game_events(game_id):
+   game_data = game_id.split("/")
+   year = game_data[0]
+   month = game_data[1]
+   day = game_data[2]
+
+   url = "http://gd2.mlb.com/components/game/mlb/year_"+year+"/month_"+month+"/day_"+day+"/gid_"+game_id.replace('/', '_').replace('-', '_')+"/game_events.xml"
+   r = requests.get(url)
+   if r.status_code == 200:
+      soup = BeautifulSoup(r.text, "lxml")
+      result = json.dumps(xmltodict.parse(str(soup)))
+   else:
+      r.raise_for_status()
+
+   return json.loads(result)

@@ -10,3 +10,5 @@ flask-admin
 uwsgi
 mlbgame
 bs4
+xmltodict
+grequests

@@ -1,5 +1,7 @@
 from app import app
 from app.toolbox import mlb
+from flask import stream_with_context, request, Response
+import time
 
 @app.template_filter('date')
 def _jinja2_filter_datetime(date, fmt=None):
@@ -33,15 +35,9 @@ def winnings(wager):
    return payout
 
 @app.template_filter('events')
-def events(game):
-   events = game['home']['events'] + game['away']['events']
-
-   def getKey(item):
-      return item['inning']
-
-   events_sorted = sorted(events, key=getKey)
-
-   return events_sorted
+def events(wager):
+   res = mlb.get_game_events(wager.game_id)
+   return res['html']['body']['game']['inning']
 
 @app.template_filter('player')
 def player(player_id):

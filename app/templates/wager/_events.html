@@ -1,16 +1,17 @@
-{% for event in game|events %}
-   <div class="event-container">
-      <div class="event {{event.inning_half}}">
-         <h3>
-            {{event.inning}}
-            |
-            {{event.inning_half}}
-         </h3>
-         <p id="pitcher" pitcher-id="{{event.pitcher_id}}">
-            {{event.pitcher_id}}
-         </p>
-      </div>
+{% for inning in wager|events %}
+   <div class="inning">
+      <p>{{loop.index}}</p>
+      {% for atbat in inning.top.atbat %}
+         {% if atbat['@score'] %}
+            <img src="http://mlb.mlb.com/images/players/mugshot/ph_{{atbat['@batter']}}.jpg">
+            <p>{{atbat['@des']}}</p>
+         {% endif %}
+      {% endfor %}
+      {% for atbat in inning.bottom.atbat %}
+         {% if atbat['@score'] %}
+            <img src="http://mlb.mlb.com/images/players/mugshot/ph_{{atbat['@batter']}}.jpg">
+            <p>{{atbat['@des']}}</p>
+         {% endif %}
+      {% endfor %}
    </div>
 {% endfor %}
-
-
