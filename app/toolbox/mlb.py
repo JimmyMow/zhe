@@ -55,16 +55,17 @@ def get_mlb_game(game_id):
    month = game_data[1]
    day = game_data[2]
 
+   boxscore_url = "http://gd2.mlb.com/components/game/mlb/year_" + year + "/month_" + month + "/day_" + day + "/gid_" + game_id.replace('/', '_').replace('-', '_') + "/boxscore.json"
+   scoreline_url = "http://gd2.mlb.com/components/game/mlb/year_" + year + "/month_" + month + "/day_" + day + "/gid_" + game_id.replace('/', '_').replace('-', '_') + "/linescore.json"
 
-   url = "http://gd2.mlb.com/components/game/mlb/year_" + year + "/month_" + month + "/day_" + day + "/gid_" + game_id.replace('/', '_').replace('-', '_') + "/boxscore.json"
-   # url = "http://gd2.mlb.com/components/game/mlb/year_2016/month_04/day_11/gid_2016_04_11_pitmlb_detmlb_1/boxscore.json"
    try:
-      r = requests.get(url)
+      r = requests.get(boxscore_url)
       data = r.json()
+      return data
    except:
-      return {}
-
-   return data
+      r = requests.get(scoreline_url)
+      data = r.json()
+      return data
 
 def get_scoring_plays(game_id):
    game_data = game_id.split("/")

@@ -80,7 +80,7 @@ $(document).ready(function() {
             return;
          }
 
-         var $g = $(document.getElementById("2016/04/12/pitmlb-detmlb-1"));
+         var $g = $(document.getElementById(id));
 
          var home_name = $g.data('homename');
          var home_id = $g.data('homeid');

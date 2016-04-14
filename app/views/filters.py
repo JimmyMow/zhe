@@ -3,6 +3,8 @@ from app.toolbox import mlb
 from flask import stream_with_context, request, Response
 import time
 
+teams_by_name = {'Cubs': 'Chicago', 'Dodgers': 'Los Angeles', 'Reds': 'Cincinnati', 'Nationals': 'Washington', 'Brewers': 'Milwaukee', 'Diamondbacks': 'Arizona', 'Padres': 'San Diego', 'Braves': 'Atlanta', 'Mets': 'New York', 'Blue Jays': 'Toronto', 'Tigers': 'Detroit', 'Orioles': 'Baltimore', 'Rangers': 'Texas', 'Marlins': 'Miami', 'Rockies': 'Colorado', 'Athletics': 'Oakland', 'Astros': 'Houston', 'Pirates': 'Pittsburgh', 'Cardinals': 'St. Louis', 'Mariners': 'Seattle', 'Indians': 'Cleveland', 'Royals': 'Kansas City', 'Giants': 'San Francisco', 'Red Sox': 'Boston', 'Twins': 'Minnesota', 'Rays': 'Tampa Bay', 'Phillies': 'Philadelphia'}
+
 @app.template_filter('date')
 def _jinja2_filter_datetime(date, fmt=None):
    date = date.split("T")
@@ -66,3 +68,11 @@ def team_name(name):
       team_name = data[1]
 
    return team_name
+
+@app.template_filter('city_from_name')
+def city_from_name(name):
+   city = teams_by_name[name]
+
+   return city
+
+

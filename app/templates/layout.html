@@ -57,7 +57,7 @@
    {% if request.url_rule.endpoint == 'lobby' %}
       <script src="{{ url_for('static', filename='compiled/wager.mockup.js') }}"></script>
    {% endif %}
-   {% if request.url_rule.endpoint == 'wagerbp.wager' %}
+   {% if request.url_rule.endpoint == 'wagerbp.wager' and game.data.boxscore %}
       <script src="{{ url_for('static', filename='compiled/wager.wager_show.js') }}"></script>
    {% endif %}
    <!-- <script src="{{ url_for('static', filename='javascript/socket.js') }}"></script> -->

@@ -5,7 +5,7 @@ var ge = document.getElementById('game_events');
 
 var xmlhttp = new XMLHttpRequest(),
 method = "GET",
-url = "http://15970801.ngrok.io/wager/cd148f0d/stream_events";
+url = window.location.pathname + "/stream_events";
 
 xmlhttp.open(method, url, true);
 xmlhttp.onreadystatechange = function () {
@@ -33,7 +33,6 @@ function buildEvents(data) {
       try {
          var away = inning.top.atbat.map(function(atbat) {
             if ( atbat['@score'] ) {
-               console.log(inning);
                return m('div', { class: ['score-conatiner', 'cf'].join(' ') },
                m('div', { class: ['score', 'away'].join(' ') },
                   m('div', { class: 'inning' }, "Top of " + extra.ordinal_suffix_of(parseInt(inning['@num']))),
@@ -88,8 +87,6 @@ function buildEvents(data) {
 
       return [away, home];
    }));
-
-   console.log(html);
 
    m.render(ge, html);
 }

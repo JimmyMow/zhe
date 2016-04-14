@@ -1,0 +1,100 @@
+<div class="content_box no_padding wager_show">
+   <div class="content_box_top">
+      <div class="game_top">
+         <div class="summary_top">
+            <div class="away_top">
+               <img src="/static/images/mlb_teams/{{game.data.game.away_name_abbrev|lower}}.png">
+               <div class="team_details">
+                  <span class="teamcity">
+                     <span>
+                        {{game.data.game.away_team_name|city_from_name}}
+                     </span>
+                  </span>
+                  <span class="teamname">
+                     <span>{{game.data.game.away_team_name}}</span>
+                  </span>
+                  {% if wager.original_side == 'away' %}
+                     <span class="spread">
+                        <span>{{wager.spread}}</span>
+                     </span>
+                     <span class="line">
+                        {% if wager.line > 0 %}
+                           <span>+{{wager.line|int}}</span>
+                        {% else %}
+                           <span>-{{wager.line|int}}</span>
+                        {% endif %}
+                     </span>
+                     <span class="value">
+                        <span>
+                           ${{wager.value}} to win ${{wager|winnings}}</span>
+                     </span>
+                  {% else %}
+                     <span class="spread">
+                        <span>{{wager.spread|oppo}}</span>
+                     </span>
+                     <span class="line">
+                        {% if wager.line < 0 %}
+                           <span>+{{wager.line|int}}</span>
+                        {% else %}
+                           <span>-{{wager.line|int}}</span>
+                        {% endif %}
+                     </span>
+                     <span class="value">
+                        <span>
+                           ${{wager.value}} to win ${{wager|winnings}}</span>
+                     </span>
+                  {% endif %}
+               </div>
+            </div>
+            <div class="details_top">
+               <span class="gametime_top">{{game.data.game.time}} {{game.data.game.time_zone}}</span>
+            </div>
+            <div class="home_top">
+               <div class="team_details">
+                  <span class="teamcity">
+                     <span>
+                        {{game.data.game.home_team_name|city_from_name}}
+                     </span>
+                  </span>
+                  <span class="teamname">
+                     <span>{{game.data.game.home_team_name}}</span>
+                  </span>
+                  {% if wager.original_side == 'home' %}
+                     <span class="spread">
+                        <span>{{wager.spread}}</span>
+                     </span>
+                     <span class="line">
+                        {% if wager.line > 0 %}
+                           <span>+{{wager.line|int}}</span>
+                        {% else %}
+                           <span>-{{wager.line|int}}</span>
+                        {% endif %}
+                     </span>
+                     <span class="value">
+                        <span>
+                           ${{wager.value}} to win ${{wager|winnings}}</span>
+                     </span>
+                  {% else %}
+                     <span class="spread">
+                        <span>{{wager.spread|oppo}}</span>
+                     </span>
+                     <span class="line">
+                        {% if wager.line < 0 %}
+                           <span>+{{wager.line|int}}</span>
+                        {% else %}
+                           <span>-{{wager.line|int}}</span>
+                        {% endif %}
+                     </span>
+                     <span class="value">
+                        <span>
+                           ${{wager|winnings}} to win ${{wager.value}}</span>
+                     </span>
+                  {% endif %}
+               </div>
+               <img src="/static/images/mlb_teams/{{game.data.game.home_name_abbrev|lower}}.png">
+            </div>
+         </div> <!-- summary_top -->
+      </div> <!-- game_top -->
+   </div> <!-- content_box_top -->
+</div> <!-- content_box -->
+
