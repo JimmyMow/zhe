@@ -69,12 +69,12 @@
    width: 100px;
 }
 
-.away_top img {
+.boxscore .away_top img {
    border-right: 1px solid #CCC;
    padding-right: 5px;
 }
 
-.home_top img {
+.boxscore .home_top img {
    border-left: 1px solid #CCC;
    padding-left: 5px;
 }

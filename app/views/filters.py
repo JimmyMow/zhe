@@ -1,6 +1,7 @@
 from app import app
 from app.toolbox import mlb
 from flask import stream_with_context, request, Response
+from dateutil import parser
 import time
 
 teams_by_name = {'Cubs': 'Chicago', 'Dodgers': 'Los Angeles', 'Reds': 'Cincinnati', 'Nationals': 'Washington', 'Brewers': 'Milwaukee', 'Diamondbacks': 'Arizona', 'Padres': 'San Diego', 'Braves': 'Atlanta', 'Mets': 'New York', 'Blue Jays': 'Toronto', 'Tigers': 'Detroit', 'Orioles': 'Baltimore', 'Rangers': 'Texas', 'Marlins': 'Miami', 'Rockies': 'Colorado', 'Athletics': 'Oakland', 'Astros': 'Houston', 'Pirates': 'Pittsburgh', 'Cardinals': 'St. Louis', 'Mariners': 'Seattle', 'Indians': 'Cleveland', 'Royals': 'Kansas City', 'Giants': 'San Francisco', 'Red Sox': 'Boston', 'Twins': 'Minnesota', 'Rays': 'Tampa Bay', 'Phillies': 'Philadelphia'}
@@ -75,4 +76,8 @@ def city_from_name(name):
 
    return city
 
+@app.template_filter('pretty_date')
+def pretty_date(date_str):
 
+   dt = parser.parse(date_str)
+   return dt.strftime("%A, %B %d, %Y")
