@@ -36,8 +36,9 @@ def winnings(wager):
 
 @app.template_filter('events')
 def events(wager):
-   res = mlb.get_game_events(wager.game_id)
-   return res['html']['body']['game']['inning']
+   # res = mlb.get_game_events(wager.game_id)
+   # return res['html']['body']['game']['inning']
+   return "dick"
 
 @app.template_filter('player')
 def player(player_id):

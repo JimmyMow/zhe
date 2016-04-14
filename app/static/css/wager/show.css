@@ -197,3 +197,22 @@ table tbody td {
    border-left: 1px solid #000;*/
 }
 
+.game_events .score {
+   width: 50%;
+}
+
+.game_events .away {
+   float: left;
+}
+
+.game_events .home {
+   float: right;
+}
+
+.score img {
+   display: inline-block;
+}
+
+.score .details {
+   display: inline-block;
+}

@@ -1,17 +1,1 @@
-{% for inning in wager|events %}
-   <div class="inning">
-      <p>{{loop.index}}</p>
-      {% for atbat in inning.top.atbat %}
-         {% if atbat['@score'] %}
-            <img src="http://mlb.mlb.com/images/players/mugshot/ph_{{atbat['@batter']}}.jpg">
-            <p>{{atbat['@des']}}</p>
-         {% endif %}
-      {% endfor %}
-      {% for atbat in inning.bottom.atbat %}
-         {% if atbat['@score'] %}
-            <img src="http://mlb.mlb.com/images/players/mugshot/ph_{{atbat['@batter']}}.jpg">
-            <p>{{atbat['@des']}}</p>
-         {% endif %}
-      {% endfor %}
-   </div>
-{% endfor %}
+{{wager|events}}

@@ -129,5 +129,4 @@ var html = m('div.hooks_chart', [
    renderYAxis(), renderXAxis()
 ]);
 
-console.log(spinner());
 m.render(document.getElementById('hooks_wrap'), html)

@@ -49,7 +49,6 @@
                </div>
                <div class="details_top">
                   <span class="gametime_top">8:40 PM CT</span>
-                  <span class="gametime_top">Some Stadium</span>
                </div>
                <div class="home_top">
                   <div class="team_details">
@@ -164,9 +163,9 @@
                </div> <!-- linescore -->
             </div>  <!-- boxscore_top -->
          </div> <!-- game_top -->
-         <div class="game_events">
-
-         </div>
       </div> <!-- content_box_top -->
+      <div class="game_events cf" id="game_events">
+         {% include 'setup/loading.html' %}
+      </div>
    </div> <!-- content_box -->
 {% endblock %}
