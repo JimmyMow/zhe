@@ -1,5 +1,5 @@
 from app import app, models, db
-from flask import Flask, render_template, request, Blueprint, session, redirect, url_for
+from flask import Flask, render_template, request, Blueprint, session, redirect, url_for, jsonify
 from app.toolbox import mlb
 
 # Create a setup blueprint
@@ -48,5 +48,7 @@ def setup_friend():
       db.session.add(mlb_wager)
       db.session.commit()
 
-      return redirect(url_for('all_wagers'))
+      data = { 'id': mlb_wager.id }
+
+      return jsonify(data)
 

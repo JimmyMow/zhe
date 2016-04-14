@@ -158,8 +158,9 @@ $(document).ready(function() {
             url: $(this).attr('action'),
             method: 'post',
             data: data,
-            success: function(r) {
-               console.log("success: ", r);
+            success: function(wager) {
+               console.log("success: ", wager);
+               window.location.replace("/wager/" + wager.id);
             },
             error: function(e) {
                console.log("fail: ", e);

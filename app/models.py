@@ -1,4 +1,5 @@
 from app import db, bcrypt
+from app.toolbox import json_helper
 from sqlalchemy.ext.hybrid import hybrid_property
 from flask.ext.login import UserMixin
 from sqlalchemy import *
@@ -53,6 +54,10 @@ class MLBWager(db.Model):
     value = db.Column(db.Integer)
 
     public = db.Column(db.Boolean)
+
+    @property
+    def json(self):
+        return json_helper.to_json(self, self.__class__)
 
 # Generate random string for ID of the MLB Wager
 def after_insert_listener(mapper, connection, target):
