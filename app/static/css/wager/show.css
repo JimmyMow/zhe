@@ -85,6 +85,7 @@
 
 .details_top span {
    display: block;
+   font-weight: bold;
 }
 
 .game_top .user_top {
@@ -199,6 +200,9 @@ table tbody td {
 
 .game_events .score {
    width: 50%;
+   padding-top: 0;
+   margin: 10px 0;
+   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
 .game_events .away {
@@ -209,10 +213,83 @@ table tbody td {
    float: right;
 }
 
+.game_events .score_content {
+   padding: 2.5%;
+}
+
+.score .inning {
+   margin-bottom: 10px;
+   padding: 10px 0;
+   padding-left: .8em;
+   background-position: 0 0;
+   vertical-align: middle;
+   border-top: solid 1px #d0d0d0;
+   border-bottom: solid 1px #d0d0d0;
+   background-color: #eee;
+   border-top-color: #b4b4b4;
+   font-size: 14px;
+   font-weight: 200;
+   color: #000;
+}
+
 .score img {
    display: inline-block;
+   height: 50px;
+   border-radius: 6px;
 }
 
 .score .details {
    display: inline-block;
+   width: 70%;
+   vertical-align: top;
 }
+
+.home .details {
+   margin-left: 15px;
+}
+
+.away .details {
+   margin-left: 15px;
+}
+
+.score .details .description {
+   margin: 0;
+   margin-bottom: 20px;
+}
+
+.score .details .badge {
+   border-radius: 3px;
+   background-color: #f4f4f4;
+   border: 1px solid #838383;
+   padding: 5px;
+   margin: 0 3px;
+}
+
+.game_events_container .logos {
+   white-space: nowrap;
+   margin-bottom: 20px;
+}
+
+.game_events_container .logos .away, .game_events_container .logos .home {
+   display: inline-block;
+   width: 50%;
+   text-align: center;
+   white-space: normal;
+}
+
+.score_total .away_mini_logo, .score .home_mini_logo {
+   width: 20px;
+   height: 20px;
+   display: inline-block;
+   background-size: 20px;
+   margin: 0 2px;
+}
+
+.score_total span {
+   display: inline-block;
+   vertical-align: middle;
+   font-size: 15px;
+   color: #000;
+}
+
+

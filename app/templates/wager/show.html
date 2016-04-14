@@ -164,8 +164,27 @@
             </div>  <!-- boxscore_top -->
          </div> <!-- game_top -->
       </div> <!-- content_box_top -->
-      <div class="game_events cf" id="game_events">
-         {% include 'setup/loading.html' %}
+      <div class="game_events_container">
+         <div class="logos">
+            <div class="away">
+               <img src="/static/images/mlb_teams/{{game.data.boxscore.away_team_code}}.png">
+            </div>
+            <div class="home">
+               <img src="/static/images/mlb_teams/{{game.data.boxscore.home_team_code}}.png">
+            </div>
+         </div>
+         <div class="game_events cf" id="game_events">
+            {% include 'setup/loading.html' %}
+         </div>
       </div>
    </div> <!-- content_box -->
+   <style type="text/css">
+      .away_mini_logo {
+         background-image: url("/static/images/mlb_teams/{{game.data.boxscore.away_team_code}}.png");
+      }
+
+      .home_mini_logo {
+         background-image: url("/static/images/mlb_teams/{{game.data.boxscore.home_team_code}}.png");
+      }
+   </style>
 {% endblock %}
