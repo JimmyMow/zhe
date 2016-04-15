@@ -17,7 +17,7 @@
 
 .linescore .details_top .header .game_title {
    display: inline-block;
-   font-size: 32px;
+   font-size: 22px;
    font-weight: 200;
    margin: 0 4px;
 }
@@ -28,7 +28,7 @@
 }
 
 .linescore .details_top .time_location {
-   font-size: 18px;
+   font-size: 16px;
    margin-top: 10px;
    font-weight: bold;
 }

@@ -19,7 +19,6 @@ def all_wagers():
 def wager(wager_id):
     wager = models.MLBWager.query.filter_by(id=wager_id).first()
     game = mlb.get_mlb_game(wager.game_id)
-    print("game: {}".format(game))
     return render_template('wager/show.html', wager=wager, game=game, innings=[])
 
 @wagerbp.route('/<path:wager_id>/stream_events', methods=['GET'])

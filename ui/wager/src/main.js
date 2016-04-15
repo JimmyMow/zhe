@@ -23,7 +23,7 @@ timer = setInterval(function() {
 
 function buildEvents(data) {
    var innings = JSON.parse(data);
-   if (!innings.top) {
+   if (!innings.length) {
       var html = m('h2', {
          style: {
             'text-align': 'center',

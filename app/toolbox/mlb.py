@@ -1,14 +1,29 @@
 from app import app
 from bs4 import BeautifulSoup
 import requests
-import datetime
+from datetime import datetime,tzinfo,timedelta
 import json
 import xmltodict
 
+
+class Zone(tzinfo):
+    def __init__(self,offset,isdst,name):
+        self.offset = offset
+        self.isdst = isdst
+        self.name = name
+    def utcoffset(self, dt):
+        return timedelta(hours=self.offset) + self.dst(dt)
+    def dst(self, dt):
+            return timedelta(hours=1) if self.isdst else timedelta(0)
+    def tzname(self,dt):
+         return self.name
+
 def get_todays_games():
-   now = datetime.datetime.now()
+   EST = Zone(-5,False,'EST')
+   now = datetime.now(EST)
 
    url = "http://gd2.mlb.com/components/game/mlb/year_"+ str(now.year) +"/month_"+ now.strftime('%m') +"/day_"+ str(now.day) +"/epg.xml"
+   print("games url: {}".format(url))
    r = requests.get(url)
    if r.status_code == 200:
       soup = BeautifulSoup(r.text, "lxml")
