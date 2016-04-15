@@ -21,12 +21,19 @@ timer = setInterval(function() {
    }
 }, 1000);
 
-var html = m('div.events', [
-
-]);
-
 function buildEvents(data) {
    var innings = JSON.parse(data);
+   if (!innings.top) {
+      var html = m('h2', {
+         style: {
+            'text-align': 'center',
+            'font-weight': 'bold',
+            'font-size': '20px'
+         }
+      }, "Scoring updates will come once the game starts")
+      m.render(ge, html);
+      return;
+   }
    var html = m('div', {
       class: ['events', 'cf'].join(' ')
    }, innings.map(function(inning) {

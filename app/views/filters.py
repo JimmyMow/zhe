@@ -81,3 +81,13 @@ def pretty_date(date_str):
 
    dt = parser.parse(date_str)
    return dt.strftime("%A, %B %d, %Y")
+
+@app.template_filter('display_pitcher')
+def display_pitcher(pitcher_data, key):
+
+   if type(pitcher_data) is list:
+      return pitcher_data[0][key]
+   elif type(pitcher_data) is dict:
+      return pitcher_data[key]
+   else:
+      return "Error"

@@ -148,13 +148,29 @@
                <div class="pitching_top">
                   <p>
                      <span class="team">{{game.data.boxscore.away_team_code}}:</span>
-                     <a href="">{{game.data.boxscore.pitching[0].pitcher[0].name}}</a>
-                     <span class="record">({{game.data.boxscore.pitching[0].pitcher[0].w}}-{{game.data.boxscore.pitching[0].pitcher[0].l}}, {{game.data.boxscore.pitching[0].pitcher[0].era}})</span>
+                     <a>
+                        {{game.data.boxscore.pitching[0].pitcher|display_pitcher('name')}}
+                     </a>
+                     <span class="record">
+                        ({{game.data.boxscore.pitching[0].pitcher|display_pitcher('w')}}
+                        -
+                        {{game.data.boxscore.pitching[0].pitcher|display_pitcher('l')}}
+                        ,
+                        {{game.data.boxscore.pitching[0].pitcher|display_pitcher('era')}})
+                     </span>
                   </p>
                   <p>
                      <span class="team">{{game.data.boxscore.home_team_code}}:</span>
-                     <a href="">{{game.data.boxscore.pitching[1].pitcher[0].name}}</a>
-                     <span class="record">({{game.data.boxscore.pitching[1].pitcher[0].w}}-{{game.data.boxscore.pitching[1].pitcher[0].l}}, {{game.data.boxscore.pitching[1].pitcher[0].era}})</span>
+                     <a>
+                        {{game.data.boxscore.pitching[1].pitcher|display_pitcher('name')}}
+                     </a>
+                     <span class="record">
+                        ({{game.data.boxscore.pitching[1].pitcher|display_pitcher('w')}}
+                        -
+                        {{game.data.boxscore.pitching[1].pitcher|display_pitcher('l')}}
+                        ,
+                        {{game.data.boxscore.pitching[1].pitcher|display_pitcher('era')}})
+                     </span>
                   </p>
                </div>
             </div> <!-- linescore -->
