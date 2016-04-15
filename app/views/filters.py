@@ -91,3 +91,10 @@ def display_pitcher(pitcher_data, key):
       return pitcher_data[key]
    else:
       return "Error"
+
+@app.template_filter('boxscore_inning')
+def boxscore_inning(inning, side):
+   try:
+      return inning[side]
+   except:
+      return ""

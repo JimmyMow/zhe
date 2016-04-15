@@ -66,7 +66,8 @@
 
 .game_top img {
    height: 100px;
-   width: 100px;
+   width: 82.6666px;
+   padding: 0 5px;
 }
 
 .boxscore .away_top img {
@@ -275,6 +276,11 @@ table tbody td {
    width: 50%;
    text-align: center;
    white-space: normal;
+}
+
+.game_events_container .logos .away img, .game_events_container .logos .home img {
+   width: 150px;
+   height: 181px;
 }
 
 .score_total .away_mini_logo, .score .home_mini_logo {
