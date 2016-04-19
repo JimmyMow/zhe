@@ -40,9 +40,11 @@ def setup_friend():
       if data['team_status'] == 'home':
          mlb_wager.home_id = session['email']
          mlb_wager.original_side = 'home'
+         mlb_wager.home_pubkey = data['pubkey']
       else:
          mlb_wager.away_id = session['email']
          mlb_wager.original_side = 'away'
+         mlb_wager.away_pubkey = data['pubkey']
 
       # Insert the user in the database
       db.session.add(mlb_wager)

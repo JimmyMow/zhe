@@ -147,23 +147,27 @@ $(document).ready(function() {
          var game_id = $('#selectGame').find(":selected").val();
          var team_name = $('label[for="' + $bet_form.find('input[name=team]:checked').attr('id') +'"]').text().toLowerCase();
 
+         var pair = zheBitcoin.createPair();
+
          data.game_id = game_id;
          data.team_status = team_status == 'team_0' ? 'away' : 'home';
          data.team_name = team_name;
          data.value = $money.val();
          data.spread = $spread.val();
          data.line = $line.val();
+         data.pubkey = pair.pubkey;
 
          $.ajax({
             url: $(this).attr('action'),
             method: 'post',
             data: data,
-            success: function(wager) {
-               console.log("success: ", wager);
-               window.location.replace("/wager/" + wager.id);
+            success: function(data) {
+               zheBitcoin.userDownload('zhe_keypair_'+data.id, pair);
+               window.location.replace("/wager/" + data.id);
             },
             error: function(e) {
                console.log("fail: ", e);
+               window.location.reload();
             }
          });
          e.preventDefault();

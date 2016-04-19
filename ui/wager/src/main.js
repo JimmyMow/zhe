@@ -30,7 +30,7 @@ function buildEvents(data) {
             'font-weight': 'bold',
             'font-size': '20px'
          }
-      }, "Scoring updates will come once the game starts")
+      }, "Scoring updates will come once someone scores")
       m.render(ge, html);
       return;
    }

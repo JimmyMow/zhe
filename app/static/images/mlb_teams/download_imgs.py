@@ -42,4 +42,3 @@ import time
    #    print("{} is ok".format(team))
    # except:
    #    print("problem with {}".format(team))
-

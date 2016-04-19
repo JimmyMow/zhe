@@ -134,11 +134,21 @@ div.lichess_overboard .submit_bet {
 }
 
 #hooks_wrap .hooks_chart .plot.cubs::before {
-   content: url("http://www.draftsite.com/images/teamlogos/81.gif");
+  content: "";
+  background-image: url("/static/images/mlb_teams/mlb_chn.png");
+  background-size: 30px 35px;
+  display: inline-block;
+  width: 30px;
+  height: 35px;
 }
 
 #hooks_wrap .hooks_chart .plot.angels::before {
-   content: url("http://cdn.topps.com/media/catalog/category/LAA.png");
+  content: "";
+  background-image: url("/static/images/mlb_teams/mlb_ana.png");
+  background-size: 30px 35px;
+  display: inline-block;
+  width: 30px;
+  height: 35px;
 }
 
 #hooks_wrap .canvas {

@@ -13,7 +13,7 @@ var onError = function(error) {
   gutil.log(gutil.colors.red(error.message));
 };
 
-var standalone = 'zheLobby';
+var standalone = 'zheBitcoin';
 
 gulp.task('prod', function() {
   console.log("prod");
@@ -21,7 +21,7 @@ gulp.task('prod', function() {
     standalone: standalone
   }).bundle()
     .on('error', onError)
-    .pipe(source('wager.mockup.min.js'))
+    .pipe(source('zhe.bitcoin.min.js'))
     .pipe(streamify(uglify()))
     .pipe(gulp.dest(destination));
 });
@@ -32,7 +32,7 @@ gulp.task('dev', function() {
     standalone: standalone
   }).bundle()
     .on('error', onError)
-    .pipe(source('wager.mockup.js'))
+    .pipe(source('zhe.bitcoin.js'))
     .pipe(gulp.dest(destination));
 });
 
@@ -50,7 +50,7 @@ gulp.task('watch', function() {
     console.log(destination);
     return bundleStream.bundle()
       .on('error', onError)
-      .pipe(source('wager.mockup.js'))
+      .pipe(source('zhe.bitcoin.js'))
       .pipe(gulp.dest(destination));
   }
 

@@ -19,11 +19,16 @@
    padding-bottom: 10px;
 }
 
-.game_top .away_top, .game_top .home_top, .game_top .details_top {
+.boxscore .game_top .away_top, .boxscore .game_top .home_top {
    float: left;
-   width: 33.3333%;
+   width: 40%;
    white-space: normal;
-   /*background-color: grey;*/
+}
+
+.boxscore .game_top .details_top {
+   float: left;
+   width: 20%;
+   white-space: normal;
 }
 
 .away_top {
