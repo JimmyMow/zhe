@@ -43,6 +43,19 @@
                      </span>
                   {% endif %}
                </div>
+               <div class="user_container user_away">
+                  {% if wager.away_id %}
+                     <div class="accepted">
+                        <p>{{wager.away_id}}</p>
+                     </div>
+                  {% else %}
+                     <div class="not_accepted">
+                        <form onsubmit="return false;">
+                           <button class="accept_button" type="submit">Take the {{game.data.boxscore.away_fname|team_name}}</button>
+                        </form>
+                     </div>
+                  {% endif %}
+               </div>
             </div>
             <div class="details_top">
                <span class="gametime_top">8:40 PM CT</span>
@@ -88,6 +101,19 @@
                   {% endif %}
                </div>
                <img src="/static/images/mlb_teams/mlb_{{game.data.boxscore.home_team_code}}.png">
+               <div class="user_container user_home">
+                  {% if wager.home_id %}
+                     <div class="accepted">
+                        <p>{{wager.home_id}}</p>
+                     </div>
+                  {% else %}
+                     <div class="not_accepted">
+                        <form onsubmit="return false;">
+                           <button class="accept_button" type="submit">Take the {{game.data.boxscore.home_fname|team_name}}</button>
+                        </form>
+                     </div>
+                  {% endif %}
+               </div>
             </div>
          </div> <!-- summary_top -->
          <div class="boxscore_top">

@@ -149,6 +149,11 @@ $(document).ready(function() {
 
          var pair = zheBitcoin.createPair();
 
+         if (!pair) {
+            alert("Problem creating your keypair. Try again");
+            return;
+         }
+
          data.game_id = game_id;
          data.team_status = team_status == 'team_0' ? 'away' : 'home';
          data.team_name = team_name;

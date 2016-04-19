@@ -173,6 +173,50 @@ input[type=range]:focus::-ms-fill-upper {
   stroke: #ddd;
 }
 
+/* Accept button */
+.accept-button {
+  cursor: pointer;
+  font-weight: bold;
+  margin: 1.2em 0;
+  padding: 1em;
+  text-align: center;
+  display: block;
+  letter-spacing: -1px;
+  transition: 0.13s;
+  box-shadow: 0 0 9px rgba(255,255,255,0.4)
+  font-family: 20px 'Noto Sans','Lucida Grande','Lucida Sans Unicode',Geneva,Verdana,Sans-Serif;
+  background: linear-gradient(to bottom,rgba(245,245,245,1) 0%,rgba(240,240,240,1) 100%);
+  text-shadow: 0 1px 0 #FFF;
+  color: #848484;
+  border-radius: 2px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #e2e2e2;
+  width: 100%;
+}
+
+.accept-button:hover {
+  border-color: #e2e2e2;
+  background: rgb(248, 248, 248);
+  background: -moz-linear-gradient(top, rgba(248, 248, 248, 1) 0%, rgba(243, 243, 243, 1) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(248, 248, 248, 1)), color-stop(100%, rgba(243, 243, 243, 1)));
+  background: -webkit-linear-gradient(top, rgba(248, 248, 248, 1) 0%, rgba(243, 243, 243, 1) 100%);
+  background: -ms-linear-gradient(top, rgba(248, 248, 248, 1) 0%, rgba(243, 243, 243, 1) 100%);
+  background: linear-gradient(to bottom, rgba(248, 248, 248, 1) 0%, rgba(243, 243, 243, 1) 100%);
+  color: #848484;
+}
+
+.accept-button:focus {
+  outline:0;
+}
+
+.accept-button.active {
+  color: #fff;
+  text-shadow: 0 1px 0 #000;
+  background: #d85000;
+  border-color: #b84400;
+  box-shadow: 0 3px 4px rgba(0,0,0,0.15) inset;
+
 /* Clearfix */
 .cf:before,
 .cf:after {
