@@ -303,4 +303,17 @@ table tbody td {
    color: #000;
 }
 
+/* User */
+.user_container {
+   width: 75%;
+   margin: 5px;
+   display: inline-block;
+}
+
+.user_container .accepted p {
+   font-size: 16px;
+   margin: 1.2em 0;
+   padding: 1em;
+}
+
 

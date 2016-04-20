@@ -174,7 +174,7 @@ input[type=range]:focus::-ms-fill-upper {
 }
 
 /* Accept button */
-.accept-button {
+.accept_button {
   cursor: pointer;
   font-weight: bold;
   margin: 1.2em 0;
@@ -195,7 +195,7 @@ input[type=range]:focus::-ms-fill-upper {
   width: 100%;
 }
 
-.accept-button:hover {
+.accept_button:hover {
   border-color: #e2e2e2;
   background: rgb(248, 248, 248);
   background: -moz-linear-gradient(top, rgba(248, 248, 248, 1) 0%, rgba(243, 243, 243, 1) 100%);
@@ -206,16 +206,31 @@ input[type=range]:focus::-ms-fill-upper {
   color: #848484;
 }
 
-.accept-button:focus {
+.accept_button:focus {
   outline:0;
 }
 
-.accept-button.active {
+.accept_button.active {
   color: #fff;
   text-shadow: 0 1px 0 #000;
   background: #d85000;
   border-color: #b84400;
   box-shadow: 0 3px 4px rgba(0,0,0,0.15) inset;
+}
+
+@-webkit-keyframes bluePulse {
+  from { background-color: #F7931A; -webkit-box-shadow: 0 0 9px #F7931A; }
+  50% { background-color: #F7931A; -webkit-box-shadow: 0 0 28px #F7931A; }
+  to { background-color: #F7931A; -webkit-box-shadow: 0 0 9px #F7931A; }
+}
+
+.accept_button {
+  -webkit-animation-name: bluePulse;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite;
+  font-size: 16px;
+}
+
 
 /* Clearfix */
 .cf:before,
