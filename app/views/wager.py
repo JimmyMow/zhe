@@ -15,11 +15,21 @@ def all_wagers():
     wagers = models.MLBWager.query.all()
     return render_template('wager/all.html', wagers=wagers)
 
-@wagerbp.route('/<path:wager_id>', methods=['GET'])
+@wagerbp.route('/<path:wager_id>', methods=['GET', 'POST'])
 def wager(wager_id):
-    wager = models.MLBWager.query.filter_by(id=wager_id).first()
-    game = mlb.get_mlb_game(wager.game_id)
-    return render_template('wager/show.html', wager=wager, game=game, innings=[])
+  wager = models.MLBWager.query.filter_by(id=wager_id).first()
+
+  if request.method == 'POST':
+    def create_contract(wager):
+        arr = ["Assigning pubkeys", "Creating contract"]
+        for x in arr:
+          yield x
+          time.sleep(5)  # an artificial delay
+
+    return Response(create_contract(wager), content_type='text/event-stream')
+
+  game = mlb.get_mlb_game(wager.game_id)
+  return render_template('wager/show.html', wager=wager, game=game, innings=[])
 
 @wagerbp.route('/<path:wager_id>/stream_events', methods=['GET'])
 def stream_events(wager_id):

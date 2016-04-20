@@ -1,4 +1,4 @@
-<div class="content_box no_padding wager_show boxscore" id="boxscore_present">
+<div class="content_box no_padding wager_show boxscore" id="boxscore">
    <div class="content_box_top">
       <div class="game_top">
          <div class="summary_top">
@@ -50,7 +50,7 @@
                      </div>
                   {% else %}
                      <div class="not_accepted">
-                        <form onsubmit="return false;">
+                        <form class="accept_wager" action="/wager/{{wager.id}}">
                            <button class="accept_button" type="submit">Take the {{game.data.boxscore.away_fname|team_name}}</button>
                         </form>
                      </div>
@@ -108,7 +108,7 @@
                      </div>
                   {% else %}
                      <div class="not_accepted">
-                        <form onsubmit="return false;">
+                        <form class="accept_wager" action="/wager/{{wager.id}}" method="post">
                            <button class="accept_button" type="submit">Take the {{game.data.boxscore.home_fname|team_name}}</button>
                         </form>
                      </div>

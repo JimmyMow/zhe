@@ -201,4 +201,34 @@ $(document).ready(function() {
       });
       return false;
    });
+
+   //////////////
+   // Boxscore //
+   //////////////
+
+   var $accept_form = $("#boxscore").find(".accept_wager");
+
+   $accept_form.on('submit', function(e) {
+
+      var xmlhttp = new XMLHttpRequest(),
+      method = "POST",
+      url = window.location.pathname;
+
+      xmlhttp.open(method, url, true);
+      xmlhttp.onreadystatechange = function () {
+         // ge.innerHTML = xmlhttp.responseText;
+         console.log("change: ", xmlhttp.responseText);
+      }
+      xmlhttp.send();
+      var timer;
+      timer = setInterval(function() {
+         // stop checking once the response has ended
+         if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+            console.log("done: ", xmlhttp.responseText);
+            clearInterval(timer);
+         }
+      }, 1000);
+
+      e.preventDefault();
+   });
 });
