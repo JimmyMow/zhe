@@ -73,6 +73,9 @@ def get_mlb_game(game_id):
    boxscore_url = "http://gd2.mlb.com/components/game/mlb/year_" + year + "/month_" + month + "/day_" + day + "/gid_" + game_id.replace('/', '_').replace('-', '_') + "/boxscore.json"
    scoreline_url = "http://gd2.mlb.com/components/game/mlb/year_" + year + "/month_" + month + "/day_" + day + "/gid_" + game_id.replace('/', '_').replace('-', '_') + "/linescore.json"
 
+   print("boxscore {}".format(boxscore_url))
+   print("scoreline {}".format(scoreline_url))
+
    try:
       r = requests.get(boxscore_url)
       data = r.json()

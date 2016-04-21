@@ -206,26 +206,38 @@ $(document).ready(function() {
    // Boxscore //
    //////////////
 
-   var $accept_form = $("#boxscore").find(".accept_wager");
+   var $accept_form = $(".wager_show").find(".accept_wager");
 
    $accept_form.on('submit', function(e) {
+      // p tag to be updated
+      var $updated_res = $('#updated_res');
+      // Add loading screen
+      $('.wager_show div.lichess_overboard').addClass('active');
 
       var xmlhttp = new XMLHttpRequest(),
       method = "POST",
-      url = window.location.pathname;
+      url = window.location.pathname,
+      new_res = '';
 
       xmlhttp.open(method, url, true);
       xmlhttp.onreadystatechange = function () {
          // ge.innerHTML = xmlhttp.responseText;
-         console.log("change: ", xmlhttp.responseText);
+         if(new_res.length) {
+            var x = xmlhttp.responseText.substring(new_res.length);
+            console.log("new: ", x);
+            $updated_res.text(x);
+         }
+         new_res = xmlhttp.responseText;
+         console.log("new_res: ", new_res);
       }
       xmlhttp.send();
       var timer;
       timer = setInterval(function() {
          // stop checking once the response has ended
          if (xmlhttp.readyState == XMLHttpRequest.DONE) {
-            console.log("done: ", xmlhttp.responseText);
+            console.log("done");
             clearInterval(timer);
+            window.location.reload();
          }
       }, 1000);
 

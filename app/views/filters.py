@@ -98,3 +98,10 @@ def boxscore_inning(inning, side):
       return inning[side]
    except:
       return ""
+
+@app.template_filter('probable_pitcher')
+def boxscore_inning(data, side):
+   if side == 'away':
+      return "{} {}, {} #{}".format(data['away_probable_pitcher']['first'], data['away_probable_pitcher']['last'], data['away_probable_pitcher']['throwinghand'], data['away_probable_pitcher']['number'])
+   else:
+      return "{} {}, {} #{}".format(data['home_probable_pitcher']['first'], data['home_probable_pitcher']['last'], data['home_probable_pitcher']['throwinghand'], data['home_probable_pitcher']['number'])

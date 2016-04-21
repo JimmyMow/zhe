@@ -66,6 +66,15 @@ div.lichess_overboard {
     box-sizing: border-box;
 }
 
+.wager_show div.lichess_overboard {
+  left: 197px;
+  display: none;
+}
+
+.wager_show div.lichess_overboard.active {
+  display: inline;
+}
+
 div.lichess_overboard a.close {
     float: right;
     display: block;

@@ -1,4 +1,7 @@
 <div class="content_box no_padding wager_show linescore">
+   <div class="lichess_overboard">
+      hi
+   </div>
    <div class="content_box_top">
       <div class="game_top">
          <div class="summary_top">
@@ -8,11 +11,17 @@
                   <div class="record">
                      ({{game.data.game.away_win}}-{{game.data.game.away_loss}})
                   </div>
-                  <div class="away_bettor bettor">
-                     {% if wager.original_side == 'away' %}
-                        <p>{{wager.author_id}}</p>
+                  <div class="user_container user_away">
+                     {% if wager.away_id %}
+                        <div class="accepted">
+                           <p>{{wager.away_id}}</p>
+                        </div>
                      {% else %}
-                        <p>accept wager button</p>
+                        <div class="not_accepted">
+                           <form class="accept_wager" action="/wager/{{wager.id}}">
+                              <button class="accept_button" type="submit">Take the {{game.data.game.away_team_name}}</button>
+                           </form>
+                        </div>
                      {% endif %}
                   </div>
                </div>
@@ -36,11 +45,17 @@
                   <div class="record">
                      ({{game.data.game.home_win}}-{{game.data.game.home_loss}})
                   </div>
-                  <div class="home_bettor bettor">
-                     {% if wager.original_side == 'home' %}
-                        <p>{{wager.author_id}}</p>
+                  <div class="user_container user_home">
+                     {% if wager.home_id %}
+                        <div class="accepted">
+                           <p>{{wager.home_id}}</p>
+                        </div>
                      {% else %}
-                        <p>accept wager button</p>
+                        <div class="not_accepted">
+                           <form class="accept_wager" action="/wager/{{wager.id}}" method="post">
+                              <button class="accept_button" type="submit">Take the {{game.data.game.home_team_name}}</button>
+                           </form>
+                        </div>
                      {% endif %}
                   </div>
                </div>
@@ -48,5 +63,37 @@
          </div> <!-- summary_top -->
       </div> <!-- game_top -->
    </div> <!-- content_box_top -->
+   <div class="pitchers">
+      <div class="away_probable_pitcher probable_pitcher">
+         <img src="http://mlb.mlb.com/images/players/525x330/alt/{{game.data.game.away_probable_pitcher.id}}.jpg">
+         <h5>
+            {{game.data.game|probable_pitcher('away')}}
+         </h5>
+         <p>
+            <span class="stat">
+               {{game.data.game.away_probable_pitcher.wins}}-{{game.data.game.away_probable_pitcher.losses}}
+            </span>
+            <span class="stat">|</span>
+            <span class="stat">
+               {{game.data.game.home_probable_pitcher.era}} ERA
+            </span>
+         </p>
+      </div>
+      <div class="home_probable_pitcher probable_pitcher">
+         <img src="http://mlb.mlb.com/images/players/525x330/alt/{{game.data.game.home_probable_pitcher.id}}.jpg">
+         <h5>
+            {{game.data.game|probable_pitcher('home')}}
+         </h5>
+         <p>
+            <span class="stat">
+               {{game.data.game.home_probable_pitcher.wins}}-{{game.data.game.home_probable_pitcher.losses}}
+            </span>
+            <span class="stat">|</span>
+            <span class="stat">
+               {{game.data.game.home_probable_pitcher.era}} ERA
+            </span>
+         </p>
+      </div>
+   </div>
 </div> <!-- content_box -->
 

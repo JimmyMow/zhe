@@ -6,7 +6,6 @@ from math import sqrt
 import time
 import json
 
-
 # Create a wager blueprint
 wagerbp = Blueprint('wagerbp', __name__, url_prefix='/wager')
 
@@ -21,10 +20,16 @@ def wager(wager_id):
 
   if request.method == 'POST':
     def create_contract(wager):
-        arr = ["Assigning pubkeys", "Creating contract"]
-        for x in arr:
-          yield x
-          time.sleep(5)  # an artificial delay
+        if wager.away_id:
+          msg = "home needs to be claimed"
+        elif wager.home_id:
+          msg = "away needs to be claimed"
+        else:
+          abort(500)
+
+        for x in range(5):
+          yield msg
+          time.sleep(2) # an artificial delay
 
     return Response(create_contract(wager), content_type='text/event-stream')
 
