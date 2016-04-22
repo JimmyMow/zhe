@@ -39,6 +39,14 @@
                <div class="time_location">
                   {{game.data.game.time}} {{game.data.game.ampm}} ET • {{game.data.game.venue}}
                </div>
+               {% if wager.script_address %}
+                  <div class="script_address">
+                     <div class="qr_container">
+                        <div id="qrcode"></div>
+                     </div>
+                     <p>{{wager.script_address}}</p>
+                  </div>
+               {% endif %}
             </div>
             <div class="home_top team_top">
                <div class="linescore_team">
@@ -97,4 +105,16 @@
       </div>
    </div>
 </div> <!-- content_box -->
+
+<script type="text/javascript">
+      $(document).ready(function() {
+         $("#qrcode").qrcode({
+            "size": 150,
+            "fill": '#000',
+            "render": "div",
+            "text": "{{wager.script_address}}",
+            "label": '{{wager.script_address}}',
+         });
+      });
+   </script>
 
