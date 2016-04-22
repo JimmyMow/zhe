@@ -34,56 +34,47 @@ def wager(wager_id):
       print("ERROR: Must have a pubkey")
       abort(500)
 
-    def create_contract(user_email, pubkey, wager, db):
-      print(user_email)
-      print(pubkey)
-      print(wager)
-      print(db)
-      # Assign user and pubkey to home or away
-      if wager.away_id:
-        wager.home_id = user_email
-        wager.home_pubkey = pubkey
-      elif wager.home_id:
-        wager.away_id = user_email
-        wager.away_pubkey = pubkey
-      else:
-        print("ERROR: Wager has already been accepted")
-        abort(500)
+    # Assign user and pubkey to home or away
+    if wager.away_id:
+      wager.home_id = user_email
+      wager.home_pubkey = pubkey
+    elif wager.home_id:
+      wager.away_id = user_email
+      wager.away_pubkey = pubkey
+    else:
+      print("ERROR: Wager has already been accepted")
+      abort(500)
 
-      # Assign user to acceptor
-      wager.acceptor_id = user_email
+    # Make sure nobody accepts their own wager
+    if wager.home_id == wager.away_id:
+      print("ERROR: Can't accept your own wager")
+      abort(500)
 
-      # Get servers pubkey and assign it
-      w = wallet_helper()
-      wager.server_pubkey = w.payout_pubkey_str()
+    # Assign user to acceptor
+    wager.acceptor_id = user_email
 
-      # Update loading message
-      yield "Creating smart contract"
+    # Get servers pubkey and assign it
+    w = wallet_helper()
+    wager.server_pubkey = w.payout_pubkey_str()
 
-      # Create contract and save address + hex
-      try:
-        script_data = w.create_contract(wager)
-      except:
-        print("ERROR: Trouble creating multisig redeem script")
-        abort(500)
+    # Create contract and save address + hex
+    try:
+      script_data = w.create_contract(wager)
+    except:
+      print("ERROR: Trouble creating multisig redeem script")
+      abort(500)
 
-      print(script_data)
-      wager.script_address = script_data['script_address']
-      wager.script_hex = script_data['script_hex']
+    print(script_data)
+    wager.script_address = script_data['script_address']
+    wager.script_hex = script_data['script_hex']
 
-      # Update loading message
-      yield "Securing data"
+    try:
+      db.session.commit()
+    except:
+      print("ERROR: Trouble saving wager to DB")
+      abort(500)
 
-      try:
-        print("saving updated wager")
-        db.session.commit()
-      except:
-        print("ERROR: Trouble saving wager to DB")
-        abort(500)
-
-      return "Done."
-
-    return Response(create_contract(user_email, pubkey, wager, db), content_type='text/event-stream')
+    return "Done with ajax request."
 
   game = mlb.get_mlb_game(wager.game_id)
   return render_template('wager/show.html', wager=wager, game=game, innings=[])

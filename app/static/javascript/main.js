@@ -247,6 +247,10 @@ $(document).ready(function() {
       timer = setInterval(function() {
          // stop checking once the response has ended
          if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+            if (xmlhttp.status == 200) {
+               var arr = window.location.pathname.split('/');
+               zheBitcoin.userDownload('zhe_keypair_'+arr[arr.length - 1], pair);
+            }
             clearInterval(timer);
             window.location.reload();
          }
