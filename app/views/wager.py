@@ -1,6 +1,9 @@
-from flask import Blueprint, render_template, url_for, Response, stream_with_context, request
+from flask import Blueprint, render_template, url_for, Response, stream_with_context, request, abort, session
 from app import app, models, db
+
 from app.toolbox import mlb
+from app.toolbox.wallet_helper import wallet_helper
+
 from datetime import datetime
 from math import sqrt
 import time
@@ -19,19 +22,68 @@ def wager(wager_id):
   wager = models.MLBWager.query.filter_by(id=wager_id).first()
 
   if request.method == 'POST':
-    def create_contract(wager):
-        if wager.away_id:
-          msg = "home needs to be claimed"
-        elif wager.home_id:
-          msg = "away needs to be claimed"
-        else:
-          abort(500)
+    try:
+      user_email = session['email']
+    except:
+      print("ERROR: Must be signed in to accept wager")
+      abort(500)
 
-        for x in range(5):
-          yield msg
-          time.sleep(2) # an artificial delay
+    try:
+      pubkey = request.form['pubkey']
+    except:
+      print("ERROR: Must have a pubkey")
+      abort(500)
 
-    return Response(create_contract(wager), content_type='text/event-stream')
+    def create_contract(user_email, pubkey, wager, db):
+      print(user_email)
+      print(pubkey)
+      print(wager)
+      print(db)
+      # Assign user and pubkey to home or away
+      if wager.away_id:
+        wager.home_id = user_email
+        wager.home_pubkey = pubkey
+      elif wager.home_id:
+        wager.away_id = user_email
+        wager.away_pubkey = pubkey
+      else:
+        print("ERROR: Wager has already been accepted")
+        abort(500)
+
+      # Assign user to acceptor
+      wager.acceptor_id = user_email
+
+      # Get servers pubkey and assign it
+      w = wallet_helper()
+      wager.server_pubkey = w.payout_pubkey_str()
+
+      # Update loading message
+      yield "Creating smart contract"
+
+      # Create contract and save address + hex
+      try:
+        script_data = w.create_contract(wager)
+      except:
+        print("ERROR: Trouble creating multisig redeem script")
+        abort(500)
+
+      print(script_data)
+      wager.script_address = script_data['script_address']
+      wager.script_hex = script_data['script_hex']
+
+      # Update loading message
+      yield "Securing data"
+
+      try:
+        print("saving updated wager")
+        db.session.commit()
+      except:
+        print("ERROR: Trouble saving wager to DB")
+        abort(500)
+
+      return "Done."
+
+    return Response(create_contract(user_email, pubkey, wager, db), content_type='text/event-stream')
 
   game = mlb.get_mlb_game(wager.game_id)
   return render_template('wager/show.html', wager=wager, game=game, innings=[])

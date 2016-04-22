@@ -5,8 +5,9 @@ var exports = {};
 exports.createPair = function() {
    var ecPair = bitcoin.ECPair.makeRandom();
    var keypair = {};
-   keypair.pubkey = ecPair.getAddress();
+   keypair.pubkey = ecPair.Q.getEncoded().toString('hex');;
    keypair.privkey = ecPair.toWIF();
+   keypair.address = ecPair.getAddress();
 
    return keypair;
 };

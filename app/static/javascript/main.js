@@ -209,6 +209,13 @@ $(document).ready(function() {
    var $accept_form = $(".wager_show").find(".accept_wager");
 
    $accept_form.on('submit', function(e) {
+      // Create keypair for acceptor
+      var pair = zheBitcoin.createPair();
+
+      if (!pair) {
+         alert("Problem creating your keypair. Try again");
+         return;
+      }
       // p tag to be updated
       var $updated_res = $('#updated_res');
       // Add loading screen
@@ -217,6 +224,7 @@ $(document).ready(function() {
       var xmlhttp = new XMLHttpRequest(),
       method = "POST",
       url = window.location.pathname,
+      params = 'pubkey='+pair.pubkey,
       new_res = '';
 
       xmlhttp.open(method, url, true);
@@ -228,14 +236,17 @@ $(document).ready(function() {
             $updated_res.text(x);
          }
          new_res = xmlhttp.responseText;
-         console.log("new_res: ", new_res);
       }
-      xmlhttp.send();
+
+      // Send request
+      xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
+      xmlhttp.send(params);
+
+      // Check for incoming data
       var timer;
       timer = setInterval(function() {
          // stop checking once the response has ended
          if (xmlhttp.readyState == XMLHttpRequest.DONE) {
-            console.log("done");
             clearInterval(timer);
             window.location.reload();
          }

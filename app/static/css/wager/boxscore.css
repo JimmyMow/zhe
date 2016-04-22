@@ -105,26 +105,26 @@
    border-bottom: 1px solid #ccc;
 }
 
-.boxscore_top .linescore {
+.boxscore_top .boxscore_linescore {
    margin: 15px auto;
    overflow: hidden;
    width: 80%;
 }
 
-.boxscore_top .linescore .linescore_container {
+.boxscore_top .boxscore_linescore .boxscore_linescore_container {
    float: left;
    min-width: 30%;
    position: relative;
 }
 
-.linescore_container .table_linescore {
+.boxscore_linescore_container .table_linescore {
     border: 0;
     margin: 0 auto;
     position: relative;
     width: auto;
 }
 
-.linescore_container .team {
+.boxscore_linescore_container .team {
    padding-right: 15px;
    width: 3em;
    color: #36c;
@@ -132,7 +132,7 @@
    text-transform: uppercase;
 }
 
-.linescore_container .team a {
+.boxscore_linescore_container .team a {
    color: #36c;
 }
 
@@ -311,7 +311,7 @@ table tbody td {
 }
 
 .user_container .accepted p {
-   font-size: 16px;
+   font-size: 14px;
    margin: 1.2em 0;
    padding: 1em;
 }
