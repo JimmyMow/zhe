@@ -58,6 +58,8 @@ class MLBWager(db.Model):
     script_address = db.Column(db.String)
     script_hex = db.Column(db.String)
 
+    time_date = db.Column(db.DateTime)
+
     @property
     def json(self):
         return json_helper.to_json(self, self.__class__)

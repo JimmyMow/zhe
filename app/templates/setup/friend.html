@@ -14,6 +14,7 @@
                     data-homeid="{{game.home_team_id}}"
                     data-awayname="{{game.away_team_name}}"
                     data-awayid="{{game.away_team_id}}"
+                    time-date="{{game.time_date}}"
             >
               {{game.away_team_name}} @ {{game.home_team_name}}
             </option>
@@ -53,6 +54,7 @@
          <input type="number" data-type="range" name="line" id="line" value="0" min="-10000" max="10000" class="ui-shadow-inset ui-body-inherit ui-corner-all ui-slider-input">
          <input type="range" name="line" id="sliderline" value="0" min="-10000" max="10000">
       </div>
+
       <p id="betStatus">SELECT A TEAM</p>
 
       <button data-hint="Submit bet" type="submit" class="submit_bet button hint--bottom" name="color" value="random">

@@ -62,7 +62,15 @@
                </div>
             </div>
             <div class="details_top">
-               <span class="gametime_top">8:40 PM CT</span>
+               <span class="gametime_top">{{wager.time_date.strftime("%-I:%M%p")}} ET</span>
+               {% if wager.script_address %}
+                  <div class="script_address">
+                     <div class="qr_container">
+                        <div id="qrcode"></div>
+                     </div>
+                     <p>{{wager.script_address}}</p>
+                  </div>
+               {% endif %}
             </div>
             <div class="home_top">
                <div class="team_details">
@@ -234,3 +242,14 @@
       background-image: url("/static/images/mlb_teams/mlb_{{game.data.boxscore.home_team_code}}.png");
    }
 </style>
+<script type="text/javascript">
+   $(document).ready(function() {
+      $("#qrcode").qrcode({
+         "size": 150,
+         "fill": '#000',
+         "render": "div",
+         "text": "{{wager.script_address}}",
+         "label": '{{wager.script_address}}',
+      });
+   });
+</script>

@@ -107,14 +107,14 @@
 </div> <!-- content_box -->
 
 <script type="text/javascript">
-      $(document).ready(function() {
-         $("#qrcode").qrcode({
-            "size": 150,
-            "fill": '#000',
-            "render": "div",
-            "text": "{{wager.script_address}}",
-            "label": '{{wager.script_address}}',
-         });
+   $(document).ready(function() {
+      $("#qrcode").qrcode({
+         "size": 150,
+         "fill": '#000',
+         "render": "div",
+         "text": "{{wager.script_address}}",
+         "label": '{{wager.script_address}}',
       });
-   </script>
+   });
+</script>
 

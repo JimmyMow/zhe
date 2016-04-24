@@ -146,6 +146,7 @@ $(document).ready(function() {
          var data = {};
          var game_id = $('#selectGame').find(":selected").val();
          var team_name = $('label[for="' + $bet_form.find('input[name=team]:checked').attr('id') +'"]').text().toLowerCase();
+         var time_date = $('#selectGame').find(":selected").attr('time-date');
 
          var pair = zheBitcoin.createPair();
 
@@ -160,6 +161,7 @@ $(document).ready(function() {
          data.value = $money.val();
          data.spread = $spread.val();
          data.line = $line.val();
+         data.time_date = time_date;
          data.pubkey = pair.pubkey;
 
          $.ajax({

@@ -41,6 +41,8 @@ def get_todays_games():
       obj['away_team_id'] = game['away_team_id']
       obj['away_team_id'] = game['away_team_id']
       obj['gameday'] = game['gameday']
+      obj['time_date'] = game['time_date']
+
       games_arr.append(obj)
 
    return games_arr
