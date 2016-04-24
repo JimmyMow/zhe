@@ -31,6 +31,18 @@
    white-space: normal;
 }
 
+.boxscore .script_address p {
+   margin-left: -45px;
+}
+
+.wager_show .details_top .funds_container .spinner {
+   display: none;
+}
+
+.wager_show .details_top .loading .spinner {
+   display: block;
+}
+
 .away_top {
    text-align: left;
 }

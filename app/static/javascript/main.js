@@ -260,4 +260,16 @@ $(document).ready(function() {
 
       e.preventDefault();
    });
+
+   $("#check_funds").on("click", function(e) {
+      $(this).parent('.funds_container').addClass('loading');
+      var addr = $(this).attr('address');
+
+      $.get("https://blockexplorer.com/api/addr/"+addr+"/totalReceived", function(data) {
+         console.log("funds data: ", data);
+         $(this).parent('.funds_container').removeClass('loading');
+         $("#funds").text(data);
+      }.bind(this));
+      e.preventDefault();
+   });
 });

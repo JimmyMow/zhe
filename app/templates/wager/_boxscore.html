@@ -1,7 +1,9 @@
 <div class="content_box no_padding wager_show boxscore" id="boxscore">
    <div class="lichess_overboard">
       <p id="updated_res">Assiging your public key</p>
-      {% include 'setup/loading.html' %}
+      {% with width=100, height=100 %}
+          {% include 'setup/loading.html' %}
+      {% endwith %}
    </div>
    <div class="content_box_top">
       <div class="game_top">
@@ -71,6 +73,13 @@
                      <p>{{wager.script_address}}</p>
                   </div>
                {% endif %}
+               <div class="funds_container">
+                  <span id="funds">0</span>
+                  {% with width=50, height=50 %}
+                      {% include 'setup/loading.html' %}
+                  {% endwith %}
+                  <a href="#" id="check_funds" address="{{wager.script_address}}" style="text-decoration: underline;">Check funds</a>
+               </div>
             </div>
             <div class="home_top">
                <div class="team_details">
@@ -229,7 +238,9 @@
          </div>
       </div>
       <div class="game_events cf" id="game_events">
-         {% include 'setup/loading.html' %}
+         {% with width=100, height=100 %}
+             {% include 'setup/loading.html' %}
+         {% endwith %}
       </div>
    </div>
 </div> <!-- content_box -->
