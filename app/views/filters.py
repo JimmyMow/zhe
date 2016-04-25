@@ -12,14 +12,6 @@ def _jinja2_filter_datetime(date, fmt=None):
    date_object = datetime.strptime(date[0], '%Y-%m-%d')
    return date_object.strftime('%B %d')
 
-@app.template_filter('oppo')
-def oppo(spread):
-   oppo_spread = spread * -1
-   if oppo_spread > 0:
-      oppo_spread = "+"+str(oppo_spread)
-
-   return oppo_spread
-
 
 @app.template_filter('winnings')
 def winnings(wager):
@@ -105,3 +97,39 @@ def boxscore_inning(data, side):
       return "{} {}, {} #{}".format(data['away_probable_pitcher']['first'], data['away_probable_pitcher']['last'], data['away_probable_pitcher']['throwinghand'], data['away_probable_pitcher']['number'])
    else:
       return "{} {}, {} #{}".format(data['home_probable_pitcher']['first'], data['home_probable_pitcher']['last'], data['home_probable_pitcher']['throwinghand'], data['home_probable_pitcher']['number'])
+
+# Bet filters
+
+@app.template_filter('line')
+def line(line, side):
+   int_line = int(line)
+
+   if side == 'reg':
+      if int_line == 0:
+         return "Even odds"
+      elif int_line > 0:
+         return "+{}".format(int_line)
+      else:
+         return "-{}".format(int_line)
+   elif side == 'oppo':
+      if int_line == 0:
+         return "Even odds"
+      elif int_line > 0:
+         return "-{}".format(int_line)
+      else:
+         return "+{}".format(int_line)
+
+@app.template_filter('spread')
+def spread(spread, side):
+   int_spread = int(spread)
+   if int_spread == 0:
+      return "No spread"
+
+   if side == 'reg':
+      return int_spread
+   elif side == 'oppo':
+      oppo_spread = int_spread * -1
+      if oppo_spread > 0:
+         oppo_spread = "+{}".format(oppo_spread)
+
+      return oppo_spread

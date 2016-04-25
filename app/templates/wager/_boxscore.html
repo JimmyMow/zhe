@@ -19,29 +19,22 @@
                   </span>
                   {% if wager.original_side == 'away' %}
                      <span class="spread">
-                        <span>{{wager.spread}}</span>
+                        <span>{{wager.spread|spread('reg')}}</span>
                      </span>
                      <span class="line">
-                        {% if wager.line > 0 %}
-                           <span>+{{wager.line|int}}</span>
-                        {% else %}
-                           <span>-{{wager.line|int}}</span>
-                        {% endif %}
+                        <span>{{wager.line|line('reg')}}</span>
                      </span>
                      <span class="value">
                         <span>
-                           ${{wager.value}} to win ${{wager|winnings}}</span>
+                           ${{wager.value}} to win ${{wager|winnings}}
+                        </span>
                      </span>
                   {% else %}
                      <span class="spread">
-                        <span>{{wager.spread|oppo}}</span>
+                        <span>{{wager.spread|spread('oppo')}}</span>
                      </span>
                      <span class="line">
-                        {% if wager.line < 0 %}
-                           <span>+{{wager.line|int}}</span>
-                        {% else %}
-                           <span>-{{wager.line|int}}</span>
-                        {% endif %}
+                        <span>{{wager.line|line('oppo')}}</span>
                      </span>
                      <span class="value">
                         <span>
@@ -91,14 +84,10 @@
                   </span>
                   {% if wager.original_side == 'home' %}
                      <span class="spread">
-                        <span>{{wager.spread}}</span>
+                        <span>{{wager.spread|spread('reg')}}</span>
                      </span>
                      <span class="line">
-                        {% if wager.line > 0 %}
-                           <span>+{{wager.line|int}}</span>
-                        {% else %}
-                           <span>-{{wager.line|int}}</span>
-                        {% endif %}
+                        <span>{{wager.line|line('reg')}}</span>
                      </span>
                      <span class="value">
                         <span>
@@ -106,14 +95,10 @@
                      </span>
                   {% else %}
                      <span class="spread">
-                        <span>{{wager.spread|oppo}}</span>
+                        <span>{{wager.spread|spread('oppo')}}</span>
                      </span>
                      <span class="line">
-                        {% if wager.line < 0 %}
-                           <span>+{{wager.line|int}}</span>
-                        {% else %}
-                           <span>-{{wager.line|int}}</span>
-                        {% endif %}
+                        <span>{{wager.line|line('oppo')}}</span>
                      </span>
                      <span class="value">
                         <span>
