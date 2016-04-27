@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+
+{% block content %}
+   <div class="content_box">
+      hello from wager/sign
+      <p>Server: {{wager.server_pubkey}}</p>
+      <p>Away: {{wager.away_pubkey}}</p>
+      <p>Home: {{wager.home_pubkey}}</p>
+   </div>
+{% endblock %}

@@ -1,7 +1,9 @@
 <div class="content_box no_padding wager_show linescore">
    <div class="lichess_overboard">
       <p id="updated_res">Assiging your public key</p>
-      {% include 'setup/loading.html' %}
+      {% with width=100, height=100 %}
+          {% include 'setup/loading.html' %}
+      {% endwith %}
    </div>
    <div class="content_box_top">
       <div class="game_top">
@@ -44,7 +46,18 @@
                      <div class="qr_container">
                         <div id="qrcode"></div>
                      </div>
-                     <p>{{wager.script_address}}</p>
+                     <p>
+                        <a class="script_address_link" href="https://blockexplorer.com/address/{{wager.script_address}}" target="_blank">
+                           {{wager.script_address}}
+                        </a>
+                     </p>
+                  </div>
+                  <div class="funds_container">
+                     <span id="funds">0</span>
+                     {% with width=50, height=50 %}
+                         {% include 'setup/loading.html' %}
+                     {% endwith %}
+                     <a href="#" id="check_funds" address="{{wager.script_address}}" style="text-decoration: underline;">Check funds</a>
                   </div>
                {% endif %}
             </div>

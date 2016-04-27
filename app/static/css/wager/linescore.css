@@ -22,6 +22,11 @@
    font-weight: 100;
 }
 
+.wager_show .script_address_link {
+   color: #0078f1;
+   text-decoration: underline;
+}
+
 .linescore .team_top {
    float: left;
    width: 30%;

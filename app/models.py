@@ -60,6 +60,8 @@ class MLBWager(db.Model):
 
     time_date = db.Column(db.DateTime)
 
+    btc_stamp = db.Column(db.Float)
+
     @property
     def json(self):
         return json_helper.to_json(self, self.__class__)

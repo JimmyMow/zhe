@@ -37,7 +37,8 @@ def setup_friend():
          spread=float(data['spread']),
          line=int(data['line']),
          public=False,
-         time_date=date_object
+         time_date=date_object,
+         btc_stamp=float(data['btc_stamp'])
       )
 
       if data['team_status'] == 'home':

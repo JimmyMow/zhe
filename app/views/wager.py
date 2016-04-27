@@ -79,12 +79,21 @@ def wager(wager_id):
   game = mlb.get_mlb_game(wager.game_id)
   return render_template('wager/show.html', wager=wager, game=game, innings=[])
 
+@wagerbp.route('/<path:wager_id>/sign', methods=['GET'])
+def sign(wager_id):
+  wager = models.MLBWager.query.filter_by(id=wager_id).first()
+
+  return render_template('wager/sign.html', wager=wager)
+
+
 @wagerbp.route('/<path:wager_id>/stream_events', methods=['GET'])
 def stream_events(wager_id):
    wager = models.MLBWager.query.filter_by(id=wager_id).first()
    def generate(wager):
       events = mlb.get_game_events(wager.game_id)
+      print("events: {}".format(events))
       res = json.dumps(events['html']['body']['game']['inning'])
+      print("res: {}".format(res))
 
       yield res
 

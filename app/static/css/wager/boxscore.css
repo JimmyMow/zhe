@@ -1,3 +1,8 @@
+.wager_show a {
+   color: #0078f1;
+   text-decoration: underline;
+}
+
 .content_box_top {
    padding-top: 10px;
    color: #000;

@@ -105,17 +105,29 @@ def get_scoring_plays(game_id):
    return json.loads(result)
 
 def get_game_events(game_id):
+   print("game_id: {}".format(game_id))
    game_data = game_id.split("/")
    year = game_data[0]
    month = game_data[1]
    day = game_data[2]
 
    url = "http://gd2.mlb.com/components/game/mlb/year_"+year+"/month_"+month+"/day_"+day+"/gid_"+game_id.replace('/', '_').replace('-', '_')+"/game_events.xml"
+   # url = "http://gd2.mlb.com/components/game/mlb/year_2016/month_04/day_25/gid_2016_04_25_slnmlb_arimlb_1/game_events.xml"
+
+   print("url: {}".format(url))
+
    r = requests.get(url)
+
+   print(r)
+   print(r.status_code)
    if r.status_code == 200:
+      print("here at response being 200")
       soup = BeautifulSoup(r.text, "lxml")
+      print("soup: {}".format(soup))
       result = json.dumps(xmltodict.parse(str(soup)))
+      print("result: {}".format(result))
    else:
+      print("HERE")
       r.raise_for_status()
 
    return json.loads(result)

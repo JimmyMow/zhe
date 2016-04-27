@@ -58,21 +58,26 @@
             </div>
             <div class="details_top">
                <span class="gametime_top">{{wager.time_date.strftime("%-I:%M%p")}} ET</span>
+               <span>BTC Stamp Price: {{wager.btc_stamp}}</span>
                {% if wager.script_address %}
                   <div class="script_address">
                      <div class="qr_container">
                         <div id="qrcode"></div>
                      </div>
-                     <p>{{wager.script_address}}</p>
+                     <p>
+                        <a class="script_address_link" href="https://blockexplorer.com/address/{{wager.script_address}}" target="_blank">
+                           {{wager.script_address}}
+                        </a>
+                     </p>
+                  </div>
+                  <div class="funds_container">
+                     <span id="funds">0</span>
+                     {% with width=50, height=50 %}
+                         {% include 'setup/loading.html' %}
+                     {% endwith %}
+                     <a href="#" id="check_funds" address="{{wager.script_address}}" style="text-decoration: underline;">Check funds</a>
                   </div>
                {% endif %}
-               <div class="funds_container">
-                  <span id="funds">0</span>
-                  {% with width=50, height=50 %}
-                      {% include 'setup/loading.html' %}
-                  {% endwith %}
-                  <a href="#" id="check_funds" address="{{wager.script_address}}" style="text-decoration: underline;">Check funds</a>
-               </div>
             </div>
             <div class="home_top">
                <div class="team_details">

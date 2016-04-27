@@ -152,7 +152,7 @@ $(document).ready(function() {
 
          if (!pair) {
             alert("Problem creating your keypair. Try again");
-            return;
+            return false;
          }
 
          data.game_id = game_id;
@@ -164,19 +164,28 @@ $(document).ready(function() {
          data.time_date = time_date;
          data.pubkey = pair.pubkey;
 
-         $.ajax({
-            url: $(this).attr('action'),
-            method: 'post',
-            data: data,
-            success: function(data) {
-               zheBitcoin.userDownload('zhe_keypair_'+data.id, pair);
-               window.location.replace("/wager/" + data.id);
-            },
-            error: function(e) {
-               console.log("fail: ", e);
-               window.location.reload();
+         $.get("https://api.bitcoinaverage.com/ticker/USD/", function(price) {
+            if (!price.last) {
+               alert("Problem timestamping the BTC proce for your wager. Please try again.");
+               return false;
             }
-         });
+
+            data.btc_stamp = price.last;
+
+            $.ajax({
+               url: $(this).attr('action'),
+               method: 'post',
+               data: data,
+               success: function(data) {
+                  zheBitcoin.userDownload('zhe_keypair_'+data.id, pair);
+                  window.location.replace("/wager/" + data.id);
+               },
+               error: function(e) {
+                  console.log("fail: ", e);
+                  // window.location.reload();
+               }
+            });
+         }.bind(this));
          e.preventDefault();
       });
    }

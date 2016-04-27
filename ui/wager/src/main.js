@@ -10,12 +10,16 @@ url = window.location.pathname + "/stream_events";
 xmlhttp.open(method, url, true);
 xmlhttp.onreadystatechange = function () {
    // ge.innerHTML = xmlhttp.responseText;
+   console.log("change: ", xmlhttp.responseText);
 }
+
 xmlhttp.send();
+
 var timer;
 timer = setInterval(function() {
    // stop checking once the response has ended
    if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+      console.log("done: ", xmlhttp.responseText);
       buildEvents(xmlhttp.responseText);
       clearInterval(timer);
    }

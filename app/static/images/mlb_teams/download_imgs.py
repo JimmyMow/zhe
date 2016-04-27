@@ -43,7 +43,7 @@ import time
    # except:
    #    print("problem with {}".format(team))
 
-# url = 'http://mlb.mlb.com/mlb/images/team_logos/124x150/sf@2x.png'
-# f = open('mlb_sfn.png','wb')
+# url = 'http://mlb.mlb.com/mlb/images/team_logos/124x150/sd@2x.png'
+# f = open('mlb_sdn.png','wb')
 # f.write(urllib.request.urlopen(url).read())
 # f.close()
