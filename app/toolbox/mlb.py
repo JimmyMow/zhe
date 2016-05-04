@@ -22,7 +22,7 @@ def get_todays_games():
    EST = Zone(-5,False,'EST')
    now = datetime.now(EST)
 
-   url = "http://gd2.mlb.com/components/game/mlb/year_"+ str(now.year) +"/month_"+ now.strftime('%m') +"/day_"+ str(now.day) +"/epg.xml"
+   url = "http://gd2.mlb.com/components/game/mlb/year_"+ str(now.year) +"/month_"+ now.strftime('%m') +"/day_"+ '{:02d}'.format(now.day) +"/epg.xml"
    print("games url: {}".format(url))
    r = requests.get(url)
    if r.status_code == 200:

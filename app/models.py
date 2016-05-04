@@ -62,6 +62,9 @@ class MLBWager(db.Model):
 
     btc_stamp = db.Column(db.Float)
 
+    away_derive_index = db.Column(db.Integer)
+    home_derive_index = db.Column(db.Integer)
+
     @property
     def json(self):
         return json_helper.to_json(self, self.__class__)
