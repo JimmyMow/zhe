@@ -1,0 +1,32 @@
+{
+  "name": "bitcoinjs_test",
+  "version": "1.0.0",
+  "description": "idk",
+  "main": "./main.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JimmyMow/btc-wager"
+  },
+  "keywords": [
+    "bitcoin"
+  ],
+  "author": "JMow",
+  "license": "MIT",
+  "devDependencies": {
+    "browserify": "~9.0.8",
+    "gulp": "~3.9.0",
+    "gulp-streamify": "~0.0.5",
+    "gulp-uglify": "~1.2.0",
+    "gulp-util": "~3.0.4",
+    "vinyl-source-stream": "~1.1.0",
+    "watchify": "~3.1.1",
+    "bip39": "^2.1.2",
+    "bitcoinjs-lib": "2.2.0",
+    "cb-wallet": "^0.10.7",
+    "webworkify": "^1.0.0",
+    "secure-random": "1.1.1"
+  },
+  "dependencies": {
+    "bigi": "^1.4.0"
+  }
+}

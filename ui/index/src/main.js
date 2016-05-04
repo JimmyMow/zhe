@@ -1,5 +1,5 @@
 var m = require('mithril');
-// var util = require('chessground').util;
+
 function spinner() {
   return m('div.spinner',
     m('svg', {
