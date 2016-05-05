@@ -21,7 +21,7 @@ gulp.task('prod', function() {
     standalone: standalone
   }).bundle()
     .on('error', onError)
-    .pipe(source('zhe.wallet.min.js'))
+    .pipe(source('zhe_wallet.min.js'))
     .pipe(streamify(uglify()))
     .pipe(gulp.dest(destination));
 });
@@ -32,8 +32,7 @@ gulp.task('dev', function() {
     standalone: standalone
   }).bundle()
     .on('error', onError)
-    .pipe(source('zhe.wallet.min.js'))
-    .pipe(streamify(uglify()))
+    .pipe(source('zhe_wallet.min.js'))
     .pipe(gulp.dest(destination));
 });
 
@@ -51,7 +50,7 @@ gulp.task('watch', function() {
     console.log(destination);
     return bundleStream.bundle()
       .on('error', onError)
-      .pipe(source('zhe.wallet.min.js'))
+      .pipe(source('zhe_wallet.js'))
       .pipe(gulp.dest(destination));
   }
 

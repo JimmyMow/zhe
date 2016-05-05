@@ -63,9 +63,12 @@
       <script src="{{ url_for('static', filename='compiled/wager.wager_show.js') }}"></script>
    {% endif %}
    <!-- <script src="{{ url_for('static', filename='javascript/socket.js') }}"></script> -->
+   <script src="{{ url_for('static', filename='javascript/bitcoinjs.min.js') }}"></script>
    <script src="{{ url_for('static', filename='compiled/zhe.bitcoin.js') }}"></script>
-   <script src="{{ url_for('static', filename='compiled/cb_wallet.min.js') }}"></script>
-   <script src="{{ url_for('static', filename='compiled/zhe.wallet.min.js') }}"></script>
+   <script src="{{ url_for('static', filename='compiled/zhe_wallet.min.js') }}"></script>
    <script src="{{ url_for('static', filename='javascript/main.js') }}"></script>
+   {% if request.url_rule.endpoint == 'userbp.signup' %}
+      <script src="{{ url_for('static', filename='javascript/signup.js') }}"></script>
+   {% endif %}
 </body>
 </html>
