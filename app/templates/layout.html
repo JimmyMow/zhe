@@ -17,6 +17,7 @@
    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/setup/bet.css') }}">
    <!-- User -->
    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/user/forms.css') }}">
+   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/user/signup.css') }}">
    <!-- Wager -->
    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/wager/boxscore.css') }}">
    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/wager/linescore.css') }}">
@@ -30,7 +31,7 @@
          <div class="user fright">
             <a id="user_tag" class="toggle toggle_user link">{{current_user.email}}</a>
             <div class="links dropdown">
-               <a href="#" onclick="return false">
+               <a href="/user/profile">
                   <span><i class="fa fa-user"></i> Profile</span>
                </a>
                <a href="/user/signout">
@@ -69,6 +70,9 @@
    <script src="{{ url_for('static', filename='javascript/main.js') }}"></script>
    {% if request.url_rule.endpoint == 'userbp.signup' %}
       <script src="{{ url_for('static', filename='javascript/signup.js') }}"></script>
+   {% endif %}
+   {% if request.url_rule.endpoint == 'userbp.profile' %}
+      <script src="{{ url_for('static', filename='javascript/profile.js') }}"></script>
    {% endif %}
 </body>
 </html>

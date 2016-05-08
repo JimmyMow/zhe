@@ -1,0 +1,63 @@
+.signup_box #passphrase {
+   width: 60%;
+   margin: 50px auto;
+   color: #FFF;
+}
+
+.signup_box #passphrase h3 {
+   color: #707070;
+   text-align: center;
+}
+
+.signup_box #passphrase h3 i {
+   color: #D8000C;
+}
+
+.signup_box #passphrase p {
+   margin: 0;
+   padding: 10px;
+}
+
+.signup_box #passphrase .passphrase {
+   background-color: #888;
+   border-top-left-radius: 3px;
+   border-top-right-radius: 3px;
+   font-family: monospace;
+   line-height: 1.6;
+   text-align: center;
+}
+
+.signup_box #passphrase .passphrase_warning {
+   background-color: #FBC12C;
+   border-bottom-left-radius: 3px;
+   border-bottom-right-radius: 3px;
+   color: #a47703;
+   font-size: 13px;
+   text-align: center;
+   line-height: 1.6;
+}
+
+.signup_box #passphrase .passphrase_disclosure {
+   margin-top: 10px;
+   color: #000;
+   font-size: 11px;
+   font-style: italic;
+}
+
+.signup_box #passphrase .passphrase_accept {
+   margin-top: 20px;
+   color: #000;
+}
+
+.signup_box #passphrase .passphrase_accept span, #passphrase .passphrase_accept input {
+   display: inline-block;
+   vertical-align: middle;
+}
+
+.signup_box #passphrase .passphrase_accept input {
+   width: 5%;
+}
+
+#passphrase .passphrase_accept span {
+   width: 90%;
+}

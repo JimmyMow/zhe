@@ -2,4 +2,9 @@
    <svg width="{{width}}px" height="{{height}}px">
      <circle cx="{{width/2}}" cy="{{width/2}}" r="{{width/2 - width/10}}" stroke="red" stroke-width="4" fill="#FFF" />
    </svg>
+   {% if message %}
+      <p class="spinner_message">
+         {{message}}
+      </p>
+   {% endif %}
 </div>

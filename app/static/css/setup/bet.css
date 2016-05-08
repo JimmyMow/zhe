@@ -41,3 +41,19 @@ group.radio input:checked + label {
   font-weight: 500;
   color: #fff;
 }
+
+.passphrase_input {
+  outline: none;
+  border-width: 0px;
+  border: none;
+  border-bottom: 6px solid #ccc;
+  text-align: center;
+  width: 75%;
+  padding: 10px 0;
+  margin-top: 25px;
+  font-family: monospace;
+}
+
+#friend_loading {
+  margin-bottom: 10px;
+}

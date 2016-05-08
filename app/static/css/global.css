@@ -46,6 +46,10 @@ a.button, .button {
   font-weight: bold;
 }
 
+.hidden {
+  display: none;
+}
+
 /* Slider */
 input[type=range] {
   -webkit-appearance: none;
@@ -231,6 +235,9 @@ input[type=range]:focus::-ms-fill-upper {
   font-size: 14px;
 }
 
+.accept_button.inactive {
+
+}
 
 /* Clearfix */
 .cf:before,

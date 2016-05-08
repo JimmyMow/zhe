@@ -18,9 +18,14 @@ def setup_bet():
 
 @setupbp.route("/friend", methods=['GET', 'POST'])
 def setup_friend():
+   if 'email' not in session:
+      print('User not signed in')
+      return abort(500)
+
+   user = models.User.query.filter_by(email=session['email']).first()
    games = mlb.get_todays_games()
    if request.method == 'GET':
-      return render_template('setup/friend.html', games=games)
+      return render_template('setup/friend.html', games=games, user_wallet_seed=user.wallet_seed)
 
    if request.method == 'POST':
       if 'email' not in session:
@@ -45,10 +50,12 @@ def setup_friend():
          mlb_wager.home_id = session['email']
          mlb_wager.original_side = 'home'
          mlb_wager.home_pubkey = data['pubkey']
+         mlb_wager.home_derive_index = data['derive_index']
       else:
          mlb_wager.away_id = session['email']
          mlb_wager.original_side = 'away'
          mlb_wager.away_pubkey = data['pubkey']
+         mlb_wager.away_derive_index = data['derive_index']
 
       # Insert the user in the database
       db.session.add(mlb_wager)

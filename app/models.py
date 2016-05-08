@@ -13,6 +13,7 @@ class User(db.Model, UserMixin):
     __tablename__ = 'users'
     email = db.Column(db.String, primary_key=True)
     payout_address = db.Column(db.String)
+    wallet_seed = db.Column(db.String)
     _password = db.Column(db.String)
 
     @hybrid_property

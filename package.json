@@ -1,0 +1,22 @@
+{
+  "name": "zhe",
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {
+    "dev": "aperture link",
+  },
+  "author": "Jack Mallers",
+  "license": "GPL-2.0+",
+  "dependencies": {
+    "aperture": "^1.1.1"
+  },
+  "aperture": {
+    "sources": [
+      "app/ui/*"
+    ]
+  },
+  "engines": {
+    "node": "~0.10.26",
+    "npm": "^2.1.0"
+  }
+}

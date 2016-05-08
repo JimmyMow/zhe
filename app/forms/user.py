@@ -1,5 +1,5 @@
 from flask.ext.wtf import Form
-from wtforms import TextField, PasswordField
+from wtforms import TextField, PasswordField, HiddenField
 from wtforms.validators import Required, Length, Email, ValidationError, EqualTo
 from app.models import User
 
@@ -30,6 +30,7 @@ class SignUp(Form):
 
     payout_address = TextField(validators=[Required()],
                      description='Payout Address')
+    wallet_seed = HiddenField(validators=[Required()], id="wallet_seed")
     email = TextField(validators=[Required(), Email(),
                                   Unique(User, User.email,
                                          'This email address is ' +

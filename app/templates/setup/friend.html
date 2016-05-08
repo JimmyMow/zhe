@@ -55,10 +55,23 @@
          <input type="range" name="line" id="sliderline" value="0" min="-10000" max="10000">
       </div>
 
+      <div class="passphrase">
+        <input type="text" class="passphrase_input" placeholder="Wallet passphrase" autofocus="true" id="passphrase">
+      </div>
       <p id="betStatus">SELECT A TEAM</p>
+
+      <div class="hidden" id="friend_loading">
+        {% with width=50, height=50 %}
+            {% include 'setup/loading.html' %}
+        {% endwith %}
+      </div>
 
       <button data-hint="Submit bet" type="submit" class="submit_bet button hint--bottom" name="color" value="random">
         Create bet
       </button>
    </form>
 </div>
+
+<script type="text/javascript">
+  var user_wallet_seed = "{{user_wallet_seed}}";
+</script>

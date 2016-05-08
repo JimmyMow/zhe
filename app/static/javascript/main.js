@@ -140,20 +140,27 @@ $(document).ready(function() {
       });
 
       $bet_form.on('submit', function(e) {
+         $("#friend_loading").removeClass('hidden');
          var team_status = $bet_form.find('input[name=team]:checked').attr('id');
-         if( !team_status ) { e.preventDefault(); return;}
+         var passphrase = $("#passphrase").val();
+         if( !team_status || !passphrase ) {
+            e.preventDefault();
+            $("#friend_loading").addClass('hidden');
+            return;
+         }
+
 
          var data = {};
          var game_id = $('#selectGame').find(":selected").val();
          var team_name = $('label[for="' + $bet_form.find('input[name=team]:checked').attr('id') +'"]').text().toLowerCase();
          var time_date = $('#selectGame').find(":selected").attr('time-date');
 
-         var pair = zheBitcoin.createPair();
+         // var pair = zheBitcoin.createPair();
 
-         if (!pair) {
-            alert("Problem creating your keypair. Try again");
-            return false;
-         }
+         // if (!pair) {
+         //    alert("Problem creating your keypair. Try again");
+         //    return false;
+         // }
 
          data.game_id = game_id;
          data.team_status = team_status == 'team_0' ? 'away' : 'home';
@@ -162,30 +169,52 @@ $(document).ready(function() {
          data.spread = $spread.val();
          data.line = $line.val();
          data.time_date = time_date;
-         data.pubkey = pair.pubkey;
+         // data.pubkey = pair.pubkey;
 
-         $.get("https://api.bitcoinaverage.com/ticker/USD/", function(price) {
-            if (!price.last) {
-               alert("Problem timestamping the BTC proce for your wager. Please try again.");
-               return false;
+         zheWallet.createWallet(passphrase, 'bitcoin', function(err, d) {
+            if (err) { alert("Problem with your passphrase"); return; }
+            console.log("d._id ", d._id);
+            console.log("user_wallet_seed ", user_wallet_seed);
+            if (d._id != user_wallet_seed) {
+               alert("Encrypted seed does not match the passphrase you provided. Please try again");
+               $("#friend_loading").addClass('hidden');
+               return;
             }
+            var accountZero = bitcoin.HDNode.fromSeedHex(d.seed, bitcoin.networks['bitcoin']).deriveHardened(0);
+            zheWallet.initWallet(accountZero.derive(0), accountZero.derive(1), 'bitcoin', function(err, w_d) {
+               if (err) { alert("Problem with your passphrase"); return; }
+               var w = zheWallet.getWallet();
+               var w_pubkey = w.externalAccount.derive(w.addresses.length).keyPair.Q.getEncoded().toString('hex');
+               data.pubkey = w_pubkey;
+               data.derive_index = w.addresses.length;
+               console.log("w_pubkey: ", w_pubkey);
 
-            data.btc_stamp = price.last;
+               $.get("https://api.bitcoinaverage.com/ticker/USD/", function(price) {
+                  if (!price.last) {
+                     alert("Problem timestamping the BTC proce for your wager. Please try again.");
+                     return false;
+                  }
 
-            $.ajax({
-               url: $(this).attr('action'),
-               method: 'post',
-               data: data,
-               success: function(data) {
-                  zheBitcoin.userDownload('zhe_keypair_'+data.id, pair);
-                  window.location.replace("/wager/" + data.id);
-               },
-               error: function(e) {
-                  console.log("fail: ", e);
-                  // window.location.reload();
-               }
+                  data.btc_stamp = price.last;
+                  console.log("DATA: ", data);
+                  console.log($(this));
+                  $.ajax({
+                     url: $('form').attr('action'),
+                     method: 'post',
+                     data: data,
+                     success: function(data) {
+                        window.location.replace("/wager/" + data.id);
+                     },
+                     error: function(e) {
+                        console.log("fail: ", e);
+                        $("#friend_loading").addClass('hidden');
+                        // window.location.reload();
+                     }
+                  });
+               }.bind(this));
             });
-         }.bind(this));
+         }, null, null);
+
          e.preventDefault();
       });
    }

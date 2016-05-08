@@ -1,13 +1,6 @@
 $(document).ready(function() {
-   // Form handlers //
-   $("#user_signup").on('submit', function(e) {
-      if(!$("#passhrase_checkbox").is(':checked')) {
-         alert("You must check to confirm you have stored your passphrase");
-         e.preventDefault();
-      }
-   });
-
    var Hive = zheWallet;
+   console.log("Hive: ", Hive);
 
    var unspentsDone = function(err, data) {
       console.log("err from unspentsDone: ", err);
@@ -16,26 +9,15 @@ $(document).ready(function() {
 
    var balanceDone = function(err, data) {
       if(err) { console.log("Error on balanceDone: ", err); return; }
-      console.log("data from balanceDone: ", data);
+      $("#balance").text(data);
    };
 
-   Hive.createWallet(null, 'bitcoin', function(err, data) {
-      console.log("create wallet callback data: ", data);
-      if(!data.userExists) {
-         var $passphrase = $("#passphrase");
-         $passphrase.find(".passphrase").text(data.mnemonic);
-         $passphrase.removeClass("hidden");
-         $('.spinner').remove();
-      }
-
-      $("#wallet_seed").val(data._id);
-
+   Hive.createWallet('rug face primary veteran valve bless soda upper ketchup urge tone sad', 'bitcoin', function(err, data) {
       var accountZero = bitcoin.HDNode.fromSeedHex(data.seed, bitcoin.networks['bitcoin']).deriveHardened(0);
-
-      console.log("0: ", accountZero.derive(0));
-      console.log("1: ", accountZero.derive(1));
-      console.log("encrypted thing: ", data._id);
-
+      if (data._id != wallet_seed) {
+         alert("Passphrase is incorrect");
+         return;
+      }
       Hive.initWallet(accountZero.derive(0), accountZero.derive(1), 'bitcoin', function(err, data) {
          if (err) {
             console.log("error on initWallet: ", err);
@@ -46,8 +28,8 @@ $(document).ready(function() {
             console.log("tx: ", data[i]);
          }
          var w = Hive.getWallet();
+         $("#address").text(w.getNextAddress());
          var hd = w.getHdNode(w.getNextAddress());
       }, unspentsDone, balanceDone);
-
    });
 });

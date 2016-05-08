@@ -1,5 +1,19 @@
-<ul>
-   {% for user in users %}
-      <li>{{user.email}}</li>
-   {% endfor %}
-</ul>
+{% extends "layout.html" %}
+
+{% block content %}
+   <div class="content_box" id="profile">
+      <p>
+         Address:
+         <span id="address"></span>
+      </p>
+      <p>
+         Balance:
+         <span id="balance"></span>
+      </p>
+   </div>
+
+   <script type="text/javascript">
+      var wallet_seed = "{{wallet_seed}}";
+   </script>
+{% endblock %}
+

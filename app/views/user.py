@@ -29,6 +29,7 @@ def signup():
         user = models.User(
             email=form.email.data,
             payout_address=form.payout_address.data,
+            wallet_seed=form.wallet_seed.data,
             password=form.password.data,
         )
 
@@ -80,3 +81,10 @@ def signout():
     session.pop('email', None)
     logout_user()
     return redirect(url_for('lobby'))
+
+@userbp.route('/profile')
+def profile():
+    if 'email' not in session:
+        return redirect('/')
+    user = models.User.query.filter_by(email=session['email']).first()
+    return render_template('user/profile.html', wallet_seed=user.wallet_seed)
