@@ -236,7 +236,7 @@ $(document).ready(function() {
          error: function(e) {
             $('#hooks_wrap').removeClass('loading');
             console.log("fail: ", e);
-            location.reload();
+            window.location.reload();
          }
       });
       return false;
@@ -249,52 +249,56 @@ $(document).ready(function() {
    var $accept_form = $(".wager_show").find(".accept_wager");
 
    $accept_form.on('submit', function(e) {
-      // Create keypair for acceptor
-      var pair = zheBitcoin.createPair();
+      console.log("here");
+      var passphrase = prompt("Please enter your passphrase");
+      console.log(passphrase);
+      if(!passphrase) { console.log("passphrase is null: ", passphrase); return false; }
+      zheWallet.createWallet(passphrase, 'bitcoin', function(err, d) {
+         var accountZero = bitcoin.HDNode.fromSeedHex(d.seed, bitcoin.networks['bitcoin']).deriveHardened(0);
+         console.log("accountZero: ", accountZero);
+         zheWallet.initWallet(accountZero.derive(0), accountZero.derive(1), 'bitcoin', function(err, w_d) {
+            console.log("w_d: ", w_d);
+            var w = zheWallet.getWallet();
+            var w_pubkey = w.externalAccount.derive(w.addresses.length).keyPair.Q.getEncoded().toString('hex');
+            console.log("pubkey: ", w_pubkey);
+            // p tag to be updated
+            var $updated_res = $('#updated_res');
+            // Add loading screen
+            $('.wager_show div.lichess_overboard').addClass('active');
 
-      if (!pair) {
-         alert("Problem creating your keypair. Try again");
-         return;
-      }
-      // p tag to be updated
-      var $updated_res = $('#updated_res');
-      // Add loading screen
-      $('.wager_show div.lichess_overboard').addClass('active');
+            var xmlhttp = new XMLHttpRequest(),
+            method = "POST",
+            url = window.location.pathname,
+            params = "pubkey=" + w_pubkey + "&derive_index=" + w.addresses.length;
+            new_res = '';
 
-      var xmlhttp = new XMLHttpRequest(),
-      method = "POST",
-      url = window.location.pathname,
-      params = 'pubkey='+pair.pubkey,
-      new_res = '';
-
-      xmlhttp.open(method, url, true);
-      xmlhttp.onreadystatechange = function () {
-         // ge.innerHTML = xmlhttp.responseText;
-         if(new_res.length) {
-            var x = xmlhttp.responseText.substring(new_res.length);
-            console.log("new: ", x);
-            $updated_res.text(x);
-         }
-         new_res = xmlhttp.responseText;
-      }
-
-      // Send request
-      xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
-      xmlhttp.send(params);
-
-      // Check for incoming data
-      var timer;
-      timer = setInterval(function() {
-         // stop checking once the response has ended
-         if (xmlhttp.readyState == XMLHttpRequest.DONE) {
-            if (xmlhttp.status == 200) {
-               var arr = window.location.pathname.split('/');
-               zheBitcoin.userDownload('zhe_keypair_'+arr[arr.length - 1], pair);
+            xmlhttp.open(method, url, true);
+            xmlhttp.onreadystatechange = function () {
+               // ge.innerHTML = xmlhttp.responseText;
+               if(new_res.length) {
+                  var x = xmlhttp.responseText.substring(new_res.length);
+                  console.log("new: ", x);
+                  $updated_res.text(x);
+               }
+               new_res = xmlhttp.responseText;
             }
-            clearInterval(timer);
-            window.location.reload();
-         }
-      }, 1000);
+
+            // Send request
+            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
+            xmlhttp.send(params);
+
+            // Check for incoming data
+            var timer;
+            timer = setInterval(function() {
+               // stop checking once the response has ended
+               if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+                  clearInterval(timer);
+                  window.location.reload();
+               }
+            }, 1000);
+
+         });
+      });
 
       e.preventDefault();
    });

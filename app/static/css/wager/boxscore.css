@@ -6,6 +6,7 @@
 .content_box_top {
    padding-top: 10px;
    color: #000;
+   position: relative;
 }
 
 .game_top {

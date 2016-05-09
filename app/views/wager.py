@@ -30,17 +30,20 @@ def wager(wager_id):
 
     try:
       pubkey = request.form['pubkey']
+      derive_index = request.form['derive_index']
     except:
-      print("ERROR: Must have a pubkey")
+      print("ERROR: Must have a pubkey and derive index")
       abort(500)
 
     # Assign user and pubkey to home or away
     if wager.away_id:
       wager.home_id = user_email
       wager.home_pubkey = pubkey
+      wager.home_derive_index = derive_index
     elif wager.home_id:
       wager.away_id = user_email
       wager.away_pubkey = pubkey
+      wager.away_derive_index = derive_index
     else:
       print("ERROR: Wager has already been accepted")
       abort(500)
