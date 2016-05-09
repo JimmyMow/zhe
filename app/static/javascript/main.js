@@ -292,8 +292,9 @@ $(document).ready(function() {
                // stop checking once the response has ended
                if (xmlhttp.readyState == XMLHttpRequest.DONE) {
                   clearInterval(timer);
-                  // xmlhttp.responseText
-                  window.location.reload();
+                  var data = xmlhttp.responseText;
+                  console.log("data: ", data);
+                  // window.location.reload();
                }
             }, 1000);
 

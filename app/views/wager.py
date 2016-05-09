@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, url_for, Response, stream_with_context, request, abort, session
+from flask import Blueprint, render_template, url_for, Response, stream_with_context, request, abort, session, jsonify
 from app import app, models, db
 
 from app.toolbox import mlb
@@ -77,7 +77,12 @@ def wager(wager_id):
       print("ERROR: Trouble saving wager to DB")
       abort(500)
 
-    return "Done with ajax request."
+    owe = wager.owe(user_email)
+    owe_in_satoshis = w.usd_to_satoshi(owe, wager.btc_stamp)
+
+    data = { 'owe': owe_in_satoshis }
+
+    return jsonify(data)
 
   game = mlb.get_mlb_game(wager.game_id)
   return render_template('wager/show.html', wager=wager, game=game, innings=[])
@@ -101,9 +106,9 @@ def stream_events(wager_id):
    wager = models.MLBWager.query.filter_by(id=wager_id).first()
    def generate(wager):
       events = mlb.get_game_events(wager.game_id)
-      print("events: {}".format(events))
+      # print("events: {}".format(events))
       res = json.dumps(events['html']['body']['game']['inning'])
-      print("res: {}".format(res))
+      # print("res: {}".format(res))
 
       yield res
 

@@ -1,15 +1,67 @@
 {% extends "layout.html" %}
 
 {% block content %}
-   <div class="content_box" id="profile">
-      <p>
-         Address:
-         <span id="address"></span>
-      </p>
-      <p>
-         Balance:
-         <span id="balance"></span>
-      </p>
+   <div class="content_box user_profile" id="profile">
+      <div class="passphrase_form_container">
+         <form id="passphrase">
+            <input type="text" class="passphrase_input" placeholder="Enter wallet passhrase" autofocus="true">
+            <div class="button_container">
+               <button data-hint="Submit bet" type="submit" class="submit_bet button hint--bottom" name="color" value="random">
+                 Enter passphrase
+               </button>
+            </div>
+         </form>
+      </div>
+      <div class="loader hidden">
+         {% with width=100, height=100, message="Loading wallet" %}
+             {% include 'setup/loading.html' %}
+         {% endwith %}
+      </div>
+      <div class="wallet_interface hidden">
+         <div class="profile_header">
+            <div class="header_balance btc">
+               <span class="amount" id="balance">0</span>
+               <span class="currency"></span>
+            </div>
+            <div class="header_refresh">
+               <span class="refresh">
+                  <i class="fa fa-refresh" aria-hidden="true"></i>
+               </span>
+            </div>
+         </div>
+         <div class="tabs">
+            <a id="send_tab" class="tab active" data-tab="send">
+               <span class="tab_icon">
+                  <i class="fa fa-paper-plane" aria-hidden="true"></i>
+               </span>
+               <span class="tab_text">Send</span>
+            </a>
+            <a id="receive_tab" class="tab" data-tab="receive">
+               <span class="tab_icon">
+                  <i class="fa fa-inbox" aria-hidden="true"></i>
+               </span>
+               <span class="tab_text">Receive</span>
+            </a>
+            <a id="history_tab" class="tab" data-tab="history">
+               <span class="tab_icon">
+                  <i class="fa fa-history" aria-hidden="true"></i>
+               </span>
+               <span class="tab_text">History</span>
+            </a>
+         </div>
+         <div id="send" class="wallet_content current">
+            send content
+         </div>
+         <div id="receive" class="wallet_content receive">
+            <div class="qr_container">
+               <p id="qrcode"></p>
+            </div>
+               <p id="address"></p>
+         </div>
+         <div id="history" class="wallet_content">
+            history content
+         </div>
+      </div>
    </div>
 
    <script type="text/javascript">

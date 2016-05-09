@@ -88,7 +88,7 @@ class MLBWager(db.Model):
                 multiplier = self.line / 100
                 payout = self.value * multiplier
             else:
-                pyout = self.value
+                payout = self.value
 
         return payout
 

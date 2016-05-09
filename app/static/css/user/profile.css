@@ -1,0 +1,118 @@
+.content_box.user_profile {
+   padding: 0;
+}
+
+.user_profile .passphrase_form_container {
+   margin-bottom: 20px;
+   padding: 20px 24px 50px 24px;
+}
+
+.user_profile #passphrase .passphrase_input {
+   width: 100%;
+   margin-bottom: 20px;
+   font-size: 14px;
+}
+
+.user_profile #passphrase .button_container {
+   text-align: center;
+}
+
+.user_profile #passphrase .button_container button {
+   padding: 10px 35px;
+}
+
+.user_profile .profile_header {
+   background-color: #2E2B44;
+   padding: 12px 0;
+   color: #FFF;
+   display: flex;
+   justify-content: space-between;
+}
+
+.user_profile .profile_header .header_balance {
+   display: flex;
+   justify-content: center;
+   cursor: pointer;
+   width: 90%;
+   margin-left: 10%;
+}
+
+.user_profile .profile_header .header_balance .amount {
+   font-size: 32px;
+   font-family: monospace,'Noto Sans','Lucida Grande';
+}
+
+.user_profile .profile_header .header_balance.btc .currency:after {
+   content: "BTC";
+}
+
+.user_profile .profile_header .header_balance.usd .currency:after {
+   content: "USD";
+}
+
+.user_profile .profile_header .header_refresh {
+   cursor: pointer;
+   width: 50px;
+   padding-top: 12px;
+   text-align: center;
+   margin-bottom: 5px;
+   font-size: 15px;
+}
+
+.user_profile .tabs {
+   background-color: #464368;
+   color: #FFF;
+   display: flex;
+   justify-content: space-between;
+}
+
+.user_profile .tabs .tab {
+   cursor: pointer;
+   display: block;
+   padding-bottom: 10px;
+   padding-top: 10px;
+   width: 100%;
+   text-align: center;
+   color: #FFF;
+   font-size: 16px;
+   opacity: 0.2;
+}
+
+.user_profile .tabs .tab:hover {
+   opacity: 0.8;
+}
+
+.user_profile .tabs .tab.active {
+   border-bottom: 4px solid #858DF0;
+   opacity: 1.0;
+}
+
+.user_profile .tabs .tab .tab_icon {
+   display: block;
+   margin: 0 auto;
+   margin-top: 2px;
+   margin-bottom: 5px;
+}
+
+.user_profile .tabs .tab .tab_text {
+   font-size: 14px;
+   font-weight: 100;
+}
+
+.user_profile .wallet_content {
+   display: none;
+}
+
+.user_profile .wallet_content.current {
+   display: block;
+}
+
+.user_profile .wallet_content.receive .qr_container {
+   width: 150px;
+   margin: 0 auto;
+   margin-bottom: 5px;
+}
+
+.user_profile .wallet_content.receive #address {
+   text-align: center;
+}

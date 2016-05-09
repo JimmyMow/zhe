@@ -8,11 +8,6 @@ var wallet = null;
 var seed = null;
 var id = null;
 
-var wallets = [
-   {id: '820cf6de0821b8783f986cb9bb7a3aeccbae7bbf13e0bec02458e32950c43b36'},
-   {id: '6ed231e67f7dc46078ae21132e54de300bded5fa9bf867c7bbaa178ba7cb32eb'}
-];
-
 function getPubkey(hd) {
    return hd.keyPair.Q.getEncoded().toString('hex');
 }
@@ -32,14 +27,6 @@ function createWallet(passphrase, network, callback) {
       assignSeedAndId(e.data.seed)
 
       var mnemonic = e.data.mnemonic;
-      for (var i=0; i < wallets.length; i++) {
-         console.log(wallets[i].id);
-         if(wallets[i].id === id) {
-            console.log("its a match!!!!!!");
-            callback(null, { userExists: true, seed: seed, mnemonic: mnemonic, _id: id });
-            return;
-         }
-      }
       callback(null, {userExists: false, seed: e.data.seed, mnemonic: mnemonic, _id: id});
    }, false)
 }
@@ -49,9 +36,9 @@ function initWallet(externalAccount, internalAccount, networkName, done, unspent
     if(err) return done(err)
 
     var txObjs = wallet.getTransactionHistory()
-    console.log("txs: ", txObjs);
     done(null, txObjs.map(function(tx) {
-      return parseTx(wallet, tx)
+      var parsedTx = parseTx(wallet, tx);
+      return parsedTx;
     }))
   }, unspentsDone, balanceDone)
 
@@ -93,12 +80,27 @@ function parseTx(wallet, tx) {
   function parseOutputs(outputs, network) {
     return outputs.map(function(output){
       var obj = {
-        address: bitcoin.address.fromOutputScript(output.script.chunks, network).toString(),
+        address: bitcoin.address.fromOutputScript(output.script, network).toString(),
         amount: output.value
       };
       return obj;
     })
   }
+}
+
+function satoshiToBtc(amount) {
+  return amount / 100000000;
+}
+
+function btcToUsd(amount, done) {
+  $.get("https://api.bitcoinaverage.com/ticker/USD/", function(price) {
+    if(!price.last) {
+      return done("No price found", null);
+    }
+
+    var res = parseFloat(amount) * parseFloat(price.last)
+    return done(null, res.toFixed(2));
+  });
 }
 
 function assignSeedAndId(s) {
@@ -111,7 +113,9 @@ module.exports = {
    createWallet: createWallet,
    initWallet: initWallet,
    getPubkey: getPubkey,
-   bitcoin: bitcoin
+   bitcoin: bitcoin,
+   satoshiToBtc: satoshiToBtc,
+   btcToUsd: btcToUsd
 };
 
 
