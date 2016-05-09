@@ -74,6 +74,7 @@
       <script src="{{ url_for('static', filename='javascript/signup.js') }}"></script>
    {% endif %}
    {% if request.url_rule.endpoint == 'userbp.profile' %}
+      <script src="{{ url_for('static', filename='compiled/profile.js') }}"></script>
       <script src="{{ url_for('static', filename='javascript/profile.js') }}"></script>
    {% endif %}
 </body>
