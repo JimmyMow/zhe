@@ -70,6 +70,28 @@ class MLBWager(db.Model):
     def json(self):
         return json_helper.to_json(self, self.__class__)
 
+    def owe(self, user_email):
+        if self.home_id == user_email:
+            x = "home"
+        elif self.away_id == user_email:
+            x = "away"
+        else:
+            return None
+
+        if self.original_side == x:
+            payout = self.value
+        else:
+            if(self.line < 0):
+                multiplier = 100 / abs(self.line)
+                payout = self.value * multiplier
+            elif self.line > 0:
+                multiplier = self.line / 100
+                payout = self.value * multiplier
+            else:
+                pyout = self.value
+
+        return payout
+
 # Generate random string for ID of the MLB Wager
 def after_insert_listener(mapper, connection, target):
     target.id = str(uuid.uuid4())[:8]

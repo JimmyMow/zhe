@@ -86,6 +86,9 @@ def wager(wager_id):
 def sign(wager_id):
   wager = models.MLBWager.query.filter_by(id=wager_id).first()
 
+  owe = wager.owe(session['email'])
+  print(owe)
+
   return render_template('wager/sign.html', wager=wager)
 
 

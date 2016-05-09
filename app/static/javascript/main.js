@@ -274,7 +274,6 @@ $(document).ready(function() {
 
             xmlhttp.open(method, url, true);
             xmlhttp.onreadystatechange = function () {
-               // ge.innerHTML = xmlhttp.responseText;
                if(new_res.length) {
                   var x = xmlhttp.responseText.substring(new_res.length);
                   console.log("new: ", x);
@@ -293,6 +292,7 @@ $(document).ready(function() {
                // stop checking once the response has ended
                if (xmlhttp.readyState == XMLHttpRequest.DONE) {
                   clearInterval(timer);
+                  // xmlhttp.responseText
                   window.location.reload();
                }
             }, 1000);
