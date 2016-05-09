@@ -89,6 +89,10 @@ def sign(wager_id):
   owe = wager.owe(session['email'])
   print(owe)
 
+  w = wallet_helper()
+  owe_in_satoshis = w.usd_to_satoshi(owe, wager.btc_stamp)
+  print(owe_in_satoshis)
+
   return render_template('wager/sign.html', wager=wager)
 
 

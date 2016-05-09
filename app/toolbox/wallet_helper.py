@@ -1,3 +1,4 @@
+import math
 from two1.wallet import Wallet, exceptions
 from two1.bitcoin.utils import bytes_to_str, hex_str_to_bytes
 from two1.bitcoin.crypto import PublicKey
@@ -30,3 +31,6 @@ class wallet_helper():
 
       return data
 
+   def usd_to_satoshi(self, owe, usd_num):
+      x = (owe / usd_num) * 100000000
+      return math.ceil(x)
