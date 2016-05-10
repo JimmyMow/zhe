@@ -94,12 +94,8 @@ function satoshiToBtc(amount) {
 
 function btcToUsd(amount, done) {
   $.get("https://api.bitcoinaverage.com/ticker/USD/", function(price) {
-    if(!price.last) {
-      return done("No price found", null);
-    }
-
-    var res = parseFloat(amount) * parseFloat(price.last)
-    return done(null, res.toFixed(2));
+    var res = parseFloat(amount) * parseFloat(price.last);
+    return done(res.toFixed(2));
   });
 }
 

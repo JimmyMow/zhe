@@ -26,6 +26,7 @@
     "lodash": "~3.7.0",
     "merge": "~1.2.0",
     "mithril": "0.2.0",
-    "chessground": "github:ornicar/chessground#v3.5.3"
+    "chessground": "github:ornicar/chessground#v3.5.3",
+    "strftime": "0.8.0"
   }
 }

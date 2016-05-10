@@ -116,3 +116,41 @@
 .user_profile .wallet_content.receive #address {
    text-align: center;
 }
+
+.user_profile #history .transactions_container h3 {
+   text-align: center;
+   font-size: 20px;
+}
+
+.user_profile #history .transactions_container .tx {
+   margin-bottom: 15px;
+   white-space: nowrap;
+}
+
+.user_profile #history .transactions_container .tx .tx_header {
+   padding: 10px;
+   border-top: px solid #FFF;
+   border-bottom: 1px solid #FFF;
+   background-color: #464368;
+   color: #FFF;
+}
+
+.tx .icon, .tx .tx_left, .tx .tx_right {
+   display: inline-block;
+}
+
+.tx .icon {
+   width: 10%;
+   white-space: normal;
+}
+
+.tx .tx_left, .tx .tx_right {
+   width: 45%;
+   white-space: normal;
+}
+
+.tx_left .msg, .tx_left .confirmations {
+   display: block;
+}
+
+

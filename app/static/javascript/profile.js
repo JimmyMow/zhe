@@ -20,10 +20,7 @@ $(document).ready(function() {
       showFiat = !showFiat;
       if (showFiat) {
          var btcAmount = Hive.satoshiToBtc(Hive.getWallet().getBalance());
-         Hive.btcToUsd(btcAmount, function(err, data) {
-            if(err) { alert("Problem converting to USD"); return; }
-            $("#balance").text(data);
-         });
+         Hive.btcToUsd(btcAmount, function(data) { $("#balance").text(data); });
          $(this).addClass('usd');
       } else {
          $(this).addClass('btc');
@@ -41,10 +38,7 @@ $(document).ready(function() {
          if (err) { console.log("error updating balance: ", err); return; }
          if(showFiat) {
             var btcAmount = Hive.satoshiToBtc(Hive.getWallet().getBalance());
-            Hive.btcToUsd(btcAmount, function(err, data) {
-               if(err) { alert("Problem converting to USD"); return; }
-               $("#balance").text(data);
-            });
+            Hive.btcToUsd(btcAmount, function(data) { $("#balance").text(data); });
          } else {
             $("#balance").text(Hive.satoshiToBtc(Hive.getWallet().getBalance()));
          }
@@ -85,6 +79,9 @@ $(document).ready(function() {
             for (var i = 0; i < data.length; i++) {
                console.log("tx: ", data[i]);
             }
+            $.get("https://api.bitcoinaverage.com/ticker/USD/", function(price) {
+               profile.buildTransactions(data, price.last);
+            });
             var w = Hive.getWallet();
             $("#address").text(w.getNextAddress());
             $("#qrcode").qrcode({

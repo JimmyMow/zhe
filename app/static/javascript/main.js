@@ -155,13 +155,6 @@ $(document).ready(function() {
          var team_name = $('label[for="' + $bet_form.find('input[name=team]:checked').attr('id') +'"]').text().toLowerCase();
          var time_date = $('#selectGame').find(":selected").attr('time-date');
 
-         // var pair = zheBitcoin.createPair();
-
-         // if (!pair) {
-         //    alert("Problem creating your keypair. Try again");
-         //    return false;
-         // }
-
          data.game_id = game_id;
          data.team_status = team_status == 'team_0' ? 'away' : 'home';
          data.team_name = team_name;
@@ -169,7 +162,6 @@ $(document).ready(function() {
          data.spread = $spread.val();
          data.line = $line.val();
          data.time_date = time_date;
-         // data.pubkey = pair.pubkey;
 
          zheWallet.createWallet(passphrase, 'bitcoin', function(err, d) {
             if (err) { alert("Problem with your passphrase"); return; }
