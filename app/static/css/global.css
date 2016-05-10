@@ -248,3 +248,36 @@ input[type=range]:focus::-ms-fill-upper {
 .cf:after {
     clear: both;
 }
+
+/* Cusotm Icon */
+.custom-icon {
+  font-size: 30px;
+  background:#666;
+  background:rgba(0,0,0,0.4);
+  padding: 20px;
+  -webkit-border-radius:1100%;
+  -moz-border-radius:100%;
+  -o-border-radius:100%;
+  border-radius:100%;
+  border:6px solid #fff;
+  color:#fff;
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.46);
+  text-align:center;
+  display:table-cell;
+  vertical-align:middle;
+  width: 15px;
+  height: 15px;
+  -moz-transition:.5s;
+  -webkit-transition:.5s;
+  -o-transition:.5s;
+  transition:.5s;
+}
+.custom-icon:hover {
+  background:rgba(0,0,0,0.6);
+}
+.fix-editor {
+  display:none;
+}
+.icon-wrapper {
+  display:inline-block;
+}

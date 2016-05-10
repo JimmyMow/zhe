@@ -125,32 +125,95 @@
 .user_profile #history .transactions_container .tx {
    margin-bottom: 15px;
    white-space: nowrap;
+   padding: 20px;
+   border-bottom: 1px solid #ccc;
 }
 
-.user_profile #history .transactions_container .tx .tx_header {
-   padding: 10px;
-   border-top: px solid #FFF;
-   border-bottom: 1px solid #FFF;
-   background-color: #464368;
-   color: #FFF;
+.tx .tx_left {
+   width: 25%;
 }
 
-.tx .icon, .tx .tx_left, .tx .tx_right {
+.tx .tx_right {
+   width: 75%;
+}
+
+.tx .tx_left {
+   display: inline-flex;
+   -webkit-box-align: center;
+   align-items: center;
+}
+
+.tx .tx_left .tx_date, .tx .tx_left .icon {
    display: inline-block;
+   vertical-align: middle;
 }
 
-.tx .icon {
-   width: 10%;
-   white-space: normal;
+.tx .tx_left .tx_date {
+   font-size: 18px;
+   font-weight: 100;
+   line-height: 1.4;
+   text-transform: uppercase;
 }
 
-.tx .tx_left, .tx .tx_right {
-   width: 45%;
-   white-space: normal;
+.tx .tx_left .icon {
+   margin: 0 30px;
 }
+
+.tx .tx_left .tx_date span {
+   display: block;
+}
+
 
 .tx_left .msg, .tx_left .confirmations {
    display: block;
 }
+
+.tx .tx_right {
+   display: inline-flex;
+   -webkit-box-align: center;
+   align-items: center;
+   -webkit-box-flex: 1;
+   flex: 1;
+   -webkit-box-pack: justify;
+   justify-content: space-between;
+}
+
+.tx .tx_right .tx_detail {
+   max-width: 200px;
+}
+
+.tx .tx_right .tx_detail .msg, .tx .tx_right .tx_detail .confirmation {
+   display: block;
+}
+
+.tx .tx_right .tx_amount {
+   display: flex;
+   -webkit-box-pack: end;
+   justify-content: flex-end;
+   text-align: right;
+}
+
+.tx .tx_right .tx_amount .tx_amount_wrapper {
+   display: flex;
+   -webkit-box-orient: vertical;
+   -webkit-box-direction: normal;
+   flex-direction: column;
+   -webkit-box-pack: center;
+   justify-content: center;
+}
+
+.tx .tx_right .tx_detail .msg {
+   font-size: 16px;
+   font-weight: 500;
+   color: #1e2f3e;
+}
+
+.tx .tx_right .tx_amount .amount_btc {
+   font-size: 16px;
+   font-weight: 500;
+   color: #1e2f3e;
+}
+
+
 
 

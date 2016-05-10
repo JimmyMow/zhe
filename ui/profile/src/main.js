@@ -20,17 +20,35 @@ function buildTransactions(txs, usd_price) {
          if (!type) { type = "Sent bitcoin"; }
 
          return m('div', { class: 'tx' },
-            m('div', { class: 'tx_header' }, utils.formatTimestamp(tx.timestamp)),
-            m('div', { class: 'icon' },
-               m('i', { class: type == 'Received bitcoin' ? 'fa fa-hand-o-right' : 'fa fa-hand-o-left' })
-            ),
             m('div', { class: 'tx_left' },
-               m('span', { class: 'msg' }, type),
-               m('span', { class: 'confirmations' }, tx.confirmations > 0 ? "Confirmations: " + tx.confirmations : "Pending...")
+               m('div', { class: 'tx_date' },
+                  m('span', { class: 'tx_month' }, utils.formatTimestamp(tx.timestamp, '%b')),
+                  m('span', { class: 'tx_day' }, utils.formatTimestamp(tx.timestamp, '%d'))
+               ),
+               // <div class="icon-wrapper">
+                  // <i class="fa fa-bar-chart custom-icon">
+                  //    <span class="fix-editor">&nbsp;</span>
+                  // </i>
+               // </div>
+               m('div', { class: 'icon' },
+                  m('div', { class: 'icon-wrapper' },
+                     m('i', { class: [type == 'Received bitcoin' ? 'fa fa-download' : 'fa fa-hand-o-left', 'custom-icon'].join(' ') },
+                        m('span', { class: 'fix-editor' }, "&nbsp;")
+                     )
+                  )
+               )
             ),
             m('div', { class: 'tx_right' },
-               m('span', { class: 'amount_satoshis' }, "Ƀ " + btc_amount),
-               m('span', { class: 'amount_usd' }, "$ " +  usd_amount)
+               m('div', { class: 'tx_detail' },
+                  m('span', { class: 'msg' }, type),
+                  m('span', { class: 'confirmations' }, tx.confirmations > 0 ? "Confirmations: " + tx.confirmations : "Pending...")
+               ),
+               m('div', { class: 'tx_amount' },
+                  m('div', { class: 'tx_amount_wrapper' },
+                     m('span', { class: 'amount_btc' }, "Ƀ " + btc_amount),
+                     m('span', { class: 'amount_usd' }, "$ " +  usd_amount)
+                  )
+               )
             )
          );
       })
