@@ -133,3 +133,8 @@ def spread(spread, side):
          oppo_spread = "+{}".format(oppo_spread)
 
       return oppo_spread
+
+@app.template_filter('time_left')
+def time_left(date):
+   date_object = datetime.strptime(date, '%Y-%m-%d %H:%M:%S')
+   return false;

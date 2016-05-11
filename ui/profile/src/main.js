@@ -3,6 +3,14 @@ var utils = require('./utils.js');
 var history = document.getElementById("history");
 
 function buildTransactions(txs, usd_price) {
+   var no_tx = m('div', { class: 'no_tx' },
+      m('div', { class: 'icon' },
+         m('i', {class: 'fa fa-question-circle'})
+      ),
+      m('div', { class: 'no_tx_msg' },
+         m('h3', {}, "You don't have any transactions yet")
+      )
+   )
    var html = m('div', {
       class: ['transactions_container'],
    },
@@ -25,11 +33,6 @@ function buildTransactions(txs, usd_price) {
                   m('span', { class: 'tx_month' }, utils.formatTimestamp(tx.timestamp, '%b')),
                   m('span', { class: 'tx_day' }, utils.formatTimestamp(tx.timestamp, '%d'))
                ),
-               // <div class="icon-wrapper">
-                  // <i class="fa fa-bar-chart custom-icon">
-                  //    <span class="fix-editor">&nbsp;</span>
-                  // </i>
-               // </div>
                m('div', { class: 'icon' },
                   m('div', { class: 'icon-wrapper' },
                      m('a', { href: "https://blockexplorer.com/tx/" + tx.id, target: "_blank" },
@@ -56,7 +59,8 @@ function buildTransactions(txs, usd_price) {
       })
    );
 
-   m.render(history, html);
+   var res = txs.length ? html : no_tx;
+   m.render(history, res);
 }
 module.exports = {
    buildTransactions: buildTransactions
