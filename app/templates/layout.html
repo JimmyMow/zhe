@@ -58,6 +58,7 @@
          {% block content %}{% endblock %}
       </div> <!-- wager -->
    </div>
+   <script src="{{ url_for('static', filename='compiled/convert.js') }}"></script>
    <script src="{{ url_for('static', filename='javascript/util.js') }}"></script>
    {% if request.url_rule.endpoint == 'lobby' %}
       <script src="{{ url_for('static', filename='compiled/wager.mockup.js') }}"></script>

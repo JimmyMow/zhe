@@ -3,6 +3,7 @@ var worker = work(require('./worker.js'));
 var rng = require('secure-random').randomBuffer;
 var Wallet = require('cb-wallet');
 var crypto = require('crypto');
+var validateSend = require('./validator');
 
 var wallet = null;
 var seed = null;
@@ -111,7 +112,8 @@ module.exports = {
    getPubkey: getPubkey,
    bitcoin: bitcoin,
    satoshiToBtc: satoshiToBtc,
-   btcToUsd: btcToUsd
+   btcToUsd: btcToUsd,
+   validateSend: validateSend
 };
 
 

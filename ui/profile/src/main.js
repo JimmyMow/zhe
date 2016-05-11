@@ -59,7 +59,7 @@ function buildTransactions(txs, usd_price) {
       })
    );
 
-   var res = txs.length ? html : no_tx;
+   var res = txs.length > 0 ? html : no_tx;
    m.render(history, res);
 }
 module.exports = {

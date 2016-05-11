@@ -1,6 +1,16 @@
 $(document).ready(function() {
    var Hive = zheWallet;
    var showFiat = false;
+   var rates = {};
+   $.get("https://api.bitcoinaverage.com/ticker/USD/", function(data) {
+      if(!data.last) {
+         rates.USD = null;
+         return;
+      }
+      rates.USD = data.last;
+      return;
+   });
+
    // Tabs
    $(".tab").on("click", function(e) {
       // Remove active classes
@@ -96,4 +106,51 @@ $(document).ready(function() {
       $(this).find(".passphrase_input").val("");
       e.preventDefault();
    });
+
+   // Send Form
+   $("#wallet_send").on("submit", function(e) {
+      var to = $("#send_btc_address").val();
+      var amount = $("#send_btc_amount").val();
+
+      if(!to || !amount) { return; }
+
+
+      Hive.validateSend(Hive.getWallet(), to, amount, function(err, fee) {
+         if(err) {
+            console.log("err: ", err);
+         }
+         console.log("to: ", to);
+         console.log("amount: ", amount);
+         console.log("fee: ", fee);
+
+      });
+      e.preventDefault();
+      return false;
+   });
+
+   $("#wallet_send #send_btc_amount").on('keyup', function() {
+      var val = $(this).val();
+      if(!val.length) {
+         $("#send_usd_amount").val("");
+         return;
+      }
+      $("#send_usd_amount").val(btcToUsd(val));
+   });
+
+   $("#wallet_send #send_usd_amount").on('keyup', function() {
+      var val = $(this).val();
+      if(!val.length) {
+         $("#send_btc_amount").val("");
+         return;
+      }
+      $("#send_btc_amount").val(usdToBtc(val));
+   });
+
+   function btcToUsd(num_btc) {
+      return (rates.USD * num_btc).toFixed(2);
+   }
+
+   function usdToBtc(num_usd) {
+      return num_usd / rates.USD;
+   }
 });

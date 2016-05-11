@@ -50,7 +50,43 @@
             </a>
          </div>
          <div id="send" class="wallet_content current">
-            send content
+            <div class="send_container">
+               <form id="wallet_send">
+                  <div class="send_address">
+                     <label for="send_btc_address">
+                        Address
+                        <div class="input_group">
+                           <span class="moniker">
+                              <i class="fa fa-qrcode" aria-hidden="true"></i>
+                           </span>
+                           <input type="text" id="send_btc_address">
+                        </div>
+                     </label>
+                  </div>
+                  <div class="send_amount">
+                     <label for="send_btc_amount">Amount</label>
+                     <div class="input_group">
+                        <span class="moniker">
+                           <i class="fa fa-btc" aria-hidden="true"></i>
+                        </span>
+                        <input type="text" id="send_btc_amount">
+                        <span class="currency">BTC</span>
+                     </div>
+                     <div class="input_group usd_group">
+                        <span class="moniker">
+                           <i class="fa fa-usd" aria-hidden="true"></i>
+                        </span>
+                        <input type="text" id="send_usd_amount">
+                        <span class="currency">USD</span>
+                     </div>
+                  </div>
+                  <div class="button_container">
+                     <button class="button">
+                        Send
+                     </button>
+                  </div>
+               </form>
+            </div>
          </div>
          <div id="receive" class="wallet_content receive">
             <div class="qr_container">
