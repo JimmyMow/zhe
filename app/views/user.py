@@ -1,9 +1,10 @@
-from flask import Blueprint, render_template, redirect, url_for, abort, flash, session, g
+from flask import Blueprint, render_template, redirect, url_for, abort, flash, session, g, jsonify
 from flask.ext.login import login_user, logout_user, login_required
 from itsdangerous import URLSafeTimedSerializer
 from app import app, models, db
 from app.forms import user as user_forms
 from app.toolbox import email
+from app.toolbox.wallet_helper import wallet_helper
 
 # Serializer for generating random tokens
 ts = URLSafeTimedSerializer(app.config['SECRET_KEY'])
@@ -87,4 +88,5 @@ def profile():
     if 'email' not in session:
         return redirect('/')
     user = models.User.query.filter_by(email=session['email']).first()
-    return render_template('user/profile.html', wallet_seed=user.wallet_seed)
+    fee_pb = wallet_helper.rec_fee()['fastestFee']
+    return render_template('user/profile.html', wallet_seed=user.wallet_seed, fee_pb=fee_pb)

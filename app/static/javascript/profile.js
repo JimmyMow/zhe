@@ -1,6 +1,8 @@
 $(document).ready(function() {
    var Hive = zheWallet;
    var showFiat = false;
+   var btcToSatoshi = convert.btcToSatoshi
+   var satoshiToBtc = convert.satoshiToBtc
    var rates = {};
    $.get("https://api.bitcoinaverage.com/ticker/USD/", function(data) {
       if(!data.last) {
@@ -109,20 +111,53 @@ $(document).ready(function() {
 
    // Send Form
    $("#wallet_send").on("submit", function(e) {
+      var wallet = Hive.getWallet()
       var to = $("#send_btc_address").val();
       var amount = $("#send_btc_amount").val();
 
       if(!to || !amount) { return; }
 
+      var tx = new bitcoin.TransactionBuilder()
+      var kp = wallet.externalAccount.derive(3).keyPair;
 
-      Hive.validateSend(Hive.getWallet(), to, amount, function(err, fee) {
+      console.log("help: ", tx.network === kp.network);
+
+      Hive.validateSend(wallet, to, amount, parseInt(fee_pb), function(err, fee) {
          if(err) {
             console.log("err: ", err);
          }
          console.log("to: ", to);
          console.log("amount: ", amount);
          console.log("fee: ", fee);
+         var satoshis = btcToSatoshi(amount);
+         var tx = null;
+         console.log(satoshis);
+         var x = confirm("Are you sure you want to send " + amount + "of BTC with a " + fee + " satoshi fee?");
+         if(!x) { return; }
 
+         try {
+            tx = wallet.createTx(to, satoshis, parseInt(fee_pb))
+         } catch(err) {
+            console.log("err: ", err);
+         }
+
+         console.log("tx after remake: ", tx);
+         var url = "https://blockexplorer.com/api/tx/send";
+         $.ajax({
+            type: "POST",
+            url: url,
+            data: {
+               "rawtx": tx.toHex()
+            },
+            success: function(data) {
+               console.log("data: ", data);
+               wallet.processTx(tx);
+               alert("Yay you sent BTC!");
+            },
+            error:  function(e) {
+               console.log("error: ", e);
+            }
+         });
       });
       e.preventDefault();
       return false;

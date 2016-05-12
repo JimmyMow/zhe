@@ -4,7 +4,7 @@ var networks = require('bitcoinjs-lib').networks
 var btcToSatoshi = convert.btcToSatoshi
 var satoshiToBtc = convert.satoshiToBtc
 
-function validateSend(wallet, to, btcValue, callback){
+function validateSend(wallet, to, btcValue, fee_pb, callback){
   console.log("hey we made it to validateSend");
   var amount = btcToSatoshi(btcValue)
   var network = networks[wallet.networkName]
@@ -15,7 +15,7 @@ function validateSend(wallet, to, btcValue, callback){
   console.log("tx: ", tx);
 
   try {
-    tx = wallet.createTx(to, amount)
+    tx = wallet.createTx(to, amount, fee_pb);
   } catch(e) {
     console.log("e: ", e);
     if(e.message.match(/Invalid address/)) {
@@ -48,12 +48,19 @@ function validateSend(wallet, to, btcValue, callback){
         return callback(new Error("You do not have enough funds in your wallet"))
       }
     }
-    console.log("tx? lol ", tx);
     return new callback(e)
   }
+  console.log("tx? lol ", tx);
+  var estimated_fee = calcFee(tx, fee_pb);
+  callback(null, estimated_fee)
 
-  callback(null, satoshiToBtc(wallet.txGraph.calculateFee(tx)))
+}
 
+function calcFee(tx, fee_pb) {
+  var res = tx.byteLength() * fee_pb;
+  if(!res ) { console.log("woah wtf"); return; }
+
+  return res;
 }
 
 function attemptToEmptyWallet(balance, amount, network){

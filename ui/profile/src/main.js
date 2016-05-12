@@ -36,7 +36,7 @@ function buildTransactions(txs, usd_price) {
                m('div', { class: 'icon' },
                   m('div', { class: 'icon-wrapper' },
                      m('a', { href: "https://blockexplorer.com/tx/" + tx.id, target: "_blank" },
-                        m('i', { class: [type == 'Received bitcoin' ? 'fa fa-download' : 'fa fa-hand-o-left', 'custom-icon'].join(' ') },
+                        m('i', { class: [type == 'Received bitcoin' ? 'fa fa-download' : 'fa fa-upload', 'custom-icon'].join(' ') },
                            m('span', { class: 'fix-editor' }, "&nbsp;")
                         )
                      )
