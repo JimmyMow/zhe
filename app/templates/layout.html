@@ -28,6 +28,7 @@
    <script type="text/javascript" src="{{ url_for('static', filename='javascript/qrcode.min.js') }}"></script>
 </head>
 <body>
+   <div id="flash_modal" class="z-9000"></div>
    <div id="top">
       {% if current_user.is_authenticated %}
          <div class="user fright">
@@ -59,6 +60,7 @@
       </div> <!-- wager -->
    </div>
    <script src="{{ url_for('static', filename='compiled/convert.js') }}"></script>
+   <script src="{{ url_for('static', filename='compiled/modal_flash.js') }}"></script>
    <script src="{{ url_for('static', filename='javascript/util.js') }}"></script>
    {% if request.url_rule.endpoint == 'lobby' %}
       <script src="{{ url_for('static', filename='compiled/wager.mockup.js') }}"></script>

@@ -124,7 +124,16 @@ $(document).ready(function() {
 
       Hive.validateSend(wallet, to, amount, parseInt(fee_pb), function(err, fee) {
          if(err) {
-            console.log("err: ", err);
+            var interpolations = err.interpolations
+            if(err.message.match(/trying to empty your wallet/)){
+               console.log("err matches empty wallet");
+               console.log("msg: ", err.message);
+            }
+            console.log("err doesn't match empty wallet");
+            console.log("msg: ", err.message);
+
+            modal_flash.modal('error', err.message);
+            return;
          }
          console.log("to: ", to);
          console.log("amount: ", amount);

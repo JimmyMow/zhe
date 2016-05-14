@@ -63,5 +63,5 @@ function buildTransactions(txs, usd_price) {
    m.render(history, res);
 }
 module.exports = {
-   buildTransactions: buildTransactions
+   buildTransactions: buildTransactions,
 }
