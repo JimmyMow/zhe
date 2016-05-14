@@ -32,7 +32,7 @@ $(document).ready(function() {
       showFiat = !showFiat;
       if (showFiat) {
          var btcAmount = Hive.satoshiToBtc(Hive.getWallet().getBalance());
-         Hive.btcToUsd(btcAmount, function(data) { $("#balance").text(data); });
+         $("#balance").text(btcToUsd(btcAmount));
          $(this).addClass('usd');
       } else {
          $(this).addClass('btc');
@@ -60,11 +60,6 @@ $(document).ready(function() {
       return false;
    });
 
-   var unspentsDone = function(err, data) {
-      console.log("err from unspentsDone: ", err);
-      console.log("data from unspentsDone: ", data);
-   };
-
    var balanceDone = function(err, data) {
       if(err) { console.log("Error on balanceDone: ", err); return; }
       $("#balance").text(Hive.satoshiToBtc(data));
@@ -76,25 +71,22 @@ $(document).ready(function() {
       Hive.createWallet(passphrase, 'bitcoin', function(err, data) {
          var accountZero = bitcoin.HDNode.fromSeedHex(data.seed, bitcoin.networks['bitcoin']).deriveHardened(0);
          if (data._id != wallet_seed) {
-            alert("Passphrase is incorrect");
+            $(".loader").addClass('hidden');
+            modal_flash.modal("error", "Your wallet passphrase is incorrect");
             return;
          }
          Hive.initWallet(accountZero.derive(0), accountZero.derive(1), 'bitcoin', function(err, data) {
             if (err) {
                console.log("error on initWallet: ", err);
+               modal_flash.modal("error", "There was a problem initializing your wallet")
                return;
             }
-            console.log("data from init: ", data);
             $(".loader").addClass('hidden');
             $(".wallet_interface").removeClass('hidden');
 
-            for (var i = 0; i < data.length; i++) {
-               console.log("tx: ", data[i]);
-            }
-            $.get("https://api.bitcoinaverage.com/ticker/USD/", function(price) {
-               profile.buildTransactions(data, price.last);
-            });
+            profile.buildTransactions(data, rates.USD);
             var w = Hive.getWallet();
+
             $("#address").text(w.getNextAddress());
             $("#qrcode").qrcode({
                "size": 150,
@@ -103,7 +95,7 @@ $(document).ready(function() {
                "text": w.getNextAddress()
             });
             var hd = w.getHdNode(w.getNextAddress());
-         }, unspentsDone, balanceDone);
+         }, null, balanceDone);
       });
       $(this).find(".passphrase_input").val("");
       e.preventDefault();
@@ -120,37 +112,31 @@ $(document).ready(function() {
       var tx = new bitcoin.TransactionBuilder()
       var kp = wallet.externalAccount.derive(3).keyPair;
 
-      console.log("help: ", tx.network === kp.network);
-
       Hive.validateSend(wallet, to, amount, parseInt(fee_pb), function(err, fee) {
          if(err) {
             var interpolations = err.interpolations
             if(err.message.match(/trying to empty your wallet/)){
-               console.log("err matches empty wallet");
-               console.log("msg: ", err.message);
+               modal_flash.modal('error', err.message);
+               return;
             }
-            console.log("err doesn't match empty wallet");
-            console.log("msg: ", err.message);
 
             modal_flash.modal('error', err.message);
             return;
          }
-         console.log("to: ", to);
-         console.log("amount: ", amount);
-         console.log("fee: ", fee);
+
          var satoshis = btcToSatoshi(amount);
          var tx = null;
-         console.log(satoshis);
-         var x = confirm("Are you sure you want to send " + amount + "of BTC with a " + fee + " satoshi fee?");
+         var x = confirm("Are you sure you want to send " + amount + " of BTC ($" + btcToUsd(amount) + ") with a " + fee + " satoshi fee?");
          if(!x) { return; }
 
          try {
             tx = wallet.createTx(to, satoshis, parseInt(fee_pb))
          } catch(err) {
             console.log("err: ", err);
+            var e = err.message || "There was an error";
+            modal_flash.modal("error", e)
          }
 
-         console.log("tx after remake: ", tx);
          var url = "https://blockexplorer.com/api/tx/send";
          $.ajax({
             type: "POST",
@@ -159,12 +145,12 @@ $(document).ready(function() {
                "rawtx": tx.toHex()
             },
             success: function(data) {
-               console.log("data: ", data);
                wallet.processTx(tx);
-               alert("Yay you sent BTC!");
+               modal_flash.modal("success", "You successfully sent BTC")
             },
             error:  function(e) {
-               console.log("error: ", e);
+               var e = err.message || "There was an error";
+               modal_flash.modal("error", e)
             }
          });
       });
