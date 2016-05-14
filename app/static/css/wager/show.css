@@ -1,5 +1,7 @@
 #countdown {
-   margin-top: 50px;
+   position: absolute;
+   top: 0;
+   right: -150px;
    font-size: 20px;
 }
 
