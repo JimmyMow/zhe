@@ -145,10 +145,10 @@ $(document).ready(function() {
          var passphrase = $("#passphrase").val();
          if( !team_status || !passphrase ) {
             e.preventDefault();
+            modal_flash.modal("center", "error", "Not all fields were filled out")
             $("#friend_loading").addClass('hidden');
             return;
          }
-
 
          var data = {};
          var game_id = $('#selectGame').find(":selected").val();
@@ -164,46 +164,57 @@ $(document).ready(function() {
          data.time_date = time_date;
 
          zheWallet.createWallet(passphrase, 'bitcoin', function(err, d) {
-            if (err) { alert("Problem with your passphrase"); return; }
-            console.log("d._id ", d._id);
-            console.log("user_wallet_seed ", user_wallet_seed);
+            if (err) {
+               modal_flash.modal("center", "error", "Problem with your passphrase")
+               return;
+            }
+
             if (d._id != user_wallet_seed) {
-               alert("Encrypted seed does not match the passphrase you provided. Please try again");
+               modal_flash.modal("center", "error", "Encrypted seed does not match the passphrase you provided. Please try again")
                $("#friend_loading").addClass('hidden');
                return;
             }
             var accountZero = bitcoin.HDNode.fromSeedHex(d.seed, bitcoin.networks['bitcoin']).deriveHardened(0);
             zheWallet.initWallet(accountZero.derive(0), accountZero.derive(1), 'bitcoin', function(err, w_d) {
-               if (err) { alert("Problem with your passphrase"); return; }
+               if (err) {
+                  modal_flash.modal("center", "error", "Problem with your passphrase")
+                  return;
+               }
                var w = zheWallet.getWallet();
+               console.log("w: ", w);
+               console.log("wallet balance in satoshis: ", w.getBalance());
+               var val_btc = zheWallet.usdToBtc(data.value);
+               console.log("bet value in btc: ", val_btc);
+               var val_sat = zheWallet.btcToSatoshi(val_btc);
+               console.log("bet val in satoshis: ", val_sat);
+
+               if(val_sat > w.getBalance()) {
+                  modal_flash.modal("center", "error", "You do not have enough funds in your wallet to create this bet")
+                  $("#friend_loading").addClass('hidden');
+                  return;
+               }
+
                var w_pubkey = w.externalAccount.derive(w.addresses.length).keyPair.Q.getEncoded().toString('hex');
                data.pubkey = w_pubkey;
                data.derive_index = w.addresses.length;
                console.log("w_pubkey: ", w_pubkey);
 
-               $.get("https://api.bitcoinaverage.com/ticker/USD/", function(price) {
-                  if (!price.last) {
-                     alert("Problem timestamping the BTC proce for your wager. Please try again.");
-                     return false;
+               data.btc_stamp = zheWallet.rates.USD;
+               console.log("DATA: ", data);
+               console.log($(this));
+               $.ajax({
+                  url: $('form').attr('action'),
+                  method: 'post',
+                  data: data,
+                  success: function(data) {
+                     window.location.replace("/wager/" + data.id);
+                  },
+                  error: function(e) {
+                     console.log("fail: ", e);
+                     $("#friend_loading").addClass('hidden');
+                     // window.location.reload();
                   }
-
-                  data.btc_stamp = price.last;
-                  console.log("DATA: ", data);
-                  console.log($(this));
-                  $.ajax({
-                     url: $('form').attr('action'),
-                     method: 'post',
-                     data: data,
-                     success: function(data) {
-                        window.location.replace("/wager/" + data.id);
-                     },
-                     error: function(e) {
-                        console.log("fail: ", e);
-                        $("#friend_loading").addClass('hidden');
-                        // window.location.reload();
-                     }
-                  });
-               }.bind(this));
+               });
             });
          }, null, null);
 

@@ -1,0 +1,12 @@
+#countdown {
+   margin-top: 50px;
+   font-size: 20px;
+}
+
+#countdown div, #countdown div span {
+   display: inline-block;
+}
+
+#countdown .h:after, #countdown .m:after {
+   content: ":";
+}

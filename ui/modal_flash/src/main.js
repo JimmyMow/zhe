@@ -1,7 +1,7 @@
 var m = require('mithril');
 var el = document.getElementById("flash_modal");
 
-function modal(cl, msg) {
+function modal(align, cl, msg) {
    if(!document.getElementById("flash_modal")) {
       el = document.createElement('div');
       el.id = 'flash_modal';
@@ -14,7 +14,7 @@ function modal(cl, msg) {
       }
    },
       m('div', { class: 'modal_cancel' },
-         m('div', { class: ['modal_content', 'flash'].join(' ') },
+         m('div', { class: ['modal_content', 'flash', align].join(' ') },
             m('div', { class: 'flash_header' },
                m('span', { class: 'modal__cancel' },
                   m('i', { class: 'fa fa-times' })

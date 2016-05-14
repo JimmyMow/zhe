@@ -8,6 +8,16 @@ var validateSend = require('./validator');
 var wallet = null;
 var seed = null;
 var id = null;
+var rates = {};
+$.get("https://api.bitcoinaverage.com/ticker/USD/", function(data) {
+  if(!data.last) {
+    rates.USD = null;
+    return;
+  }
+  rates.USD = data.last;
+  return;
+});
+
 
 function getPubkey(hd) {
    return hd.keyPair.Q.getEncoded().toString('hex');
@@ -94,10 +104,18 @@ function satoshiToBtc(amount) {
 }
 
 function btcToUsd(amount, done) {
-  $.get("https://api.bitcoinaverage.com/ticker/USD/", function(price) {
-    var res = parseFloat(amount) * parseFloat(price.last);
-    return done(res.toFixed(2));
-  });
+  var res = parseFloat(amount) * parseFloat(rates.USD);
+  return done(res.toFixed(2));
+}
+
+function usdToBtc(usd_amount) {
+  var btc = usd_amount / rates.USD;
+  return btc;
+}
+
+function btcToSatoshi(btc) {
+  var satoshis = btc * 100000000;
+  return Math.floor(satoshis);
 }
 
 function assignSeedAndId(s) {
@@ -113,7 +131,10 @@ module.exports = {
    bitcoin: bitcoin,
    satoshiToBtc: satoshiToBtc,
    btcToUsd: btcToUsd,
-   validateSend: validateSend
+   usdToBtc: usdToBtc,
+   btcToSatoshi: btcToSatoshi,
+   validateSend: validateSend,
+   rates: rates
 };
 
 

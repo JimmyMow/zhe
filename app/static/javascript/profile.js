@@ -72,13 +72,13 @@ $(document).ready(function() {
          var accountZero = bitcoin.HDNode.fromSeedHex(data.seed, bitcoin.networks['bitcoin']).deriveHardened(0);
          if (data._id != wallet_seed) {
             $(".loader").addClass('hidden');
-            modal_flash.modal("error", "Your wallet passphrase is incorrect");
+            modal_flash.modal('right', "error", "Your wallet passphrase is incorrect");
             return;
          }
          Hive.initWallet(accountZero.derive(0), accountZero.derive(1), 'bitcoin', function(err, data) {
             if (err) {
                console.log("error on initWallet: ", err);
-               modal_flash.modal("error", "There was a problem initializing your wallet")
+               modal_flash.modal('right', "error", "There was a problem initializing your wallet")
                return;
             }
             $(".loader").addClass('hidden');
@@ -116,11 +116,11 @@ $(document).ready(function() {
          if(err) {
             var interpolations = err.interpolations
             if(err.message.match(/trying to empty your wallet/)){
-               modal_flash.modal('error', err.message);
+               modal_flash.modal('right', 'error', err.message);
                return;
             }
 
-            modal_flash.modal('error', err.message);
+            modal_flash.modal('right', 'error', err.message);
             return;
          }
 
@@ -134,7 +134,7 @@ $(document).ready(function() {
          } catch(err) {
             console.log("err: ", err);
             var e = err.message || "There was an error";
-            modal_flash.modal("error", e)
+            modal_flash.modal('right', "error", e)
          }
 
          var url = "https://blockexplorer.com/api/tx/send";
@@ -146,11 +146,11 @@ $(document).ready(function() {
             },
             success: function(data) {
                wallet.processTx(tx);
-               modal_flash.modal("success", "You successfully sent BTC")
+               modal_flash.modal('right', "success", "You successfully sent BTC")
             },
             error:  function(e) {
                var e = err.message || "There was an error";
-               modal_flash.modal("error", e)
+               modal_flash.modal('right', "error", e)
             }
          });
       });

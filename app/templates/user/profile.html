@@ -3,7 +3,7 @@
 {% block content %}
    <div class="content_box user_profile" id="profile">
       <div class="passphrase_form_container">
-         <form id="passphrase">
+         <form id="passphrase" autocomplete="off">
             <input type="text" class="passphrase_input" placeholder="Enter wallet passhrase" autofocus="true">
             <div class="button_container">
                <button type="submit" class="submit_bet button hint--bottom" name="color" value="random">
@@ -51,7 +51,7 @@
          </div>
          <div id="send" class="wallet_content current">
             <div class="send_container">
-               <form id="wallet_send">
+               <form id="wallet_send" autocomplete="off">
                   <div class="send_address">
                      <label for="send_btc_address">
                         Address

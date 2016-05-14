@@ -449,13 +449,6 @@ input[type=range]:focus::-ms-fill-upper {
   text-align: center;
   width: 300px;
   cursor: default;
-  /*position: relative;*/
-  /*margin: 0 auto;
-  margin-top: 20px;
-  margin-bottom: 20px;*/
-  position: absolute;
-  left: 45%;
-  top: 20%;
   border-radius: 3px;
   background-color: #FDFDFD;
   box-shadow: 0 2px 2px 1px rgba(0, 0, 0, 0.2);
@@ -466,6 +459,19 @@ input[type=range]:focus::-ms-fill-upper {
   -ms-animation: fadein .75s; /* Internet Explorer */
   -o-animation: fadein .75s; /* Opera < 12.1 */
   animation: fadein .75s;
+}
+
+.modal_content.center {
+  position: relative;
+  margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.modal_content.right {
+  position: absolute;
+  left: 45%;
+  top: 20%;
 }
 
 .flash_header {

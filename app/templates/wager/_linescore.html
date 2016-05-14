@@ -52,6 +52,18 @@
                         </a>
                      </p>
                   </div>
+               {% else %}
+                  <div id="countdown" style="display: none;">
+                     <div class="h">
+                        <span class="hours"></span>
+                     </div>
+                     <div class="m">
+                        <span class="minutes"></span>
+                     </div>
+                     <div>
+                        <span class="seconds"></span>
+                     </div>
+                  </div>
                {% endif %}
             </div>
             <div class="home_top team_top">
@@ -113,6 +125,7 @@
 </div> <!-- content_box -->
 
 <script type="text/javascript">
+   var deadline = "{{wager.time_date}}";
    $(document).ready(function() {
       $("#qrcode").qrcode({
          "size": 150,
