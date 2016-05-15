@@ -6,17 +6,6 @@
       {% endwith %}
    </div>
    <div class="content_box_top">
-      <div id="countdown" style="display: none;">
-         <div class="h">
-            <span class="hours"></span>
-         </div>
-         <div class="m">
-            <span class="minutes"></span>
-         </div>
-         <div>
-            <span class="seconds"></span>
-         </div>
-      </div>
       <div class="game_top">
          <div class="summary_top">
             <div class="away_top team_top">
@@ -101,7 +90,7 @@
             </span>
             <span class="stat">|</span>
             <span class="stat">
-               {{game.data.game.home_probable_pitcher.era}} ERA
+               {{game.data.game.away_probable_pitcher.era}} ERA
             </span>
          </p>
       </div>

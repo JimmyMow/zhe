@@ -54,6 +54,9 @@
             <a href="/" id="site_title">
                ZeroHouseEdge
             </a>
+            {% if request.url_rule.endpoint == 'wagerbp.wager' %}
+               {% include 'wager/_countdown.html' %}
+            {% endif %}
          </h1>
       </div>  <!-- site header -->
       <div id="wager">

@@ -39,4 +39,7 @@ class wallet_helper():
    def rec_fee():
       url = "https://bitcoinfees.21.co/api/v1/fees/recommended"
       r = requests.get(url)
-      return r.json()
+      if r.status_code == 200:
+         return r.json()
+      else:
+         return { 'fastestFee': 50 }

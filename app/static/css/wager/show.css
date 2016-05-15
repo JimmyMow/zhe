@@ -1,14 +1,25 @@
 #countdown {
-   position: absolute;
-   top: 0;
-   right: -150px;
-   font-size: 20px;
+   font-family: monospace,'Noto Sans','Lucida Grande';
 }
 
 #countdown div, #countdown div span {
    display: inline-block;
+   vertical-align: top;
 }
 
-#countdown .h:after, #countdown .m:after {
-   content: ":";
+#countdown .clock i {
+   color: #C4A86F;
 }
+
+#countdown .clock {
+   width: 100%;
+   text-align: left;
+   margin: 50px 0px;
+   font-size: 20px;
+}
+
+#countdown .info {
+   font-size: 12px;
+   text-align: left;
+}
+
