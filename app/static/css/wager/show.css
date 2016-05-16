@@ -23,3 +23,25 @@
    text-align: left;
 }
 
+#countdown .info:after {
+   content: "before the bet expires";
+}
+
+#countdown.expired .clock i {
+   color: #000;
+   opacity: 0.5;
+}
+
+#countdown.expired .clock div {
+   color: #DC322F;
+}
+
+#countdown.expired .info {
+   font-weight: bold;
+   color: #000;
+}
+
+#countdown.expired .info:after {
+   content: "this wager has expired";
+}
+

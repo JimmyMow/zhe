@@ -92,6 +92,19 @@ class MLBWager(db.Model):
 
         return payout
 
+class Transaction(db.Model):
+    ''' A transaction to the multisig redeem script. '''
+
+    __tablename__ = 'transactions'
+    id = db.Column(db.Integer, primary_key=True)
+    wager_id = db.Column(db.Integer)
+    user_id = db.Column(db.String)
+    hex = db.Column(db.String)
+    tx_index = db.Column(db.Integer)
+    tx_id = db.Column(db.String)
+    output = db.Column(db.Boolean, default=False)
+    fee = db.Column(db.Integer)
+
 # Generate random string for ID of the MLB Wager
 def after_insert_listener(mapper, connection, target):
     target.id = str(uuid.uuid4())[:8]

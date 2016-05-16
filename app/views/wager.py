@@ -8,6 +8,7 @@ from datetime import datetime
 from math import sqrt
 import time
 import json
+import math
 
 # Create a wager blueprint
 wagerbp = Blueprint('wagerbp', __name__, url_prefix='/wager')
@@ -85,7 +86,8 @@ def wager(wager_id):
     return jsonify(data)
 
   game = mlb.get_mlb_game(wager.game_id)
-  return render_template('wager/show.html', wager=wager, game=game, innings=[])
+  expired = math.floor(((wager.time_date - datetime.now()).seconds) / 3600) > 0
+  return render_template('wager/show.html', wager=wager, game=game, expired=expired, innings=[])
 
 @wagerbp.route('/<path:wager_id>/sign', methods=['GET'])
 def sign(wager_id):

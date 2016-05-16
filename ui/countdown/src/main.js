@@ -1,6 +1,16 @@
 function getTimeRemaining(endtime){
   var utc = new Date(endtime+" UTC-0400").toUTCString()
   var t = Date.parse(new Date(utc)) - Date.parse(new Date());
+  if(t <= 0) {
+    $("#countdown").addClass('expired');
+    return {
+      'total': 0,
+      'days': 0,
+      'hours': 0,
+      'minutes': 0,
+      'seconds': 0
+    };
+  }
   var seconds = Math.floor( (t/1000) % 60 );
   var minutes = Math.floor( (t/1000/60) % 60 );
   var hours = Math.floor( (t/(1000*60*60)) % 24 );

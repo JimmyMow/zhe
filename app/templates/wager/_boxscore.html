@@ -50,11 +50,17 @@
                         <p>{{wager.away_id}}</p>
                      </div>
                   {% else %}
-                     <div class="not_accepted">
-                        <form class="accept_wager" action="/wager/{{wager.id}}">
-                           <button class="accept_button" type="submit">Take the {{game.data.boxscore.away_fname|team_name}}</button>
-                        </form>
-                     </div>
+                     {% if expired %}
+                        <div class="not_accepted accepted">
+                           <p>This wager has expired</p>
+                        </div>
+                     {% else %}
+                        <div class="not_accepted">
+                           <form class="accept_wager" action="/wager/{{wager.id}}">
+                              <button class="accept_button" type="submit">Take the {{game.data.boxscore.away_fname|team_name}}</button>
+                           </form>
+                        </div>
+                     {% endif %}
                   {% endif %}
                </div>
             </div>
