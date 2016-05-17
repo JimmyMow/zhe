@@ -2,6 +2,7 @@
    {{tx.id}}
    {{tx.wager_id}}
    {{tx.tx_id}}
+   {{tx.user_id}}
 {% endfor %}
 <div class="content_box no_padding wager_show linescore">
    <div class="lichess_overboard">
@@ -62,6 +63,9 @@
                         </div>
                      {% endif %}
                   </div>
+                  {% if wager.script_address %}
+                  <div class="funded">bet has been accepted</div>
+                  {% endif %}
                </div>
             </div>
             <div class="details_top">

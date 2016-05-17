@@ -110,9 +110,7 @@ def stream_events(wager_id):
    wager = models.MLBWager.query.filter_by(id=wager_id).first()
    def generate(wager):
       events = mlb.get_game_events(wager.game_id)
-      # print("events: {}".format(events))
       res = json.dumps(events['html']['body']['game']['inning'])
-      # print("res: {}".format(res))
 
       yield res
 
