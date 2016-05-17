@@ -117,3 +117,12 @@ def stream_events(wager_id):
       yield res
 
    return app.response_class(generate(wager), mimetype='application/json')
+
+@wagerbp.route('/<path:wager_id>/email_bet_accepted', methods=['GET'])
+def email_bet_accepted(wager_id):
+   wager = models.MLBWager.query.filter_by(id=wager_id).first()
+   author = wager.author_id
+   acceptor = wager.acceptor_id
+   html = render_template('email/bet_accepted.html', author_email=author, acceptor_email=acceptor)
+   email.send_email([author_email], "Your bet has been accepted on Zero House Edge", html)
+   return "success"

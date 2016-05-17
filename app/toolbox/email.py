@@ -3,20 +3,13 @@ from flask.ext.mail import Message
 from app import app, mail
 
 
-def send(recipient, subject, body):
-    '''
-    Send a mail to a recipient. The body is usually a rendered HTML template.
-    The sender's credentials has been configured in the config.py file.
-    '''
-    sender = app.config['EMAIL_ADDRESS']
-    message = Message(subject, sender=sender, recipients=[recipient])
-    message.html = body
-    # Create a new thread
-    thr = Thread(target=send_async, args=[app, message])
-    thr.start()
-
-
-def send_async(app, message):
-    ''' Send the mail asynchronously. '''
+def send_async_email(app, msg):
     with app.app_context():
-        mail.send(message)
+        mail.send(msg)
+
+def send_email(recipients, subject, html_body):
+    sender = app.config['ADMINS'][0]
+    msg = Message(subject, sender=sender, recipients=recipients)
+    msg.html = html_body
+    thr = Thread(target=send_async_email, args=[app, msg])
+    thr.start()

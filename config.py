@@ -6,13 +6,13 @@ SECRET_KEY = 'houdini'
 SQLALCHEMY_DATABASE_URI = 'sqlite:///app.db'
 SQLALCHEMY_TRACK_MODIFICATIONS = True
 # Configuration of a Gmail account for sending mails
-EMAIL_ADDRESS = '0houseedge@gmail.com'
 MAIL_SERVER = 'smtp.googlemail.com'
 MAIL_PORT = 465
 MAIL_USE_TLS = False
 MAIL_USE_SSL = True
-MAIL_USERNAME = '0houseedge'
-MAIL_PASSWORD = 'zerohouseedge'
+MAIL_USERNAME = 'masonicgit.21'
+MAIL_PASSWORD = '21.co/learn'
+ADMINS = ['masonicgit.21@gmail.com']
 # Number of times a password is hashed
 BCRYPT_LOG_ROUNDS = 12
 # Sportradar API Key
