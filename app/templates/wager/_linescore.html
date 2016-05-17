@@ -1,3 +1,8 @@
+{% for tx in txs %}
+   {{tx.id}}
+   {{tx.wager_id}}
+   {{tx.tx_id}}
+{% endfor %}
 <div class="content_box no_padding wager_show linescore">
    <div class="lichess_overboard">
       <p id="updated_res">Assiging your public key</p>
@@ -13,6 +18,36 @@
                   <img src="http://mlb.mlb.com/mlb/images/team_logos/124x150/{{game.data.game.away_file_code}}@2x.png">
                   <div class="record">
                      ({{game.data.game.away_win}}-{{game.data.game.away_loss}})
+                  </div>
+                  <div class="bet_details">
+                     {% if wager.original_side == 'away' %}
+                        <span class="spread">
+                           <span>{{wager.spread|spread('reg')}}</span>
+                        </span>
+                        <span class="line">
+                           <span>{{wager.line|line('reg')}}</span>
+                        </span>
+                        <span class="value">
+                           <span>
+                              Risk ${{wager.value}} to win ${{wager|winnings}}
+                           </span>
+                        </span>
+                     {% else %}
+                        <span class="spread">
+                           <span>{{wager.spread|spread('oppo')}}</span>
+                        </span>
+                        <span class="line">
+                           <span>{{wager.line|line('oppo')}}</span>
+                        </span>
+                        <span class="value">
+                           <span>
+                              Risk $<span id="acceptor_risk">{{wager|winnings}}
+                              </span>
+                              to win
+                              ${{wager.value}}
+                           </span>
+                        </span>
+                     {% endif %}
                   </div>
                   <div class="user_container user_away">
                      {% if wager.away_id %}
@@ -59,6 +94,41 @@
                   <img src="http://mlb.mlb.com/mlb/images/team_logos/124x150/{{game.data.game.home_file_code}}@2x.png">
                   <div class="record">
                      ({{game.data.game.home_win}}-{{game.data.game.home_loss}})
+                  </div>
+                  <div class="bet_details">
+                     {% if wager.original_side == 'home' %}
+                        <span class="spread">
+                           <span>{{wager.spread|spread('reg')}}</span>
+                        </span>
+                        <span class="line">
+                           <span>{{wager.line|line('reg')}}</span>
+                        </span>
+                        <span class="value">
+                           <span>
+                              Risk
+                              ${{wager.value}}
+                              to win
+                              ${{wager|winnings}}
+                           </span>
+                        </span>
+                     {% else %}
+                        <span class="spread">
+                           <span>{{wager.spread|spread('oppo')}}</span>
+                        </span>
+                        <span class="line">
+                           <span>{{wager.line|line('oppo')}}</span>
+                        </span>
+                        <span class="value">
+                           <span>
+                              Risk $
+                              <span id="acceptor_risk">
+                                 {{wager|winnings}}
+                              </span>
+                              to win
+                              ${{wager.value}}
+                           </span>
+                        </span>
+                     {% endif %}
                   </div>
                   <div class="user_container user_home">
                      {% if wager.home_id %}
@@ -114,6 +184,7 @@
 
 <script type="text/javascript">
    var deadline = "{{wager.time_date}}";
+   var fee_pb = "{{fee_pb}}";
    $(document).ready(function() {
       $("#qrcode").qrcode({
          "size": 150,

@@ -97,13 +97,10 @@ class Transaction(db.Model):
 
     __tablename__ = 'transactions'
     id = db.Column(db.Integer, primary_key=True)
-    wager_id = db.Column(db.Integer)
+    wager_id = db.Column(db.String)
     user_id = db.Column(db.String)
-    hex = db.Column(db.String)
-    tx_index = db.Column(db.Integer)
     tx_id = db.Column(db.String)
     output = db.Column(db.Boolean, default=False)
-    fee = db.Column(db.Integer)
 
 # Generate random string for ID of the MLB Wager
 def after_insert_listener(mapper, connection, target):

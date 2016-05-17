@@ -41,6 +41,16 @@
    font-size: 15px;
 }
 
+.linescore .team_top .bet_details {
+   margin-top: 15px;
+}
+
+.linescore .team_top .bet_details .value {
+   margin-top: 5px;
+   font-size: 14px;
+   font-weight: bold;
+}
+
 .linescore .accept_button {
    font-size: 12px;
 }

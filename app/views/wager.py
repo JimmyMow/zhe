@@ -81,13 +81,15 @@ def wager(wager_id):
     owe = wager.owe(user_email)
     owe_in_satoshis = w.usd_to_satoshi(owe, wager.btc_stamp)
 
-    data = { 'owe': owe_in_satoshis }
+    data = { 'owe': owe_in_satoshis, 'script_address': wager.script_address }
 
     return jsonify(data)
 
   game = mlb.get_mlb_game(wager.game_id)
   expired = math.floor(((wager.time_date - datetime.now()).seconds) / 3600) > 0
-  return render_template('wager/show.html', wager=wager, game=game, expired=expired, innings=[])
+  fee_pb = wallet_helper.rec_fee()['fastestFee']
+  txs = models.Transaction.query.filter_by(wager_id=wager_id).all()
+  return render_template('wager/show.html', wager=wager, game=game, expired=expired, fee_pb=fee_pb, txs=txs, innings=[])
 
 @wagerbp.route('/<path:wager_id>/sign', methods=['GET'])
 def sign(wager_id):

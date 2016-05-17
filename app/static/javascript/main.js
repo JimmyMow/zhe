@@ -1,4 +1,20 @@
 $(document).ready(function() {
+   $("#tx").on('click', function() {
+      $.ajax({
+         url: '/transaction',
+         method: 'POST',
+         data: {
+            "tx_id": "dsbdvjkldvjkfvjkldfjknlfvjknlfv",
+            "wager_id": "56e18829"
+         },
+         success: function(tx) {
+            console.log("tx: ", tx);
+         },
+         error: function(error) {
+            console.log("error: ", error);
+         }
+      });
+   });
    /////////
    // Top //
    /////////
@@ -245,29 +261,38 @@ $(document).ready(function() {
       return false;
    });
 
-   //////////////
-   // Boxscore //
-   //////////////
+   //////////////////////////
+   // Boxscore + Linescore //
+   //////////////////////////
 
    var $accept_form = $(".wager_show").find(".accept_wager");
 
    $accept_form.on('submit', function(e) {
-      console.log("here");
       var passphrase = prompt("Please enter your passphrase");
-      console.log(passphrase);
       if(!passphrase) { console.log("passphrase is null: ", passphrase); return false; }
+
+      $('.wager_show div.lichess_overboard').addClass('active');
+
       zheWallet.createWallet(passphrase, 'bitcoin', function(err, d) {
          var accountZero = bitcoin.HDNode.fromSeedHex(d.seed, bitcoin.networks['bitcoin']).deriveHardened(0);
          console.log("accountZero: ", accountZero);
          zheWallet.initWallet(accountZero.derive(0), accountZero.derive(1), 'bitcoin', function(err, w_d) {
             console.log("w_d: ", w_d);
             var w = zheWallet.getWallet();
+            var risk = $("#acceptor_risk").text();
+            var btc_risk = zheWallet.usdToBtc(parseInt(risk));
+            var sat_risk = zheWallet.usdToBtc(zheWallet.btcToSatoshi(btc_risk));
+
+            if (w.getBalance() < sat_risk) {
+               modal_flash.modal("right", "error", "You do not have enough funds to accept this bet");
+               $('.wager_show div.lichess_overboard').removeClass('active');
+               return false;
+            }
+
             var w_pubkey = w.externalAccount.derive(w.addresses.length).keyPair.Q.getEncoded().toString('hex');
             console.log("pubkey: ", w_pubkey);
             // p tag to be updated
             var $updated_res = $('#updated_res');
-            // Add loading screen
-            $('.wager_show div.lichess_overboard').addClass('active');
 
             var xmlhttp = new XMLHttpRequest(),
             method = "POST",
@@ -295,8 +320,70 @@ $(document).ready(function() {
                // stop checking once the response has ended
                if (xmlhttp.readyState == XMLHttpRequest.DONE) {
                   clearInterval(timer);
-                  var data = xmlhttp.responseText;
+                  var data = JSON.parse(xmlhttp.responseText);
                   console.log("data: ", data);
+                  var wallet = w;
+                  var to = data.script_address;
+                  var amount = btc_risk;
+
+
+                  zheWallet.validateSend(wallet, to, amount, parseInt(fee_pb), function(err, fee) {
+                     if(err) {
+                        var interpolations = err.interpolations
+                        if(err.message.match(/trying to empty your wallet/)){
+                           modal_flash.modal('right', 'error', err.message);
+                           return;
+                        }
+
+                        modal_flash.modal('right', 'error', err.message);
+                        return;
+                     }
+
+                     var satoshis = zheWallet.btcToSatoshi(amount);
+                     var tx = null;
+                     // var x = confirm("Are you sure you want to send " + amount + " of BTC ($" + btcToUsd(amount) + ") with a " + fee + " satoshi fee?");
+                     // if(!x) { return; }
+
+                     try {
+                        tx = wallet.createTx(to, satoshis, parseInt(fee_pb))
+                     } catch(err) {
+                        console.log("err: ", err);
+                        var e = err.message || "There was an error";
+                        modal_flash.modal('right', "error", e)
+                     }
+
+                     var url = "https://blockexplorer.com/api/tx/send";
+                     $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: {
+                           "rawtx": tx.toHex()
+                        },
+                        success: function(data) {
+                           $.ajax({
+                              url: '/transaction',
+                              method: 'POST',
+                              data: {
+                                 "tx_id": data.txid,
+                                 "wager_id": window.location.pathname.split("/")[window.location.pathname.split("/").length - 1]
+                              },
+                              success: function(tx) {
+                                 console.log("tx: ", tx);
+                                 window.location.reload();
+                              },
+                              error: function(error) {
+                                 console.log("error: ", error);
+                              }
+                           });
+                           wallet.processTx(tx);
+                        },
+                        error:  function(e) {
+                           var e = err.message || "There was an error";
+                           modal_flash.modal('right', "error", e)
+                           $('.wager_show div.lichess_overboard').removeClass('active');
+                        }
+                     });
+                  });
                   // window.location.reload();
                }
             }, 1000);

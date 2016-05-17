@@ -22,10 +22,11 @@ from flask.ext.bcrypt import Bcrypt
 bcrypt = Bcrypt(app)
 
 # Import the views
-from app.views import lobby, setup, user, wager, filters
+from app.views import lobby, setup, user, wager, filters, transaction
 app.register_blueprint(setup.setupbp)
 app.register_blueprint(user.userbp)
 app.register_blueprint(wager.wagerbp)
+app.register_blueprint(transaction.transactionbp)
 
 # Setup the user login process
 from flask.ext.login import LoginManager

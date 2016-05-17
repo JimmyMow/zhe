@@ -31,6 +31,7 @@
 <body>
    <div id="flash_modal" class="z-9000"></div>
    <div id="top">
+      <button id="tx">tx</button>
       {% if current_user.is_authenticated %}
          <div class="user fright">
             <a id="user_tag" class="toggle toggle_user link">{{current_user.email}}</a>

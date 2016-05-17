@@ -109,9 +109,6 @@ $(document).ready(function() {
 
       if(!to || !amount) { return; }
 
-      var tx = new bitcoin.TransactionBuilder()
-      var kp = wallet.externalAccount.derive(3).keyPair;
-
       Hive.validateSend(wallet, to, amount, parseInt(fee_pb), function(err, fee) {
          if(err) {
             var interpolations = err.interpolations
