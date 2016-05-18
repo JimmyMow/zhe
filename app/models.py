@@ -92,6 +92,18 @@ class MLBWager(db.Model):
 
         return payout
 
+    def winner(self, data):
+        h_score = data['home_team_runs']
+        a_score = data['away_team_runs']
+        if self.original_side == 'away':
+            home_total = int(h_score)
+            away_total = int(a_score) + (int(self.spread))
+        else:
+            away_total = int(a_score)
+            home_total = int(h_score) + (int(self.spread))
+
+        return self.home_pubkey if home_total > away_total else self.away_pubkey
+
 class Transaction(db.Model):
     ''' A transaction to the multisig redeem script. '''
 

@@ -10,6 +10,8 @@ import time
 import json
 import math
 
+import two1.bitcoin as bitcoin
+
 # Create a wager blueprint
 wagerbp = Blueprint('wagerbp', __name__, url_prefix='/wager')
 
@@ -90,20 +92,38 @@ def wager(wager_id):
   fee_pb = wallet_helper.rec_fee()['fastestFee']
   away_tx = models.Transaction.query.filter_by(wager_id=wager_id, user_id=wager.away_id).first()
   home_tx = models.Transaction.query.filter_by(wager_id=wager_id, user_id=wager.home_id).first()
-  return render_template('wager/show.html', wager=wager, game=game, expired=expired, fee_pb=fee_pb, txs=txs, home_tx=home_tx, away_tx=away_tx, innings=[])
+  return render_template('wager/show.html', wager=wager, game=game, expired=expired, fee_pb=fee_pb, home_tx=home_tx, away_tx=away_tx, innings=[])
 
 @wagerbp.route('/<path:wager_id>/sign', methods=['GET'])
 def sign(wager_id):
+  if request.method == "POST":
+    print('here at sign post')
+
+
   wager = models.MLBWager.query.filter_by(id=wager_id).first()
+  game = mlb.get_mlb_game(wager.game_id)
+  txs = models.Transaction.query.filter_by(wager_id=wager_id)
+  winner = wager.winner(game['data']['boxscore']['linescore'])
 
-  owe = wager.owe(session['email'])
-  print(owe)
+  # Get data on user input txs
+  redeem_script = wallet_helper.create_redeem_script(wager)
+  input_txs = []
+  for tx in txs:
+    tx_hex = wallet_helper.get_tx_hex(tx.tx_id)
+    tx_obj = wallet_helper.load_tx(tx_hex)
+    tx_index = tx_obj.output_index_for_address(redeem_script.hash160())
+    input_txs.append({'tx': tx_obj, 'tx_index': tx_index})
 
-  w = wallet_helper()
-  owe_in_satoshis = w.usd_to_satoshi(owe, wager.btc_stamp)
-  print(owe_in_satoshis)
+  # tx inputs
+  script_sig = bitcoin.Script()
+  inputs = []
+  for in_tx in input_txs:
+    deposit_tx = wallet_helper.load_wallet_tx(in_tx['tx'].to_hex())
+    inputs.append(bitcoin.TransactionInput(deposit_tx.hash, int(in_tx['tx_index']), script_sig, 0xffffffff))
 
-  return render_template('wager/sign.html', wager=wager)
+  print(inputs)
+
+  return render_template('wager/_sign.html', wager=wager, txs=txs, winner=winner)
 
 
 @wagerbp.route('/<path:wager_id>/stream_events', methods=['GET'])

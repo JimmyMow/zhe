@@ -336,71 +336,7 @@ $(document).ready(function() {
                // stop checking once the response has ended
                if (xmlhttp.readyState == XMLHttpRequest.DONE) {
                   clearInterval(timer);
-                  var data = JSON.parse(xmlhttp.responseText);
-                  console.log("data: ", data);
-                  var wallet = w;
-                  var to = data.script_address;
-                  var amount = btc_risk;
-
-
-                  zheWallet.validateSend(wallet, to, amount, parseInt(fee_pb), function(err, fee) {
-                     if(err) {
-                        var interpolations = err.interpolations
-                        if(err.message.match(/trying to empty your wallet/)){
-                           modal_flash.modal('right', 'error', err.message);
-                           return;
-                        }
-
-                        modal_flash.modal('right', 'error', err.message);
-                        return;
-                     }
-
-                     var satoshis = zheWallet.btcToSatoshi(amount);
-                     var tx = null;
-                     // var x = confirm("Are you sure you want to send " + amount + " of BTC ($" + btcToUsd(amount) + ") with a " + fee + " satoshi fee?");
-                     // if(!x) { return; }
-
-                     try {
-                        tx = wallet.createTx(to, satoshis, parseInt(fee_pb))
-                     } catch(err) {
-                        console.log("err: ", err);
-                        var e = err.message || "There was an error";
-                        modal_flash.modal('right', "error", e)
-                     }
-
-                     var url = "https://blockexplorer.com/api/tx/send";
-                     $.ajax({
-                        type: "POST",
-                        url: url,
-                        data: {
-                           "rawtx": tx.toHex()
-                        },
-                        success: function(data) {
-                           $.ajax({
-                              url: '/transaction',
-                              method: 'POST',
-                              data: {
-                                 "tx_id": data.txid,
-                                 "wager_id": window.location.pathname.split("/")[window.location.pathname.split("/").length - 1]
-                              },
-                              success: function(tx) {
-                                 console.log("tx: ", tx);
-                                 window.location.reload();
-                              },
-                              error: function(error) {
-                                 console.log("error: ", error);
-                              }
-                           });
-                           wallet.processTx(tx);
-                        },
-                        error:  function(e) {
-                           var e = err.message || "There was an error";
-                           modal_flash.modal('right', "error", e)
-                           $('.wager_show div.lichess_overboard').removeClass('active');
-                        }
-                     });
-                  });
-                  // window.location.reload();
+                  window.location.reload();
                }
             }, 1000);
 

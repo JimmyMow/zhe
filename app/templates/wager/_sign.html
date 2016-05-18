@@ -3,8 +3,14 @@
 {% block content %}
    <div class="content_box">
       hello from wager/sign
+      <h2>{{winner}}</h2>
       <p>Server: {{wager.server_pubkey}}</p>
       <p>Away: {{wager.away_pubkey}}</p>
       <p>Home: {{wager.home_pubkey}}</p>
+      <div class="txs">
+         {% for tx in txs %}
+            <p>{{tx.tx_id}}</p>
+         {% endfor %}
+      </div>
    </div>
 {% endblock %}

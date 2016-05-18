@@ -56,6 +56,22 @@
                            </form>
                         </div>
                      {% endif %}
+                     {% if away_tx %}
+                     <div class="funded_container">
+                        <a href="{{away_tx.blockexplorer()}}" target="_blank">
+                           <i class="fa fa-check" aria-hidden="true"></i>
+                           Funded
+                        </a>
+                     </div>
+                  {% elif wager.script_address and not away_tx %}
+                     <form class="fund_bet" data-owe="{{wager.owe(wager.away_id)}}" data-address="{{wager.script_address}}">
+                        <button class="accept_button fund_bet_button">
+                           <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+
+                           Fund your bet now ( ${{wager.owe(wager.away_id)}} )
+                        </button>
+                     </form>
+                  {% endif %}
                   </div>
                </div>
             </div>
@@ -136,6 +152,22 @@
                               <button class="accept_button" type="submit">Take the {{game.data.game.home_team_name}}</button>
                            </form>
                         </div>
+                     {% endif %}
+                     {% if home_tx %}
+                     <div class="funded_container">
+                        <a href="{{home_tx.blockexplorer()}}" target="_blank">
+                           <i class="fa fa-check" aria-hidden="true"></i>
+                           Funded
+                        </a>
+                     </div>
+                     {% elif wager.script_address and not home_tx %}
+                     <form class="fund_bet" data-owe="{{wager.owe(wager.away_id)}}" data-address="{{wager.script_address}}">
+                        <button class="accept_button fund_bet_button">
+                           <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+
+                           Fund your bet now ( ${{wager.owe(wager.away_id)}} )
+                        </button>
+                     </form>
                      {% endif %}
                   </div>
                </div>
