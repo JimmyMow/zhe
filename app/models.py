@@ -102,6 +102,9 @@ class Transaction(db.Model):
     tx_id = db.Column(db.String)
     output = db.Column(db.Boolean, default=False)
 
+    def blockexplorer(self):
+        return "https://blockexplorer.com/tx/" + self.tx_id
+
 # Generate random string for ID of the MLB Wager
 def after_insert_listener(mapper, connection, target):
     target.id = str(uuid.uuid4())[:8]

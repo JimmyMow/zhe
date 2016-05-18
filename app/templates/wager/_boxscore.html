@@ -1,4 +1,3 @@
-{{txs}}
 <div class="content_box no_padding wager_show boxscore" id="boxscore">
    <div class="content_box_top">
       {% include 'wager/_countdown.html' %}
@@ -63,16 +62,32 @@
                         </div>
                      {% endif %}
                   {% endif %}
+                  {% if away_tx %}
+                     <div class="funded_container">
+                        <a href="{{away_tx.blockexplorer()}}" target="_blank">
+                           <i class="fa fa-check" aria-hidden="true"></i>
+                           Funded
+                        </a>
+                     </div>
+                  {% elif wager.script_address and not away_tx %}
+                     <form class="fund_bet" data-owe="{{wager.owe(wager.away_id)}}">
+                        <button class="accept_button fund_bet_button">
+                           <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+
+                           Fund your bet now ( ${{wager.owe(wager.away_id)}} )
+                        </button>
+                     </form>
+                  {% endif %}
                </div>
             </div>
             <div class="details_top">
                <span class="gametime_top">{{wager.time_date.strftime("%-I:%M%p")}} ET</span>
                <span>BTC Stamp Price: {{wager.btc_stamp}}</span>
                {% if game.data.boxscore.status_ind == 'F' and wager.script_address %}
-                  <span>Direct them to the sign page</span>
-                  {{game.data.boxscore.status_ind}}
+                  <!-- <span>Direct them to the sign page</span>
+                  {{game.data.boxscore.status_ind}} -->
                {% elif game.data.boxscore.status_ind == 'F' %}
-                  <span>This bet was not accepted on time</span>
+                  <!-- <span>This bet was not accepted on time</span> -->
                {% endif %}
                {% if wager.script_address %}
                   <div class="script_address">
@@ -131,6 +146,21 @@
                            <button class="accept_button" type="submit">Take the {{game.data.boxscore.home_fname|team_name}}</button>
                         </form>
                      </div>
+                  {% endif %}
+                  {% if home_tx %}
+                     <div class="funded_container">
+                        <a href="{{home_tx.blockexplorer()}}" target="_blank">
+                           <i class="fa fa-check" aria-hidden="true"></i>
+                           Funded
+                        </a>
+                     </div>
+                  {% elif wager.script_address and not home_tx %}
+                     <form class="fund_bet" data-owe="{{wager.owe(wager.away_id)}}">
+                        <button>
+                           <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                           Fund your bet now ( ${{wager.owe(wager.away_id)}} )
+                        </button>
+                     </form>
                   {% endif %}
                </div>
             </div>

@@ -334,4 +334,27 @@ table tbody td {
    padding: 1em;
 }
 
+.user_container .funded_container {
+   text-align: center;
+}
 
+.user_container .funded_container a {
+   font-size: 18px;
+   text-decoration: none;
+   text-transform: uppercase;
+   font-weight: bold;
+   color: #659D32;
+}
+
+.user_container .fund_bet {
+   text-align: center;
+}
+
+.user_container .fund_bet .fund_bet_button {
+   text-transform: uppercase;
+}
+
+.user_container .fund_bet .fund_bet_button i {
+   color: #EE2C2C;
+   margin-right: 5px;
+}

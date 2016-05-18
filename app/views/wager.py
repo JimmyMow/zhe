@@ -89,7 +89,9 @@ def wager(wager_id):
   expired = math.floor(((wager.time_date - datetime.now()).seconds) / 3600) > 0
   fee_pb = wallet_helper.rec_fee()['fastestFee']
   txs = models.Transaction.query.filter_by(wager_id=wager_id).all()
-  return render_template('wager/show.html', wager=wager, game=game, expired=expired, fee_pb=fee_pb, txs=txs, innings=[])
+  away_tx = models.Transaction.query.filter_by(wager_id=wager_id, user_id=wager.away_id).first()
+  home_tx = models.Transaction.query.filter_by(wager_id=wager_id, user_id=wager.home_id).first()
+  return render_template('wager/show.html', wager=wager, game=game, expired=expired, fee_pb=fee_pb, txs=txs, home_tx=home_tx, away_tx=away_tx, innings=[])
 
 @wagerbp.route('/<path:wager_id>/sign', methods=['GET'])
 def sign(wager_id):
