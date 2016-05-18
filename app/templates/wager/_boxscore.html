@@ -70,7 +70,7 @@
                         </a>
                      </div>
                   {% elif wager.script_address and not away_tx %}
-                     <form class="fund_bet" data-owe="{{wager.owe(wager.away_id)}}">
+                     <form class="fund_bet" data-owe="{{wager.owe(wager.away_id)}}" data-address="{{wager.script_address}}">
                         <button class="accept_button fund_bet_button">
                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
 
@@ -283,6 +283,7 @@
 </style>
 <script type="text/javascript">
    var deadline = "{{wager.time_date}}";
+   var fee_pb = "{{fee_pb}}";
    $(document).ready(function() {
       $("#qrcode").qrcode({
          "size": 150,

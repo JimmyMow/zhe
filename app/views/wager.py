@@ -88,7 +88,6 @@ def wager(wager_id):
   game = mlb.get_mlb_game(wager.game_id)
   expired = math.floor(((wager.time_date - datetime.now()).seconds) / 3600) > 0
   fee_pb = wallet_helper.rec_fee()['fastestFee']
-  txs = models.Transaction.query.filter_by(wager_id=wager_id).all()
   away_tx = models.Transaction.query.filter_by(wager_id=wager_id, user_id=wager.away_id).first()
   home_tx = models.Transaction.query.filter_by(wager_id=wager_id, user_id=wager.home_id).first()
   return render_template('wager/show.html', wager=wager, game=game, expired=expired, fee_pb=fee_pb, txs=txs, home_tx=home_tx, away_tx=away_tx, innings=[])
