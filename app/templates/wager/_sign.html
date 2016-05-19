@@ -3,6 +3,9 @@
 {% block content %}
    <div class="content_box">
       hello from wager/sign
+      <p>{{output_transaction}}</p>
+      <p>{{output_transaction.output}}</p>
+      <p>{{output_transaction.hex}}</p>
       <h2>{{winner}}</h2>
       <p>Server: {{wager.server_pubkey}}</p>
       <p>Away: {{wager.away_pubkey}}</p>

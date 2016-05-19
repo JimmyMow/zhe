@@ -74,3 +74,6 @@ class wallet_helper():
    def load_wallet_tx(tx_hex):
       return WalletTransaction.from_hex(tx_hex)
 
+   def get_priv_for_pub(pubkey):
+      p = PublicKey.from_bytes(pubkey)
+      return wallet.get_private_for_public(p)

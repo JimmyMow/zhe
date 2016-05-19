@@ -112,6 +112,7 @@ class Transaction(db.Model):
     wager_id = db.Column(db.String)
     user_id = db.Column(db.String)
     tx_id = db.Column(db.String)
+    hex = db.Column(db.String)
     output = db.Column(db.Boolean, default=False)
 
     def blockexplorer(self):

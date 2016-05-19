@@ -105,25 +105,53 @@ def sign(wager_id):
   txs = models.Transaction.query.filter_by(wager_id=wager_id)
   winner = wager.winner(game['data']['boxscore']['linescore'])
 
-  # Get data on user input txs
-  redeem_script = wallet_helper.create_redeem_script(wager)
-  input_txs = []
-  for tx in txs:
-    tx_hex = wallet_helper.get_tx_hex(tx.tx_id)
-    tx_obj = wallet_helper.load_tx(tx_hex)
-    tx_index = tx_obj.output_index_for_address(redeem_script.hash160())
-    input_txs.append({'tx': tx_obj, 'tx_index': tx_index})
+  output_transaction = models.Transaction.query.filter_by(output=True, wager_id=wager_id).first()
+  if not output_transaction:
 
-  # tx inputs
-  script_sig = bitcoin.Script()
-  inputs = []
-  for in_tx in input_txs:
-    deposit_tx = wallet_helper.load_wallet_tx(in_tx['tx'].to_hex())
-    inputs.append(bitcoin.TransactionInput(deposit_tx.hash, int(in_tx['tx_index']), script_sig, 0xffffffff))
+    # Get data on user input txs
+    redeem_script = wallet_helper.create_redeem_script(wager)
+    input_txs = []
+    output_value = 0
+    for tx in txs:
+      tx_obj = {}
+      tx_hex = wallet_helper.get_tx_hex(tx.tx_id)
 
-  print(inputs)
+      txn = wallet_helper.load_tx(tx_hex)
+      tx_index = txn.output_index_for_address(redeem_script.hash160())
+      tx_obj['tx'] = txn
+      tx_obj['tx_index'] = tx_index
+      tx_obj['val'] = txn.outputs[int(tx_index)].value
+      output_value = output_value + txn.outputs[int(tx_index)].value
+      input_txs.append(tx_obj)
 
-  return render_template('wager/_sign.html', wager=wager, txs=txs, winner=winner)
+    # tx inputs
+    script_sig = bitcoin.Script()
+    inputs = []
+    for in_tx in input_txs:
+      deposit_tx = wallet_helper.load_wallet_tx(in_tx['tx'].to_hex())
+      inputs.append(bitcoin.TransactionInput(deposit_tx.hash, int(in_tx['tx_index']), script_sig, 0xffffffff))
+
+
+    fee = 5000
+    output_price = output_value - fee
+    outputs = [bitcoin.TransactionOutput(int(output_price), bitcoin.Script.build_p2pkh(bitcoin.crypto.PublicKey.from_bytes(winner).hash160()))]
+
+    payment_tx = bitcoin.Transaction(bitcoin.Transaction.DEFAULT_TRANSACTION_VERSION, inputs, outputs, 0x0)
+    server_priv_key = wallet_helper.get_priv_for_pub(wager.server_pubkey)
+
+    for i, inp in enumerate(payment_tx.inputs):
+      payment_tx.sign_input(i, bitcoin.Transaction.SIG_HASH_ALL, server_priv_key, redeem_script)
+
+    output_transaction = models.Transaction(
+      wager_id=wager.id,
+      hex=payment_tx.to_hex(),
+      output=True
+    )
+
+    db.session.add(output_transaction)
+    db.session.commit()
+
+  return render_template('wager/_sign.html', wager=wager, txs=txs, winner=winner, output_transaction=output_transaction)
 
 
 @wagerbp.route('/<path:wager_id>/stream_events', methods=['GET'])

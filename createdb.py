@@ -1,6 +1,6 @@
 from app import db
 from app import models
 
-# models.Transaction
+models.Transaction
 db.create_all()
-# db.session.commit()
+db.session.commit()
