@@ -104,6 +104,13 @@ class MLBWager(db.Model):
 
         return self.home_pubkey if home_total > away_total else self.away_pubkey
 
+    def away_user(self):
+        away_user = db.session.query(User).filter_by(email=self.away_id).first()
+        return away_user
+
+    def home_user(self):
+        home_user = db.session.query(User).filter_by(email=self.home_id).first()
+        return home_user
 class Transaction(db.Model):
     ''' A transaction to the multisig redeem script. '''
 

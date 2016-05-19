@@ -2,18 +2,23 @@
 
 {% block content %}
    <div class="content_box">
-      hello from wager/sign
-      <p>{{output_transaction}}</p>
-      <p>{{output_transaction.output}}</p>
-      <p>{{output_transaction.hex}}</p>
-      <h2>{{winner}}</h2>
-      <p>Server: {{wager.server_pubkey}}</p>
-      <p>Away: {{wager.away_pubkey}}</p>
-      <p>Home: {{wager.home_pubkey}}</p>
-      <div class="txs">
-         {% for tx in txs %}
-            <p>{{tx.tx_id}}</p>
-         {% endfor %}
-      </div>
+      <form id="sign_passphrase" autocomplete="off">
+         <input type="text" class="passphrase_input" placeholder="Enter wallet passhrase" autofocus="true">
+         <div class="button_container">
+            <button type="submit" class="submit_bet button hint--bottom" name="color" value="random">
+            Enter passphrase
+            </button>
+         </div>
+      </form>
    </div>
+
+   <script type="text/javascript">
+      var tx_hex = "{{output_transaction.hex}}";
+      var home_derive_index = "{{wager.home_derive_index}}";
+      var away_derive_index = "{{wager.away_derive_index}}";
+      var away_seed = "{{wager.away_user().wallet_seed}}";
+      var home_seed = "{{wager.home_user().wallet_seed}}";
+   </script>
 {% endblock %}
+
+

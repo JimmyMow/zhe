@@ -1,36 +1,4 @@
 $(document).ready(function() {
-   $("#email").on("click", function() {
-      $.ajax({
-         url: '/email_test',
-         method: 'POST',
-         data: {
-
-         },
-         success: function(tx) {
-            console.log("tx: ", tx);
-            window.location.reload();
-         },
-         error: function(error) {
-            console.log("error: ", error);
-         }
-      });
-   });
-   $("#tx").on('click', function() {
-      $.ajax({
-         url: '/transaction',
-         method: 'POST',
-         data: {
-            "tx_id": "dsbdvjkldvjkfvjkldfjknlfvjknlfv",
-            "wager_id": "56e18829"
-         },
-         success: function(tx) {
-            console.log("tx: ", tx);
-         },
-         error: function(error) {
-            console.log("error: ", error);
-         }
-      });
-   });
    /////////
    // Top //
    /////////

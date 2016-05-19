@@ -73,6 +73,9 @@
    {% if request.url_rule.endpoint == 'wagerbp.wager' %}
       <script src="{{ url_for('static', filename='javascript/wager.js') }}"></script>
    {% endif %}
+   {% if request.url_rule.endpoint == 'wagerbp.sign' %}
+      <script src="{{ url_for('static', filename='javascript/sign.js') }}"></script>
+   {% endif %}
    {% if request.url_rule.endpoint == 'wagerbp.wager' and game.data.boxscore %}
       <script src="{{ url_for('static', filename='compiled/wager.wager_show.js') }}"></script>
    {% endif %}
