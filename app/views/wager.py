@@ -151,7 +151,7 @@ def sign(wager_id):
     db.session.add(output_transaction)
     db.session.commit()
 
-  return render_template('wager/_sign.html', wager=wager, txs=txs, winner=winner, output_transaction=output_transaction)
+  return render_template('wager/_sign.html', wager=wager, txs=txs, winner=winner, output_transaction=output_transaction, game=game)
 
 
 @wagerbp.route('/<path:wager_id>/stream_events', methods=['GET'])
@@ -167,7 +167,6 @@ def stream_events(wager_id):
 
 @wagerbp.route('/<path:wager_id>/email_bet_accepted', methods=['GET'])
 def email_bet_accepted(wager_id):
-   print("HERERERERERE")
    wager = models.MLBWager.query.filter_by(id=wager_id).first()
    author = wager.author_id
    acceptor = wager.acceptor_id

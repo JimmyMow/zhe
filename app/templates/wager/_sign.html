@@ -1,7 +1,21 @@
 {% extends "layout.html" %}
 
 {% block content %}
-   <div class="content_box">
+   <div class="content_box sign">
+      <div class="teams">
+         <div class="away team">
+            <img src="/static/images/mlb_teams/mlb_{{game.data.boxscore.away_team_code}}.png">
+            <span class="score">
+               {{game.data.boxscore.linescore.away_team_runs}}
+            </span>
+         </div>
+         <div class="home team">
+            <img src="/static/images/mlb_teams/mlb_{{game.data.boxscore.home_team_code}}.png">
+            <span class="score">
+               {{game.data.boxscore.linescore.home_team_runs}}
+            </span>
+         </div>
+      </div>
       <form id="sign_passphrase" autocomplete="off">
          <input type="text" class="passphrase_input" placeholder="Enter wallet passhrase" autofocus="true">
          <div class="button_container">

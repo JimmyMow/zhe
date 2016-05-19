@@ -1,5 +1,7 @@
 $(document).ready(function() {
-   countdown.start("countdown", deadline);
+   if($("#countdown")) {
+      countdown.start("countdown", deadline);
+   }
 
    $('.fund_bet').on('submit', function(e) {
       var passphrase = prompt("Please enter your passphrase");

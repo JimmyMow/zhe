@@ -111,6 +111,11 @@ class MLBWager(db.Model):
     def home_user(self):
         home_user = db.session.query(User).filter_by(email=self.home_id).first()
         return home_user
+
+    def funded(self):
+        txs = db.session.query(Transaction).filter_by(wager_id=self.id, output=False).all()
+        return txs
+
 class Transaction(db.Model):
     ''' A transaction to the multisig redeem script. '''
 
